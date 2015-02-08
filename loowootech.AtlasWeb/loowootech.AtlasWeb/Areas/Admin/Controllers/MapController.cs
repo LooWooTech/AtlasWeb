@@ -16,5 +16,9 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult TopicMap(int ID) {
+            return View();
+        }
+
     }
 }

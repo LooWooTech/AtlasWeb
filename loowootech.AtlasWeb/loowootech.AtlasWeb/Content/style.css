@@ -1,0 +1,89 @@
+.bm-panel {
+    top:50px;
+    height:auto;
+    right:20px;
+    position: absolute;
+    z-index: 40;
+    background-color:#ffffcd;   
+}
+
+.bm-panel .btn{
+    border-color:#000000;
+}
+
+#info {
+    bottom: 20px;
+    color: #444;
+    height: auto;
+    font-family: arial;
+    right: 20px;
+    margin: 5px;
+    padding: 10px;
+    position: absolute;
+    width: 115px;
+    z-index: 40;
+    border: solid 2px #666;
+    border-radius: 4px;
+    background-color: #fff;
+}
+html, body{
+    padding:0;
+    margin:0;
+    height:100%;
+    overflow: hidden;
+}
+
+#appLayout
+{
+    height:100%
+}
+.col-md-10 .mapDiv
+{
+    height:100%;
+    border:solid 1px #000;
+    padding-left:0;
+    padding-right:0;
+    margin:0;
+}
+
+.titlePanel {
+    position: relative;
+    padding: 6px 15px;
+    color: #ffffff;
+    /*text-align: left;
+    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    background-color: #6f5499;
+    background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
+    background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);*/
+}
+
+.tundra .mapContainer{
+    padding-left:0;
+    padding-right:0;
+}
+
+.tundra .mapContainer .mapDiv{
+    padding-left:0;
+    padding-right:0;
+}
+
+.tundra .mapContainer .dijitDialogPaneContent
+{
+    padding:0;
+}
+
+#measureDiv0 {
+    background-color: #ffffcd;
+    position:absolute;
+    border:1px solid #0090ff;
+    width:300px;
+    height:120px;
+    bottom:6px;
+    right:6px;
+    z-index:9999;
+    display:none;
+}
+
+

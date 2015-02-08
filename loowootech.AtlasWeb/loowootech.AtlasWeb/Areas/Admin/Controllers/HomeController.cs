@@ -12,16 +12,8 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
         //
         // GET: /Admin/Home/
 
-        public ActionResult Index(GroupFilter GroupFilter=GroupFilter.All,int page=1)
+        public ActionResult Index()
         {
-            var filter = new UserFileter()
-            {
-                Group = GroupFilter,
-                Page = new Page(page)
-            };
-            ViewBag.Page = filter.Page;
-            ViewBag.List = Core.UserManager.GetUsers(filter);
-            ViewBag.Maps = Core.MapManager.GetMaps();
             return View();
         }
 

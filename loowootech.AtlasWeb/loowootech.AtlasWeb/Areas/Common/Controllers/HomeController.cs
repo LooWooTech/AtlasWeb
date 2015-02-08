@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace loowootech.AtlasWeb.Areas.Common.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CommonControllerBase
     {
         //
         // GET: /Common/Home/

@@ -1,0 +1,222 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>海宁许村一张图平台</title>
+    <link rel="stylesheet" href="/Content/tundra.css" />
+    <link rel=" stylesheet" href="/Content/esri.css" />
+    <link rel=" stylesheet" href="/Content/style2.css" />
+    <link rel="stylesheet" href="/Content/font-awesome.min.css" />
+    <link rel=" stylesheet" href="/Content/bootstrap.min.css" />
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />-->
+    <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="/Scripts/jquery.min.js" type="text/javascript"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="http://js.arcgis.com/3.12/" type="text/javascript"></script>
+    <script src="/Scripts/mapwrapper.js" type="text/javascript"></script>
+    <script src="/Scripts/application.js" type="text/javascript"></script>
+</head>
+<body class="tundra">
+    <script type="text/javascript">
+        var host = "192.168.1.105";
+        var geoAddr = "http://" + host + "/ArcGISServer/rest/services/Geometry/GeometryServer";
+
+        //<%= JavascriptContent  %>
+
+
+        require([
+            "esri/map", "esri/toolbars/draw",
+            "esri/layers/ArcGISTiledMapServiceLayer",
+            "esri/layers/ArcGISDynamicMapServiceLayer",
+            "esri/layers/ImageParameters",
+            "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol",
+            "esri/symbols/SimpleFillSymbol", "esri/symbols/CartographicLineSymbol",
+            "esri/graphic",
+            "esri/Color", "dojo/dom", "dojo/on", "dojo/query", "dojo/parser", "esri/config", "esri/tasks/GeometryService",
+            "dijit/layout/ContentPane", "dijit/layout/BorderContainer", "dojo/domReady!"
+        ], function (
+            Map, Draw, Tiled, DynaLayer, ImageParameters,
+            SimpleMarkerSymbol, SimpleLineSymbol,
+            SimpleFillSymbol, CartographicLineSymbol,
+            Graphic,
+            Color, dom, on, query, parser, esriConfig, GeometryService
+            ) {
+            parser.parse();
+
+            application.init();
+        });
+
+
+    </script>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="divNavbar">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="font-size:24px;" href="#"><span id="topicName"></span></a>
+            <span style="font-size:16px;color:#fff;">海宁市许村镇一张图平台</span>
+        </div>
+    </div>
+
+    <div class="mock" style="display:none;z-index:9999;position:absolute;left:0;top:0;width:100%;height:100%;text-align: center;">
+        <div style="margin:auto;margin-top:20%;">
+            <img src="./img/10536001_639497.jpg" onclick="(function(){$('.mock').fadeOut();})()" />
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width:720px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">条件查询</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-inline" role="form">
+                        <div class="form-group">
+                            <label for="cmbLayer">图　层：</label>
+                            <select name="cmbLayer" class="form-control input-sm" style="width:300px" id="cmbLayer"></select>
+                        </div>
+
+                    </div>
+                    <div class="form-inline" role="form">
+                        <div class="form-group ">
+                            <label for="cmbField1">条件一：</label>
+                            <select name="cmbField" class="form-control input-sm" id="cmbField1" style="width:120px"></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="cmbOp1">运算符</label>
+                            <select name="cmbOp" class="form-control input-sm" id="cmbOp1">
+                                <option value="=">=</option>
+                                <option value="like">包含</option>
+                                <option value=">">&gt;</option>
+                                <option value="<">&lt;</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="txtKeyword1">值</label>
+                            <input type="text" class="form-control input-sm" name="txtKeyword" style="width:160px" id="txtKeyword1" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="cmbRel">关系</label>
+                            <select name="cmbRel" class="form-control input-sm" id="cmbRel">
+                                <option value="" selected="selected"></option>
+                                <option value="AND" selected="selected">并且</option>
+                                <option value="OR">或者</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-inline" role="form">
+                        <div class="form-group ">
+                            <label for="cmbField2">条件二：</label>
+                            <select name="cmbField2" class="form-control input-sm" id="cmbField2" style="width:120px"></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="cmbOp2">运算符</label>
+                            <select name="cmbOp2" class="form-control input-sm" id="cmbOp2">
+                                <option value="=">=</option>
+                                <option value="like">包含</option>
+                                <option value=">">&gt;</option>
+                                <option value="<">&lt;</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="txtKeyword2">值</label>
+                            <input type="text" class="form-control input-sm" name="txtKeyword2" style="width:160px" id="txtKeyword2" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSearch" class="btn btn-primary btnOK">查询</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="popup-background popup-element" onclick="javascript:$('.popup-element').fadeOut()" style="display:none"></div>
+    <div class="popup-panel popup-element" style="display:none">
+        <div class="overview-container" id="overviewDiv">
+            <div class="overview-template" id="overviewTemplateDiv">
+
+                <a href="javascript:void(0)" class="thumbnail" style="margin-bottom:3px">
+                    <img class="thumbnail-image" src="img/soft-grid.gif" alt="..." />
+                </a>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div style="position:absolute;bottom:6px;right:6px;z-index:1000;left:6px" class="dijitDialog hide" id="divSearchResult">
+        <div class="dijitDialogTitleBar">
+            <span class="dijitDialogTitle">查询结果</span>
+            <a class="dijitDialogCloseIcon dijitDialogCloseIconHover" href="javascript:$('#divSearchResult').hide();">
+                <i class="glyphicon glyphicon-remove-circle"></i>
+
+            </a>
+        </div>
+        <div class="dijitDialogPaneContent" id="divSearchResultContent" style="overflow-y: scroll;height:160px;">
+
+
+        </div>
+    </div>
+
+    <div id="mapTemplate" style="display:none">
+
+        <div class="mapWindow">
+            <div class="shad_h"></div>
+            <div class="mapHeader">
+                <span class="mapIcon glyphicon glyphicon-th-large"></span>
+                <span class="mapTitle"></span>
+                <div class="mapTools">
+                    <ul class="nav">
+                        <li><a href="javascript:void(0)" class="globeButton"><span class="glyphicon glyphicon-globe"></span>全图</a></li>
+                        <li><a href="javascript:void(0)" class="legendButton"><span class="glyphicon glyphicon-list"></span>图例</a></li>
+                        <li><a href="javascript:void(0)" class="searchButton"><span class="glyphicon glyphicon-search"></span>查询</a></li>
+                        <li><a href="javascript:void(0)" class="measureButton"><span class="glyphicon glyphicon-plus"></span>添加</a></li>
+                        <li><a href="javascript:void(0)" class="closeButton"><span class="glyphicon glyphicon-remove"></span>关闭</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bm-panel">
+                <div class="btn-group-vertical bm-group" data-toggle="buttons">
+
+                </div>
+            </div>
+
+            <div class="mapDiv" style="width:100%;height:100%">
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="mapsetContainer" style="position:absolute;top:54px;bottom:0;width:100%">
+
+
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+﻿@using loowootech.AtlasWeb;
+@using loowootech.AtlasWeb.Models;
+@using loowootech.AtlasWeb.Helper;
+@{
+    ViewBag.Title = "用户";
+    int SerialNumber = 1;
+    List<loowootech.AtlasWeb.Models.User> list = ViewBag.List;
+    List<loowootech.AtlasWeb.Models.Map> Maps = ViewBag.Maps;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="panel" id="main-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title" style="float:left;">@(ViewBag.Title)</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#AddUser" style="float:left">
+                    添加用户
+                </button>
+                <div class="modal fade " id="AddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLable">添加用户</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="Add-form" class="form-horizontal" method="post" action="/Admin/User/Add">
+                                    <div class="form-group has-feedback" id="name_group">
+                                        <label for="Name" class="col-lg-2 control-label">用户名</label>
+                                        <div class="col-lg-6">
+                                            <input id="Name" type="text" class="form-control" name="Name" placeholder="用户名" aria-describedby="inputNameStatus" />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true" id="name_label"></span>
+                                            <span id="inputNameStatus" class="sr-only"></span>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div id="name_msg"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback" id="PW_group">
+                                        <label for="Password" class="col-lg-2 control-label">密码</label>
+                                        <div class="col-lg-6">
+                                            <input type="password" class="form-control" name="Password" placeholder="密码" aria-describedby="inputPWStatus" />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true" id="PW_label"></span>
+                                            <span id="inputPWStatus" class="sr-only"></span>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div id="password_msg"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback" id="RPW_group">
+                                        <label for="password" class="col-lg-2 control-label">确认密码</label>
+                                        <div class="col-lg-6">
+                                            <input type="password" class="form-control" name="repassword" placeholder="确认密码" aria-describedby="inputRPWStatus" />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true" id="RPW_label"></span>
+                                            <span id="inputRPWStatus" class="sr-only"></span>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div id="repassword_msg"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Group" class="col-lg-2 control-label">工作组</label>
+                                        <div class="col-lg-4">
+                                            <select name="Group" class="form-control">
+                                                @foreach (Group group in Enum.GetValues(typeof(Group)))
+                                                {
+                                                    var value = (int)group;
+                                                    <option value="@(value)">@(group.GetDescription())</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback" id="Code_group">
+                                        <label for="Code" class="col-lg-2 control-label">验证码</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" name="Code" class="form-control" placeholder="验证码" aria-describedby="inputCodeStatus" />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true" id="Code_label"></span>
+                                            <span id="inputCodeStatus" class="sr-only"></span>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <img id="Code" src="/Home/Code" height="28" alt="验证码" title="点击刷新验证码" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-10 col-lg-offset-2">
+                                            <input type="submit" id="btn-submit" value="添加用户" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>序号</th>
+                    <th>用户名</th>
+                    <th>地图编号</th>
+                    <th>权限</th>
+                    <th>组</th>
+                    <th>备注</th>
+                </tr>
+                @foreach (var item in list)
+                {
+                    <tr>
+                        <td>@(SerialNumber++)</td>
+                        <td>@(item.Name)</td>
+                        <td>@(item.Maps)</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#Map@(item.ID)"><i class="glyphicon glyphicon-lock"></i>&nbsp;地图授权</button>
+                            <div class="modal fade" id="Map@(item.ID)" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">@(item.Name)-地图授权</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form name="MapSubmit" method="post" action="/Admin/Map/Edit" class="form-horizontal">
+
+                                                <div class="form-group">
+                                                    <label for="Title" class="col-lg-2 control-label">地图列表:</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-10 col-lg-offset-2">
+                                                        @{
+
+                    List<string> values = new List<string>();
+                    if (!string.IsNullOrEmpty(item.Maps))
+                    {
+                        string[] IDS = item.Maps.Split(',');
+                        foreach (var mp in IDS)
+                        {
+                            values.Add(mp);
+                        }
+                    }
+                    foreach (var map in Maps)
+                    {
+                        <div class="col-lg-6">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="@(map.ID)" name="maps" @(values.Contains(map.ID.ToString()) ? "checked=checked" : "") />@(map.Name)
+                            </label>
+                        </div>
+                    }
+
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Quick" class="col-lg-2 control-label">快捷栏：</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="col-lg-4">
+                                                            <button type="button" value="@(item.ID)" name="All">全选</button>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <button type="button" value="@(item.ID)" name="None">全不选</button>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <button type="button" value="@(item.ID)" name="Inverse">反选</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="text" value="@(item.ID)" style="display:none" name="ID" />
+                                                <div class="form-group">
+                                                    <div class="col-lg-10 col-lg-offset-2">
+                                                        <input type="submit" value="授权" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>@(item.Group.GetDescription())</td>
+                        <td>
+                            <a href="/Admin/User/Delete?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>&nbsp;删除</a>
+                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#Edit@(item.ID)"><i class="glyphicon glyphicon-edit"></i>&nbsp;编辑</button>
+                            <div class="modal fade" id="Edit@(item.ID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">@(item.Name)-编辑</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="alert alert-success">
+                                                1、对用户编辑时，用户名不能为空。<br />
+                                                2、只对用户权限编辑的时候，密码可以不输入。<br />
+                                                3、当对用户的登录密码做修改时，请确保前后两次密码一致。<br />
+                                                4、当放弃当前用户编辑的时候，可以点击右上角关闭以退出编辑用户。
+                                            </div>
+                                            <form class="form-horizontal" method="post" action="/Admin/User/Edit">
+                                                <div class="form-group">
+                                                    <label for="Name" class="col-lg-2 control-label">用户名</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" class="form-control" name="Name" value="@(item.Name)" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Password" class="col-lg-2 control-label">密码</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="password" class="form-control" name="Password" placeholder="新密码" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Password" class="col-lg-2 control-label">确认密码</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="password" class="form-control" name="repassword" placeholder="确认密码" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Group" class="col-lg-2 control-label">工作组</label>
+                                                    <div class="col-lg-4">
+                                                        <select name="Group" class="form-control">
+                                                            @foreach (Group group in Enum.GetValues(typeof(Group)))
+                                                            {
+                                                                var value = (int)group;
+                                                                <option value="@(value)" @(item.Group == group ? "selected=selected" : "")>@(group.GetDescription())</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <input type="text" name="ID" value="@(item.ID)" style="display:none" />
+                                                <div class="form-group">
+                                                    <div class="col-lg-10 col-lg-offset-2">
+                                                        <input type="submit" value="编辑" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="9">
+                        @Html.Partial("_pagination", ViewBag.Page as object)
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

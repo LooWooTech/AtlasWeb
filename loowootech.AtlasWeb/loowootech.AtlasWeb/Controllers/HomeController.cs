@@ -1,5 +1,7 @@
-﻿using System;
+﻿using loowootech.AtlasWeb.General;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,6 +25,16 @@ namespace loowootech.AtlasWeb.Controllers
                 return Redirect("");
             }
             return Redirect("/user/signin");
+        }
+
+
+        public ActionResult Code() {
+            string code = SecurityCode.MakeCode(5);
+            MemoryStream ms = SecurityCode.CreateCodeImg(code);
+            byte[] bytes = ms.ToArray();
+            Response.Cookies.Add(new HttpCookie("Code", code));
+            Session["Code"] = code;
+            return File(bytes, @"image/gif");
         }
 
     }

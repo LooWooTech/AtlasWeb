@@ -6,7 +6,7 @@
     <title>@(ViewBag.Title==null?"海宁许村一张图平台":ViewBag.Title+"海宁许村一张图平台")</title>
     <style>
         body {
-            background-image: url("img/blue-abstract-background.jpg");
+            background-image: url("/Img/blue-abstract-background.jpg");
             background-size: cover;
         }
 
@@ -68,27 +68,22 @@
 <body style="text-align:center">
     <div class="container-fluid" style="padding-top:40px;padding-left:0;width:90%;margin:auto;text-align:left">
         <div class="col-lg-3">
-            <h1 style="color:#ffffff">海宁许村一张图平台</h1>
+            <h1 style="color:#ffffff;float:right">海宁许村一张图平台</h1>
         </div>
         <div class="dropdown" style="float:left;color:#fefefe;padding-top:30px;">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top:50px;padding-top:10px;"><i class="glyphicon glyphicon-user"></i>个人中心<b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="">密码修改</a></li>
-                <li><a href="">@(System.Threading.Thread.CurrentPrincipal.Identity.Name)退出</a></li>
+                <li><a href="/User/SignOut">@(System.Threading.Thread.CurrentPrincipal.Identity.Name)退出</a></li>
             </ul>
         </div>
     </div>
+    
     <div class="container-fluid">
+        adsfasdfasdfasdfasdfasdfasdf
+
+        @RenderBody()
         
-        <br />
-        <div class="panel" id="main-panel">
-            <div class="panel-heading">
-                <h3 class="panel-title" style="float:left;">@(ViewBag.Title)</h3>
-            </div>
-            <div class="panel-body">
-               @RenderBody()
-            </div>
-        </div> 
         <footer style="clear:both;overflow:hidden;">
             <div class="row">
                 <div class="col-md-12">

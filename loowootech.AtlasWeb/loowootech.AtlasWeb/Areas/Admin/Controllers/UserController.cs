@@ -1,4 +1,5 @@
-﻿using loowootech.AtlasWeb.Models;
+﻿using loowootech.AtlasWeb.Helper;
+using loowootech.AtlasWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,18 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
 {
     public class UserController : AdminControllerBase
     {
+        public ActionResult Index(GroupFilter GroupFilter=GroupFilter.All,int page=1) {
+            var filter = new UserFileter()
+            {
+                Group = GroupFilter,
+                Page = new Page(page)
+            };
+            ViewBag.Page = filter.Page;
+            ViewBag.List = Core.UserManager.GetUsers(filter);
+            ViewBag.Maps = Core.MapManager.GetMaps();
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Add(User user) {
             var Check = Core.UserManager.GetUser(user.Name);
@@ -18,7 +31,7 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             if (!Core.UserManager.Add(user)) {
                 throw new ArgumentException("添加用户失败！");
             }
-            return Redirect("/Admin/");
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int ID) {
@@ -29,7 +42,7 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             if (!Core.UserManager.Delete(ID)) {
                 throw new ArgumentException("删除用户失败！");
             }
-            return Redirect("/Admin/");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -56,7 +69,7 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
                     throw new ArgumentException("编辑用户失败!");
                 }
             }
-            return Redirect("/Admin/");
+            return RedirectToAction("Index");
         }
 
     }

@@ -33,5 +33,11 @@ namespace loowootech.AtlasWeb.Controllers
             return Redirect("/"+user.Group.ToString());
         }
 
+        public ActionResult SignOut() {
+            Session.Clear();
+            HttpContext.ClearAuth();
+            return Redirect("/user/signin");
+        }
+
     }
 }
