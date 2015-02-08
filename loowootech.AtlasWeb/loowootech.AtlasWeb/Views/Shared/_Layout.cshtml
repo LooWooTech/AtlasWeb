@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@(ViewBag.Title==null?"海宁许村一张图平台":ViewBag.Title+"海宁许村一张图平台")</title>
+    <style>
+        body {
+            background-image: url("img/blue-abstract-background.jpg");
+            background-size: cover;
+        }
+
+            body a, body a:hover, body a:link, body a:visited {
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+        .tile {
+            width: 240px;
+            height: 172px;
+            padding: 3px;
+            margin-bottom: 3px;
+            display: block;
+        }
+
+        body a:hover .title {
+            background-color: #000000;
+        }
+
+        .tile .image {
+            display: block;
+            clear: both;
+            width: 240px;
+            height: 120px;
+        }
+
+        .tile .title {
+            display: block;
+            width: 240px;
+            height: 50px;
+            font-size: 16px;
+            padding-top: 4px;
+            padding-left: 6px;
+            word-wrap: break-word;
+            color: #dddddd;
+            opacity: 0.7;
+            background-color: #034888;
+        }
+
+            .tile .title span {
+                font-size: 12px;
+            }
+
+        h3 {
+            padding-left: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <link rel=" stylesheet" href="/Content/font-awesome.min.css" />
+</head>
+<body style="text-align:center">
+    <div class="container-fluid" style="padding-top:40px;padding-left:0;width:90%;margin:auto;text-align:left">
+        <h1 style="color:#ffffff">海宁许村一张图平台</h1>
+        <div style="float:right;color:#fefefe">
+            <h3 style="margin-bottom:20px"><span class="glyphicon glyphicon-user" style="margin-right:5px"></span> </h3>
+        </div>
+    </div>
+    <div class="container">
+        <br />
+        <div class="panel panel-default" id="main-panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@(ViewBag.Title)</h3>
+            </div>
+            <div class="panel-body">
+                @RenderBody()
+            </div>
+        </div> 
+        <footer style="clear:both;overflow:hidden;">
+            <div class="row">
+                <div class="col-md-12">
+                    © 2014 许村镇政府版权所有； 杭州智拓土地规划咨询有限公司技术支持；
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

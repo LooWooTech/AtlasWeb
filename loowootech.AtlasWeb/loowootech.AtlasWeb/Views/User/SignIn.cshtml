@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>海宁许村一张图平台</title>
+    <link rel=" stylesheet" href="/Content/bootstrap.min.css" />
+    <link rel=" stylesheet" href="/Content/login.css" />
+</head>
+<body>
+    <form  action="/user/signin" method="post" class="form-horizontal">
+        <div class="background">
+            <div class="logincontent">
+                <div class="loginform">
+                    <h3>用户登录</h3>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input placeholder="用户名" class="form-control" name="Name" type="text"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input placeholder="密码" class="form-control" name="Password" type="password"/>
+                    </div>
+                    <div class="input-group">
+                        <input type="submit" value="登录" class="btn btn-success btn-lg" style="width:250px;margin-top:20px" />
+                     </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2014 许村镇政府版权所有； 杭州智拓土地规划咨询有限公司技术支持；
+        </div>
+    </form>
+</body>
+</html>
