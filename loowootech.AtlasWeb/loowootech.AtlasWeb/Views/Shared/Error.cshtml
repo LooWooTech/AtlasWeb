@@ -1,18 +1,30 @@
 ﻿@{
     Layout = null;
 }
+@{
+    Exception ex = ViewBag.Exception;
+    var isAjax = Request.Headers.AllKeys.Contains("_ajax_");
+    if (isAjax)
+    {
+        Layout = null;
+        var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+        var data = new { result = false, message = ex.Message, stackTrace = ex.StackTrace };
+        Response.Write(serializer.Serialize(data));
+    }
+    else
+    {
+        ViewBag.Title = "程序异常";
+    }
+    <div>
+        @(ex.Message)
+    </div>
+    <div style="display:none">
+        @(ex.StackTrace)
+    </div>
+    <script>
+        $(function () {
+            $("#main-panel").removeClass("panel-default").addClass("panel-danger");
+        })
+    </script>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width" />
-    <title>错误</title>
-</head>
-<body>
-    <hgroup>
-        <h1>错误。</h1>
-        <h2>处理你的请求时出错。</h2>
-    </hgroup>
-</body>
-</html>
+}

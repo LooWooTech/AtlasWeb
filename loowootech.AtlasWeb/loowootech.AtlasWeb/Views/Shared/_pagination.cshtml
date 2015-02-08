@@ -1,0 +1,65 @@
+﻿@{
+    if (Model == null)
+    {
+        return;
+    }
+
+    var page = Model as loowootech.AtlasWeb.Helper.Page;
+
+    if (page.PageCount == 1)
+    {
+        return;
+    }
+
+    var querystring = "?";
+    foreach (var key in Request.QueryString.AllKeys)
+    {
+        if (string.IsNullOrEmpty(key) || key == "page")
+        {
+            continue;
+        }
+        querystring += key + "=" + Request.QueryString[key] + "&";
+    }
+}
+
+<ul class="pagination">
+    @if (page.PageIndex == 1)
+    {
+        <li class="disabled"><a>首页</a></li>
+    }
+    else
+    {
+        <li><a href="@(querystring)page=1">首页</a></li>
+    }
+
+    @if (page.PageIndex > 1)
+    {
+        <li><a href="@(querystring)page=@(page.PageIndex - 1)">上一页</a></li>
+    }
+    else
+    {
+        <li class="disabled"><a>上一页</a></li>
+    }
+
+    @if (page.PageIndex < page.PageCount)
+    {
+        <li><a href="@(querystring)page=@(page.PageIndex + 1)">下一页</a></li>
+    }
+    else
+    {
+        <li class="disabled"><a>下一页</a></li>
+    }
+
+    @if (page.PageIndex == page.PageCount)
+    {
+        <li class="disabled"><a>尾页</a></li>
+    }
+    else
+    {
+        <li><a href="@(querystring)page=@(page.PageCount)">尾页</a></li>
+    }
+
+    <li class="disabled"><a>共@(page.RecordCount)条记录</a></li>
+
+    <li class="disabled"><a>第@(page.PageIndex)页/共@(page.PageCount)页</a></li>
+</ul>
