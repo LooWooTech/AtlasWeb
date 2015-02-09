@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\Page.cs" />
+    <Compile Include="Helper\Picture.cs" />
     <Compile Include="Helper\UserFileter.cs" />
     <Compile Include="Manager\ManagerBase.cs" />
     <Compile Include="Manager\ManagerCore.cs" />
@@ -201,9 +202,30 @@
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Advenced\Views\Web.config" />
     <Content Include="Areas\Common\Views\Web.config" />
+    <Content Include="Img\10536001_639497.jpg" />
+    <Content Include="Img\alice-grafixx-10.jpg" />
+    <Content Include="Img\alice-grafixx-11.jpg" />
+    <Content Include="Img\alice-grafixx-68.png" />
+    <Content Include="Img\background.jpg" />
+    <Content Include="Img\background2.jpg" />
+    <Content Include="Img\bit-tile-blue.gif" />
+    <Content Include="Img\block-loading.gif" />
     <Content Include="Img\blue-abstract-background.jpg" />
+    <Content Include="Img\blue-halftone.gif" />
+    <Content Include="Img\blue-wallpaper-background-texture-checkbox.jpg" />
+    <Content Include="Img\blue_background.jpg" />
+    <Content Include="Img\globe324.gif" />
+    <Content Include="Img\head.png" />
+    <Content Include="Img\light-tile.gif" />
+    <Content Include="Img\loader323.gif" />
     <Content Include="Img\login.png" />
     <Content Include="Img\loginform.png" />
+    <Content Include="Img\no-image.png" />
+    <Content Include="Img\shad_h.png" />
+    <Content Include="Img\soft-grid.gif" />
+    <Content Include="Img\spinner.gif" />
+    <Content Include="Img\target.png" />
+    <Content Include="Img\title.png" />
     <Content Include="Img\topics\家纺城区块招商引资地块示意图.jpg" />
     <Content Include="Img\topics\家纺城区块控规.jpg" />
     <Content Include="Img\topics\沈士区块招商引资地块示意图.jpg" />
@@ -267,9 +289,11 @@
     <Content Include="Views\Map\_MapLayout.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\User\ChangeCode.cshtml" />
+    <Content Include="Views\Picture\Get.cshtml" />
+    <Content Include="Views\Picture\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\img\" />
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Map\" />
     <Folder Include="Areas\Advenced\Models\" />

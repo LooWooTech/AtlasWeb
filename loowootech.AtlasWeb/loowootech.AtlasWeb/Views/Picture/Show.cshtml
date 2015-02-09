@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+    int SerialNumber = 0;
+    List<string> pictures = ViewBag.PList;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link rel="stylesheet" href="/Content/bootstrap.css" />
+    <script src="/Scripts/jquery-1.9.0.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+</head>
+<body>
+    
+
+    <div class="container">
+        <div style="clear:both;overflow:hidden;margin-bottom:10px;">
+            <form class="form-inline" method="post" enctype="multipart/form-data" action="/Picture/Upload" style="float:left;">
+                <div class="input-group">
+                    <input type="file" name="file" class="form-control" style="width:200px;" />
+                    <input type="text" name="ID" value="@(ViewBag.ID)" style="display:none" />
+                    <input type="text" name="Layer" value="@(ViewBag.Layer)" style="display:none" />
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-success">上传照片</button>
+                    </div>
+                </div>
+            </form>
+            @if (pictures.Count() != 0) { 
+                <form class="form-inline" method="post" action="/Picture/Delete" style="float:right;">
+                <div class="form-group">
+                    <input type="text" name="src" style="display:none" id="src"/>
+                    <input type="text" name="ID" value="@(ViewBag.ID)" style="display:none" />
+                    <input type="text" name="Layer" value="@(ViewBag.Layer)" style="display:none" />
+                    <button type="submit" class="btn btn-danger" id="btn-delete">删除</button>
+                </div>
+            </form>
+            }
+            
+        </div>
+        <div class="col-lg-12">
+            @if (pictures.Count == 0)
+            {
+                <div class="alert alert-link">
+                    当前地块没有照片
+                </div>
+            }
+            else
+            {
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <ol class="carousel-indicators">
+                        @foreach (var item in pictures)
+                        {
+                            <li data-target="#carousel-example-generic" data-slide-to="@(SerialNumber++)" class=@(SerialNumber==0?"active":"")></li>
+                        }
+                    </ol>
+                    @{
+                SerialNumber = 0;
+                    }
+                    <div class="carousel-inner" role="listbox">
+                        @foreach (var item in pictures)
+                        {
+                            if (SerialNumber == 0)
+                            {
+                                <div class="item active">
+                                    <img src="@item" id="1" />
+                                    <div class="carousel-caption">
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="item">
+                                    <img src="@item" />
+                                    <div class="carousel-caption">
+
+                                    </div>
+                                </div>
+                            }
+                            {
+                                SerialNumber++;
+                            }
+                        }
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
+            }
+        </div>
+       
+        
+        
+    </div>
+    
+</body>
+</html>
+
+<script >
+    $(function () {
+        $("#btn-delete").click(function () {
+            var value = $("div .active>img").attr("src");
+            $("#src").val(value);
+        });
+    })
+</script>
