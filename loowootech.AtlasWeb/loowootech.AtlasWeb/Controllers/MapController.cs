@@ -22,7 +22,7 @@ namespace loowootech.AtlasWeb.Controllers
         public string JavascriptContent() {
             var name = Request["map"];
             if (string.IsNullOrEmpty(name)) {
-                name = "sszs";
+                name = "general";
             }
             try
             {

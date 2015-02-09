@@ -1,5 +1,5 @@
 ﻿var configuration = {
-    host: "192.168.1.106",
+    host: "10.22.102.52",
     dynamicServiceName: "Main2",
     title: "高级模式",
     initialMaps: [0],
@@ -16,7 +16,7 @@
                             Id:0,
                             Name: "遥感影像",
                             Title: "遥感影像",
-                            IndexInService: -1,
+                            IndexInService: 1,
                             TileServiceName: "Raster",
                             Editable: false,
                             ShowPicture: false,

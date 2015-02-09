@@ -4,3 +4,10 @@
 *.suo
 bin
 obj
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.gif
+Img/Data/*
+App_Data/img/*
