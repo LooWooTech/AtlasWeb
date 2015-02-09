@@ -153,6 +153,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\PictureController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="General\AuthenticateModule.cs" />
     <Compile Include="General\AuthUtility.cs" />
@@ -268,7 +269,7 @@
     <Content Include="Views\User\ChangeCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\img\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Map\" />
     <Folder Include="Areas\Advenced\Models\" />
