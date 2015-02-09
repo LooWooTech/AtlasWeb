@@ -60,30 +60,25 @@
     <script src="/Scripts/jquery-1.9.0.js"></script>
     <script src="/Scripts/jquery.cookie.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
-    @{
-        loowootech.AtlasWeb.Models.User user = ViewBag.CurrentUser;
-        var name = System.Threading.Thread.CurrentPrincipal.Identity.Name;
-    }
 </head>
 <body style="text-align:center">
     <div class="container-fluid" style="padding-top:40px;padding-left:0;width:90%;margin:auto;text-align:left">
         <div class="col-lg-3">
-            <h1 style="color:#ffffff;float:right">海宁许村一张图平台</h1>
+            <h1 style="color:#ffffff;">海宁许村一张图平台</h1>
         </div>
         <div class="dropdown" style="float:left;color:#fefefe;padding-top:30px;">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top:50px;padding-top:10px;"><i class="glyphicon glyphicon-user"></i>个人中心<b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top:50px;padding-top:10px;"><i class="glyphicon glyphicon-wrench"></i>设置<b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="">密码修改</a></li>
+                <li>
+                    <a href="/User/ChangeCode">密码修改</a>
+                </li>
                 <li><a href="/User/SignOut">@(System.Threading.Thread.CurrentPrincipal.Identity.Name)退出</a></li>
             </ul>
         </div>
     </div>
     
     <div class="container-fluid">
-        adsfasdfasdfasdfasdfasdfasdf
-
         @RenderBody()
-        
         <footer style="clear:both;overflow:hidden;">
             <div class="row">
                 <div class="col-md-12">

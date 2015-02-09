@@ -211,6 +211,8 @@
     <Content Include="Img\topics\许村镇土地利用现状图.jpg" />
     <Content Include="Img\topics\许村镇宅基地房屋信息分布图.jpg" />
     <Content Include="Img\topics\许村镇级别基准地价示意图.jpg" />
+    <Content Include="Scripts\advancemap.js" />
+    <Content Include="Scripts\application.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -231,8 +233,17 @@
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\jquery-ui.custom.js" />
     <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.fancytree.glyph.js" />
+    <Content Include="Scripts\jquery.fancytree.js" />
+    <Content Include="Scripts\jquery.fancytree.table.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\map.js" />
+    <Content Include="Scripts\mapwrapper.js" />
+    <Content Include="Scripts\page.js" />
     <Content Include="Scripts\Respond.min.js" />
+    <Content Include="Scripts\usermanager.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -249,6 +260,8 @@
     <Content Include="Views\Shared\_pagination.cshtml" />
     <Content Include="Views\Map\TopicMap.cshtml" />
     <Content Include="Views\Map\_MapLayout.cshtml" />
+    <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\User\ChangeCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "密码修改";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="text-align:left;">
+    <form id="Change-form" class="form-horizontal" method="post" action="/User/ChangeCode">
+        <div class="form-group has-feedback" id="OPW_group">
+            <label for="OldPassword" class="col-lg-2 control-label">原始密码</label>
+            <div class="col-lg-3">
+                <input type="password" name="OldPassword" class="form-control" placeholder="原始密码" aria-describedby="inputOPWStatus" />
+                <span class="glyphicon form-control-feedback" aria-hidden="true" id="OPW_label"></span>
+                <span id="inputOPWStatus" class="sr-only"></span>
+            </div>
+            <div class="col-lg-4">
+                <div id="old_msg"></div>
+            </div>
+        </div>
+        <div class="form-group has-feedback" id="PW_group">
+            <label for="NewPassword" class="col-lg-2 control-label">新密码</label>
+            <div class="col-lg-3">
+                <input type="password" name="NewPassword" class="form-control" placeholder="新密码" aria-describedby="inputPWStatus" />
+                <span class="glyphicon form-control-feedback" aria-hidden="true" id="PW_label"></span>
+                <span id="inputPWStatus" class="sr-only"></span>
+            </div>
+            <div class="col-lg-4">
+                <div id="npassword_msg"></div>
+            </div>
+        </div>
+        <div class="form-group has-feedback" id="RPW_group">
+            <label for="NewPassword" class="col-lg-2 control-label">确认密码</label>
+            <div class="col-lg-3">
+                <input type="password" name="RePassword" class="form-control" placeholder="确认密码" aria-describedby="inputRPWStatus" />
+                <span class="glyphicon form-control-feedback" aria-hidden="true" id="RPW_label"></span>
+                <span id="inputRPWStatus" class="sr-only"></span>
+            </div>
+            <div class="col-lg-4">
+                <div id="repassword_msg"></div>
+            </div>
+        </div>
+        <div class="form-group has-feedback" id="Code_group">
+            <label for="Code" class="col-lg-2 control-label">验证码</label>
+            <div class="col-lg-2">
+                <input type="text" name="Code" class="form-control" placeholder="验证码" aria-describedby="inputCodeStatus" />
+                <span class="glyphicon form-control-feedback" aria-hidden="true" id="Code_label"></span>
+                <span id="inputCodeStatus" class="sr-only"></span>
+            </div>
+            <div class="col-lg-1">
+                <img id="Code" src="/Home/Code" height="28" alt="验证码" title="点击刷新验证码" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <input type="submit" id="btn-submit" value="修改密码" class="btn btn-success" />
+                <a href="/Home/Index" class="btn btn-default" style="color:black;"><i class="glyphicon glyphicon-chevron-left"></i>&nbsp;返回</a>
+            </div>
+        </div>
+    </form>
+
+
+    
+</div>
+<script src="/Scripts/usermanager.js"></script>
+<script>
+    $(function () {
+
+        $("[name=OldPassword]").focus(function () {
+            Clear("OPW");
+            $("#old_msg").html("").removeClass("text-danger").removeClass("text-success");
+        }).blur(function () {
+            var val = $(this).val();
+            if (val == "原始密码" || val == "" || val == undefined || val == null) {
+                $("#old_msg").html("原始密码不能为空").addClass("text-danger");
+                Error("OPW");
+                return false;
+            }
+            VerificationByPassword(val);
+            var msg = $("#old_msg").text();
+            if (msg == "原始密码正确") {
+                $("#old_msg").addClass("text-success");
+                Success("OPW");
+            } else {
+                $("#old_msg").addClass("text-danger");
+                Error("OPW");
+            }
+        })
+
+        $("[name=NewPassword]").focus(function () {
+            Clear("PW");
+            $("#npassword_msg").html("");
+        }).blur(function () {
+            var pw = $(this).val();
+            if (pw == "新密码" || pw == "" || pw == undefined || pw == null) {
+                $("#npassword_msg").html("密码不能为空").addClass("text-danger");
+                Error("PW");
+                return false;
+            }
+            Success("PW");
+        });
+        $("[name=RePassword]").focus(function () {
+            Clear("RPW");
+            $("#repassword_msg").html("");
+        }).blur(function () {
+            var rep = $(this).val();
+            if (rep == "确认密码" || rep == "" || rep == undefined || rep == null) {
+                $("#repassword_msg").html("密码不能为空").addClass("text-danger");
+                Error("RPW");
+                return false;
+            }
+            var pw = $("[name=NewPassword]").val();
+            if (rep != pw) {
+                $("#repassword_msg").html("密码不一致").addClass("text-danger");
+                Error("RPW");
+            } else {
+                Success("RPW");
+            }
+        });
+
+
+
+        $("#Change-form").submit(function () {
+            var code = $("[name=Code]").val();
+            if ($.cookie("Code")) {
+                if (code.toLowerCase() != $.cookie("Code").toLowerCase()) {
+                    alert("输入的验证码不正确");
+                    return false;
+                }
+            } else {
+                alert("验证码失效，请刷新网页");
+                return false;
+            }
+            code = $("[name=NewPassword]").val();
+            var rep = $("[name=RePassword]").val();
+            if (rep != code) {
+                alert("输入的新密码两次不一致");
+                return false;
+            }
+        });
+    })
+</script>

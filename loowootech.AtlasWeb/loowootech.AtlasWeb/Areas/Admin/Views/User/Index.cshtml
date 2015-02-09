@@ -10,7 +10,7 @@
 }
 
 
-<div class="container">
+<div class="container" style="text-align:left;">
     <div class="panel" id="main-panel">
         <div class="panel-heading">
             <h3 class="panel-title" style="float:left;">@(ViewBag.Title)</h3>
@@ -127,7 +127,7 @@
                                                     <label for="Title" class="col-lg-2 control-label">地图列表:</label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <div class="col-lg-10 col-lg-offset-2">
+                                                    <div class="col-lg-10 col-lg-offset-1">
                                                         @{
 
                     List<string> values = new List<string>();
@@ -250,6 +250,124 @@
         </div>
     </div>
 </div>
+<script src="/Scripts/usermanager.js"></script>
+<script>
+    $(function () {
+        $("[name=Password]").focus(function () {
+            Clear("PW");
+            $("#password_msg").html("").removeClass("text-danger");
+        }).blur(function () {
+            var pw = $(this).val();
+            if (pw == "密码" || pw == "" || pw == undefined || pw == null) {
+                $("#password_msg").html("密码不能为空").addClass("text-danger");
+                Error("PW");
+                return false;
+            }
+            Success("PW");
+        });
+        $("[name=repassword]").focus(function () {
+            Clear("RPW");
+            $("#repassword_msg").html("");
+        }).blur(function () {
+            var rep = $(this).val();
+            if (rep == "确认密码" || rep == undefined || rep == "" || rep == null) {
+                $("#repassword_msg").html("密码不能为空").addClass("text-danger");
+                Error("RPW");
+                return false;
+            }
+            var pw = $("[name=Password]").val();
+            if (rep != pw) {
+                $("#repassword_msg").html("密码不一致").addClass("text-danger");
+                // Error("PW");
+                Error("RPW");
+            } else {
+                // Success("PW");
+                Success("RPW");
+            }
+        });
+
+
+
+        $("#Name").focus(function () {
+            $("#name_msg").html("");
+
+            if ($("#name_msg").hasClass("text-danger")) {
+                $("#name_msg").removeClass("text-danger");
+            }
+            if ($("#name_msg").hasClass("text-success")) {
+                $("#name_msg").removeClass("text-success");
+            }
+            Clear("name");
+            $("#inputNameStatus").html("");
+        }).blur(function () {
+            var name = $(this).val();
+            if (name == "用户名" || name == "" || name == undefined || name == null) {
+                $("#name_msg").html("用户名不能为空").addClass("text-danger");
+                Error("name");
+                return false;
+            }
+            VerificationByName(name);
+            var values = $("#name_msg").text();
+            if (values == "该用户名已经被注册了") {
+                $("#name_msg").addClass("text-danger");
+                Error("name");
+            } else {
+                $("#name_msg").addClass("text-success");
+                Success("name");
+            }
+        });
+
+
+
+        $("#Add-form").submit(function () {
+            var code = $("[name=Code]").val();
+            if ($.cookie("Code")) {
+                if (code.toLowerCase() != $.cookie("Code").toLowerCase()) {
+                    alert("输入的验证码不正确");
+                    return false;
+                }
+            } else {
+                alert("验证码失效，请刷新网页");
+                return false;
+            }
+            code = $("[name=Password]").val();
+            var rep = $("[name=repassword]").val();
+            if (rep != code) {
+                alert("输入的密码两次不一致");
+                return false;
+            }
+        });
+        $("[name=MapSubmit]").submit(function () {
+            var maps = document.getElementsByName("maps");
+        })
+
+
+
+        $("[name=All]").click(function () {
+            var ID = $(this).val();
+            $("#Map" + ID + "  [name=maps]:checkbox").attr("checked", true);
+        });
+        $("[name=None]").bind("click", function () {
+            var ID = $(this).val();
+            $("#Map" + ID + "  [name=maps]:checkbox").attr("checked", false);
+        });
+        $("[name=Inverse]").bind("click", function () {
+            var ID = $(this).val();
+            $("#Map" + ID + "  [name=maps]:checkbox").each(function () {
+                $(this).attr("checked", !$(this).attr("checked"));
+            })
+        });
+    })
+</script>
+
+
+
+
+
+
+
+
+
 
 
 

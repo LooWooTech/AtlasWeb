@@ -13,7 +13,8 @@ namespace loowootech.AtlasWeb.Areas.Advenced.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return Redirect("/Map/Index");
+            //return View();
         }
 
     }

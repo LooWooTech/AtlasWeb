@@ -1,0 +1,24 @@
+﻿@using loowootech.AtlasWeb.Models;
+@{
+    ViewBag.Title = "首页";
+    Group group = ViewBag.Group;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid" style="padding-top:40px;padding-left: 0;width:90%;margin:auto;text-align: left">
+    @Html.Partial("_MapLayout")
+
+    @if (group == Group.Admin) { 
+        <div style="float:left;color:#fefefe">
+        <h3 style="margin-bottom:20px"><span class="glyphicon glyphicon-user" style="margin-right:5px;"></span>用户管理</h3>
+        <div style="float:left;margin-right:5px;">
+            <a class="tile" href="/Admin/User/Index">
+                <span class="image" style="background-image:url('/img/topics/许村镇用户管理图.jpg');"></span>
+                <span class="title" style="">用户管理<br /><span>包含所有用户，可添加、编辑和删除用户</span></span>
+            </a>
+        </div>
+    </div>
+    }
+    
+</div>

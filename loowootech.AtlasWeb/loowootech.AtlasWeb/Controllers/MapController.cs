@@ -10,6 +10,10 @@ namespace loowootech.AtlasWeb.Controllers
     [UserAuthorize]
     public class MapController : ControllerBase
     {
+        public ActionResult Index() {
+            ViewBag.Group = Identity.Group;
+            return View();
+        }
         public ActionResult TopicMap(int ID) {
             return View();
         }
