@@ -29,8 +29,13 @@ namespace loowootech.AtlasWeb.Manager
                 {
                     string maps = HttpContext.Current.Request.Form["maps"].ToString();
                     user.Maps = maps;
-                    db.SaveChanges();
+
                 }
+                else 
+                {
+                    user.Maps = string.Empty;
+                }
+                db.SaveChanges();
 
             }
             return true;

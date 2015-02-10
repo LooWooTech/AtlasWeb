@@ -16,6 +16,14 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Edit(int ID) {
+            if (!Core.MapManager.Edit(ID)) {
+                throw new ArgumentException("授权地图失败！");
+            }
+            return Redirect("/Admin/User/Index");
+        }
+
         public ActionResult TopicMap(int ID) {
             return View();
         }

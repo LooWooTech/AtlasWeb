@@ -83,6 +83,8 @@ namespace loowootech.AtlasWeb.Manager
             using (var db = GetAtlasContext())
             {
                 user.Password = user.Password.MD5();
+                user.LastLoginTime = DateTime.Now;
+                user.Maps = string.Empty;
                 db.Users.Add(user);
                 db.SaveChanges();
             }
