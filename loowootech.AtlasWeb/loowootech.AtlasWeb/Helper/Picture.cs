@@ -32,11 +32,12 @@ namespace loowootech.AtlasWeb.Helper
 
         public static bool VerificationByExt(string File) {
             var ext = Path.GetExtension(File).ToLower();
-            if (!Type.Contains(ext))
-            {
-                return false;
-            }
-            return true;
+            return Type.Contains(ext);
+            //if (!Type.Contains(ext))
+            //{
+            //    return false;
+            //}
+            //return true;
         }
 
         public static string Upload(this HttpPostedFileBase file,string Layer,int ID) {
