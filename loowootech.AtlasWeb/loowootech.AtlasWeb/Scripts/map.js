@@ -2,7 +2,7 @@ var tb;
 
 var lastbasemap;
 
-var host = "192.168.1.106";
+var host = "10.22.102.52";
 
 var xzcLayerId = 33;
 var xzcName = "XZQHMC";

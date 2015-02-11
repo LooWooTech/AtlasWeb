@@ -1,5 +1,5 @@
 ﻿var configuration = {
-    host: host,
+    host: "10.22.102.52",
     dynamicServiceName: "Main2",
     title: "高级模式",
     initialMaps: [0],

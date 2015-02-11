@@ -71,6 +71,14 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public string Verification(string Name)
+        {
+            if (!Core.UserManager.Verification(Name)) {
+                return "该用户名已经被注册了";
+            }
+            return "你可以注册该用户名";
+        }
 
     }
 }

@@ -13,8 +13,8 @@ namespace loowootech.AtlasWeb.Controllers
     public class PictureController : ControllerBase
     {
         public ActionResult Show(string Layer,int ID) {
-            string directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Img/Data/",Layer,ID.ToString());
-            ViewBag.PList = Picture.GetPictures(directory, Layer, ID);
+            //string directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Img/Data/",Layer,ID.ToString());
+            ViewBag.PList = Picture.GetPictures(Layer, ID);
             ViewBag.Layer = Layer;
             ViewBag.ID = ID;
             return View();

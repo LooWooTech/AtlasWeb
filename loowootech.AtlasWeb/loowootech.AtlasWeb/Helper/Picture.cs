@@ -55,7 +55,8 @@ namespace loowootech.AtlasWeb.Helper
             return filePath;
         }
 
-        public static List<string> GetPictures(string SourcePath,string Layer,int ID) {
+        public static List<string> GetPictures(string Layer,int ID) {
+            string SourcePath = GetAbsoluteDirectory(Layer, ID);
             string basePath = "/img/Data/" + Layer + "/" + ID.ToString()+"/";
             List<string> files = new List<string>();
             if (Directory.Exists(SourcePath)) {
