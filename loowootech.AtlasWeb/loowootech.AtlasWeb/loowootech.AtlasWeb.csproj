@@ -228,16 +228,9 @@
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
-    <Content Include="Scripts\jquery-ui.custom.js" />
     <Content Include="Scripts\jquery.cookie.js" />
-    <Content Include="Scripts\jquery.fancytree.glyph.js" />
-    <Content Include="Scripts\jquery.fancytree.js" />
-    <Content Include="Scripts\jquery.fancytree.table.js" />
-    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\map.js" />
     <Content Include="Scripts\mapwrapper.js" />
-    <Content Include="Scripts\npm.js" />
-    <Content Include="Scripts\page.js" />
     <Content Include="Scripts\Respond.min.js" />
     <Content Include="Scripts\usermanager.js" />
     <Content Include="Web.config" />
