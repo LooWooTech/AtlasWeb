@@ -13,3 +13,4 @@ Img/Data/*
 App_Data/img/*
 /loowootech.AtlasWeb/packages
 *.user
+*.pubxml

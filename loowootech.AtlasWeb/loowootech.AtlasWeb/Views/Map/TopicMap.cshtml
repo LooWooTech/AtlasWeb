@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    var arcGISServerHost = ViewBag.ArcGISServerHost;
 }
 
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
 <body class="tundra">
     <form >
         <script type="text/javascript">
-        var host = "@(Request.Url.Host)";
+        var host = "@(arcGISServerHost)";
         var geoAddr = "http://" + host + "/ArcGISServer/rest/services/Geometry/GeometryServer";
         @{
             Html.RenderAction("JavascriptContent","map");

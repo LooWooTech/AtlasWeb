@@ -11,17 +11,22 @@ namespace loowootech.AtlasWeb.Controllers
     [UserAuthorize]
     public class MapController : ControllerBase
     {
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
+            ViewBag.ArcGISServerHost = System.Configuration.ConfigurationManager.AppSettings["ARCGIS_SERVER_HOST"] ?? Request.Url.Host;
             ViewBag.Group = Identity.Group;
             return View();
         }
-        public ActionResult TopicMap(int ID) {
+        public ActionResult TopicMap(int ID)
+        {
             return View();
         }
 
-        public string JavascriptContent() {
+        public string JavascriptContent()
+        {
             var name = Request["map"];
-            if (string.IsNullOrEmpty(name)) {
+            if (string.IsNullOrEmpty(name))
+            {
                 name = "general";
             }
             try
@@ -31,7 +36,8 @@ namespace loowootech.AtlasWeb.Controllers
                     return reader.ReadToEnd();
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 return "var application:alert('地图读取错误')";
             }
         }
