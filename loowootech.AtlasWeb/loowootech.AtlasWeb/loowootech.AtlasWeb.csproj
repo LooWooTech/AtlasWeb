@@ -130,6 +130,7 @@
     <Compile Include="Helper\Page.cs" />
     <Compile Include="Helper\Picture.cs" />
     <Compile Include="Helper\UserFileter.cs" />
+    <Compile Include="Manager\FeatureManager.cs" />
     <Compile Include="Manager\ManagerBase.cs" />
     <Compile Include="Manager\ManagerCore.cs" />
     <Compile Include="Manager\MapManager.cs" />
