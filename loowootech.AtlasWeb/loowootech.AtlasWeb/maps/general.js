@@ -7,8 +7,8 @@
         [
             {
                 Title: "主地图",
-                OverviewImage: "img/topics/家纺城区块招商引资地块示意图.jpg",
-                LegendImage: "img/legends/01-核心专题图件.jpg",
+                OverviewImage: "/img/topics/家纺城区块招商引资地块示意图.jpg",
+                LegendImage: "/img/legends/01-核心专题图件.jpg",
                 FullExtent: { xmin: 40533555, ymin: 3370866, xmax: 40534347, ymax: 3371956 },
                 Basemaps: 
                     [
