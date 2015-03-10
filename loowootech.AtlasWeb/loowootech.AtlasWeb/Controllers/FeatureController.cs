@@ -12,52 +12,67 @@ namespace loowootech.AtlasWeb.Controllers
     public class FeatureController : ControllerBase
     {
         [HttpGet]
-        public ActionResult Add(string LayerName) 
+        public ActionResult Add(double x,double y, string LayerName) 
         {
-            if (string.IsNullOrEmpty(LayerName)) {
+            if (string.IsNullOrEmpty(LayerName))
+            {
                 throw new ArgumentException("传入参数LayerName为NUll或空！");
             }
             ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
             ViewBag.LayerName = LayerName;
+            ViewBag.X = x;
+            ViewBag.Y = y;
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Add() {
+        public ActionResult Add(double X,double Y) 
+        {
+            var layerName = HttpContext.Request.Form["LayerName"].ToString();
+            Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues(layerName);
             if (!UploadHelper.Verficicate(HttpContext))
             {
-                var layerName = HttpContext.Request.Form["LayerName"].ToString();
                 var file = UploadHelper.GetPostedFile(HttpContext);
                 var filePath = UploadHelper.Upload(file);
                 var fileID = UploadHelper.AddFileEntity(new UploadFile
                 {
                     FileName = file.FileName,
-                    LayerName=layerName
+                    LayerName = layerName
                 });
+                Core.FeatureManager.CreateFeature(filePath, values, layerName);
             }
-            Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues();
-            //Core.FeatureManager.CreateFeature();
+            Core.FeatureManager.CreateFeature(X,Y,values,layerName);
             return View();
         }
 
 
 
 
-        public ActionResult Edit(string LayerName,int ID) {
-            if (string.IsNullOrEmpty(LayerName)) {
+        public ActionResult Edit(string LayerName,int ID) 
+        {
+            if (string.IsNullOrEmpty(LayerName))
+            {
                 throw new ArgumentException("传入参数LayerName为NULL或空！");
             }
             ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
             ViewBag.FeatureValues = Core.FeatureManager.GetFeatureValues(LayerName,ID);
             ViewBag.LayerName = LayerName;
+            ViewBag.ID = ID;
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Edit(string LayerName) {
-            //Core.FeatureManager.UpdateFeature();
+        public ActionResult Edit(int ID)
+        {
+            string layerName = HttpContext.Request.Form["LayerName"].ToString();
+            if (string.IsNullOrEmpty(layerName)) 
+            {
+                throw new ArgumentException("未获取图层名称");
+            }
+            Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues(layerName);
+            Core.FeatureManager.UpdateFeature(ID, values, layerName);
             return View();
         }
 

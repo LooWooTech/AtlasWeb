@@ -11,11 +11,13 @@ namespace loowootech.AtlasWeb.Helper
     {
         private static string UploadDirectory = "Files/";
 
-        private static string GetAbsoluteUploadDirectory(string fileName) {
+        private static string GetAbsoluteUploadDirectory(string fileName) 
+        {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UploadDirectory, fileName);
         }
 
-        public static string GetAbsolutePath(string filePath) {
+        public static string GetAbsolutePath(string filePath) 
+        {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
         }
 
@@ -24,7 +26,8 @@ namespace loowootech.AtlasWeb.Helper
             return context.Request.Files.Count == 0;
         }
 
-        public static HttpPostedFileBase GetPostedFile(this HttpContextBase context) {
+        public static HttpPostedFileBase GetPostedFile(this HttpContextBase context) 
+        {
             if (context.Request.Files.Count == 0)
             {
                 throw new ArgumentException("请选择文件上传");
@@ -43,9 +46,11 @@ namespace loowootech.AtlasWeb.Helper
             return file;
         }
 
-        public static string Upload(this HttpPostedFileBase file) {
+        public static string Upload(this HttpPostedFileBase file)
+        {
             var ext = Path.GetExtension(file.FileName);
-            if (ext != ".txt" && ext != ".dxf") {
+            if (ext != ".txt" && ext != ".dxf")
+            {
                 throw new ArgumentException("你上传的文件格式不低，目前只支持上传txt和dxf格式的文件");
             }
             var fileName = file.FileName.Replace(ext, "") + "-" + DateTime.Now.Ticks.ToString() + ext;
@@ -57,7 +62,8 @@ namespace loowootech.AtlasWeb.Helper
             return UploadDirectory+fileName;
         }
 
-        public static int AddFileEntity(UploadFile entity) {
+        public static int AddFileEntity(UploadFile entity)
+        {
             if (entity.FileName.Length > 127)
             {
                 entity.FileName = entity.FileName.Substring(0, 126);    
