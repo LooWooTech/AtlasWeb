@@ -114,6 +114,7 @@
     <Compile Include="Areas\Common\CommonControllerBase.cs" />
     <Compile Include="Areas\Common\Controllers\HomeController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\FeatureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\PictureController.cs" />
@@ -234,7 +235,9 @@
     <Content Include="Scripts\mapwrapper.js" />
     <Content Include="Scripts\Respond.min.js" />
     <Content Include="Scripts\usermanager.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -254,6 +257,7 @@
     <Content Include="Views\Picture\Get.cshtml" />
     <Content Include="Views\Picture\Show.cshtml" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <Content Include="Views\Feature\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

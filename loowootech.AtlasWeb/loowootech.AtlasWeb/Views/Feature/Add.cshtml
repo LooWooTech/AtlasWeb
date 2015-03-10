@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+    List<loowootech.AtlasWeb.Manager.FieldInfo> fieldlist = ViewBag.List;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+    <link rel="stylesheet" href="/Content/bootstrap.css" />
+    <script src="/Scripts/jquery-2.1.3.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form class="form form-inline" method="post" enctype="multipart/form-data" action=""style="float:left;">
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <input type="file" name="file" class="form-control" />
+                </div>
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">上传文件</button>
+                </div>
+            </div>
+        </form>
+        <form class="form-horizontal" method="post" action="/Feature/Add">
+            @foreach (var item in fieldlist) { 
+                <div class="form-group">
+                    <label for="@(item.Name)" class="col-lg-2 control-label">@(item.Title)</label>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" name="@(item.Name)" />
+                    </div>
+                </div>
+            }
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <input type="submit" value="提交" class="btn btn-primary" />
+                    <a href="javascript:window.opener=null;window.open('','_self');window.close();" class="btn btn-default" style=""><i class="glyphicon glyphicon-chevron-left"></i>&nbsp;返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

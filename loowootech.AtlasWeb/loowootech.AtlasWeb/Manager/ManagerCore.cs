@@ -22,6 +22,13 @@ namespace loowootech.AtlasWeb.Manager
         {
             get { return _mapManager == null ? _mapManager = new MapManager() : _mapManager; }
         }
-        
+
+
+        private FeatureManager _featureManager;
+
+        public FeatureManager FeatureManager 
+        {
+            get { return _featureManager == null ? _featureManager = new FeatureManager() : _featureManager; }
+        }
     }
 }
