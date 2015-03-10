@@ -66,18 +66,25 @@ namespace loowootech.AtlasWeb.Manager
         /// </summary>
         /// <param name="layerName">图层名</param>
         /// <returns>字段属性，key为字段名，value为字段值</returns>
-        public Dictionary<string, string> GetFeatureValues(string layerName)
+        public Dictionary<string, string> GetFeatureValues()
         {
-            List<FieldInfo> list = GetAllFields(layerName);
-            Dictionary<string, string> values = new Dictionary<string, string>();
-            string Data=string.Empty;
-            foreach (var item in list) {
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form[item.Name])) { 
-                    Data=HttpContext.Current.Request.Form[item.Name].ToString();
-                    values.Add(item.Name, Data);
+            if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["LayerName"])) {
+                string layerName = HttpContext.Current.Request.Form["LayerName"].ToString();
+                List<FieldInfo> list = GetAllFields(layerName);
+                Dictionary<string, string> values = new Dictionary<string, string>();
+                string Data = string.Empty;
+                foreach (var item in list)
+                {
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form[item.Name]))
+                    {
+                        Data = HttpContext.Current.Request.Form[item.Name].ToString();
+                        values.Add(item.Name, Data);
+                    }
                 }
+                return values;
             }
-            return values;
+            return null;
+           
         }
     }
 

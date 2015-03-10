@@ -13,5 +13,6 @@ namespace loowootech.AtlasWeb.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Map> Maps { get; set; }
+        public DbSet<UploadFile> Files { get; set; }
     }
 }

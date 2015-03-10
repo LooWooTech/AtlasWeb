@@ -1,4 +1,6 @@
-﻿using loowootech.AtlasWeb.Manager;
+﻿using loowootech.AtlasWeb.Helper;
+using loowootech.AtlasWeb.Manager;
+using loowootech.AtlasWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +11,6 @@ namespace loowootech.AtlasWeb.Controllers
 {
     public class FeatureController : ControllerBase
     {
-        //
-        // GET: /Feature/
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Add(string LayerName) 
         {
@@ -30,15 +24,24 @@ namespace loowootech.AtlasWeb.Controllers
 
 
         [HttpPost]
-        public ActionResult Add(string LayerName) {
+        public ActionResult Add() {
+            if (!UploadHelper.Verficicate(HttpContext))
+            {
+                var layerName = HttpContext.Request.Form["LayerName"].ToString();
+                var file = UploadHelper.GetPostedFile(HttpContext);
+                var filePath = UploadHelper.Upload(file);
+                var fileID = UploadHelper.AddFileEntity(new UploadFile
+                {
+                    FileName = file.FileName,
+                    LayerName=layerName
+                });
+            }
+            Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues();
             //Core.FeatureManager.CreateFeature();
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AddFile() {
-            return View();
-        }
+
 
 
         public ActionResult Edit(string LayerName,int ID) {
