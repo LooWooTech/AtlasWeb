@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
     List<loowootech.AtlasWeb.Manager.FieldInfo> fieldlist = ViewBag.List;
+    string layerName = ViewBag.LayerName;
 }
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <form class="form form-inline" method="post" enctype="multipart/form-data" action=""style="float:left;">
+        <form class="form form-inline" method="post" enctype="multipart/form-data" action="/Feature/AddFile"style="float:left;">
             <div class="input-group">
                 <div class="input-group-btn">
                     <input type="file" name="file" class="form-control" />
@@ -34,6 +35,7 @@
                     </div>
                 </div>
             }
+            <input type="text" value="@layerName" name="LayerName" style="display:none" />
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
                     <input type="submit" value="提交" class="btn btn-primary" />

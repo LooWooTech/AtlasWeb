@@ -1,5 +1,8 @@
 ﻿@{
     Layout = null;
+    string layerName = ViewBag.LayerName;
+    Dictionary<string, string> values = ViewBag.FeatureValues;
+    List<loowootech.AtlasWeb.Manager.FieldInfo> list = ViewBag.list;
 }
 
 <!DOCTYPE html>
@@ -15,7 +18,15 @@
 <body>
     <div class="container">
         <form class="form-horizontal" method="post" action="/Feature/Edit">
-
+            @foreach (var item in list) { 
+                <div class="form-group">
+                    <label for="@(item.Name)" class="col-lg-2 control-label">@(item.Title)</label>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control"name="@(item.Name)" value="@(values.ContainsKey(item.Name)?values[item.Name]:"")" />
+                    </div>
+                </div>
+            }
+            <input type="text" name="LayerName" value="@layerName" style="display:none" />
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
                     <input type="submit" value="修改" class="btn btn-primary" />

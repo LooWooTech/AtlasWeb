@@ -17,30 +17,43 @@ namespace loowootech.AtlasWeb.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Add(string LayerName) 
         {
             if (string.IsNullOrEmpty(LayerName)) {
                 throw new ArgumentException("传入参数LayerName为NUll或空！");
             }
             ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
+            ViewBag.LayerName = LayerName;
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Add() {
+        public ActionResult Add(string LayerName) {
             //Core.FeatureManager.CreateFeature();
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AddFile() {
+            return View();
+        }
 
-        public ActionResult Edit(int ID) {
+
+        public ActionResult Edit(string LayerName,int ID) {
+            if (string.IsNullOrEmpty(LayerName)) {
+                throw new ArgumentException("传入参数LayerName为NULL或空！");
+            }
+            ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
+            ViewBag.FeatureValues = Core.FeatureManager.GetFeatureValues(LayerName,ID);
+            ViewBag.LayerName = LayerName;
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Edit() {
+        public ActionResult Edit(string LayerName) {
             //Core.FeatureManager.UpdateFeature();
             return View();
         }

@@ -49,6 +49,36 @@ namespace loowootech.AtlasWeb.Manager
         {
 
         }
+
+        /// <summary>
+        /// 获取指定图层对应字段值
+        /// </summary>
+        /// <param name="ID">图形的id</param>
+        /// <returns></returns>
+        public Dictionary<string, string> GetFeatureValues(string layerName,int ID) {
+            return new Dictionary<string, string>();
+        }
+
+
+
+        /// <summary>
+        /// 获取字段属性值 用于获取网页提交
+        /// </summary>
+        /// <param name="layerName">图层名</param>
+        /// <returns>字段属性，key为字段名，value为字段值</returns>
+        public Dictionary<string, string> GetFeatureValues(string layerName)
+        {
+            List<FieldInfo> list = GetAllFields(layerName);
+            Dictionary<string, string> values = new Dictionary<string, string>();
+            string Data=string.Empty;
+            foreach (var item in list) {
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form[item.Name])) { 
+                    Data=HttpContext.Current.Request.Form[item.Name].ToString();
+                    values.Add(item.Name, Data);
+                }
+            }
+            return values;
+        }
     }
 
     public enum FieldTypeEnum
