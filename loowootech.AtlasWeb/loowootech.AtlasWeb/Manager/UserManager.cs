@@ -12,6 +12,7 @@ namespace loowootech.AtlasWeb.Manager
     {
         public User GetUser(string Name, string Password)
         {
+            var pass = "Test".MD5();
             var user = GetUser(Name);
             if (user == null)
             {

@@ -1,6 +1,6 @@
 ﻿var configuration = {
     host: host,
-    dynamicServiceName: "Main2",
+    dynamicServiceName: "Main",
     title: "高级模式",
     initialMaps: [0],
     maps:
@@ -55,6 +55,7 @@
                         {
                             Id: 1,
                             Name: "地图标注",
+                            Visible: true,
                             Layers:
                                 [
                                     {
@@ -77,6 +78,7 @@
                         {
                             Id: 2,
                             Name: "城市地籍",
+                            Visible: true,
                             Layers:
                                 [
                                     {

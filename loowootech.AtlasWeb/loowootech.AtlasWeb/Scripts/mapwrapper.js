@@ -8,6 +8,317 @@
     this.layerinfoDict = [];
 }
 
+MapWrapper.prototype._transform_LayerInfos = function()
+{
+    var map = this.mapSet;
+    var data = [];
+
+    for (var i = 0; i < map.Categories.length; i++)
+    {
+        var cat = map.Categories[i];
+        var items = [];
+        for(var j = 0;j<cat.Layers.length;j++)
+        {
+            var item = cat.Layers[j];
+            items.push({ "title": item.Title, key:item.Id.toString(), id: item.Id, expanded: true, lazy: false, folder: false, children: [], visible: item.Visible });
+        }
+
+        data.push({ "title": item.Name, key:(cat.Id + 1000).toString(), id: 1000+cat.Id, expanded: true, lazy: false, folder: true, children: items, visible: cat.Visible });
+    }
+    return data;
+}
+
+MapWrapper.prototype._exchangeCategories = function (id, before) {
+    id = id - 1000;
+    var map = this.mapSet;
+    var i = 0;
+    for (; i < map.Categories.length; i++) {
+        var cat = map.Categories[i];
+        if (cat.Id == id) break;
+    }
+
+    if (i >= map.Categories.length) return;
+
+    //找到上一组或者下一组中第一个图层在地图中的位置
+    var index = 0;
+    for (var j = 0; j < (before ? i - 1 : i) ; j++) {
+        var cat = map.Categories[j];
+        index += cat.Layers.length;
+    }
+
+    var cat = map.Categories[i];
+    if (before) {
+        map.Categories[i] = map.Categories[i - 1];
+        map.Categories[i - 1] = cat;
+    } else {
+        map.Categories[i] = map.Categories[i + 1];
+        map.Categories[i + 1] = cat;
+    }
+
+    //将整个Category移动到指定位置
+    for (var j = cat.Layers.length - 1; j >= 0; j--) {
+        this.map.reorderLayer(this.layerDict[cat.Layers[j].Id], index);
+    }
+    
+}
+
+MapWrapper.prototype._exchangeLayers = function (id, before) {
+    var index = 0;
+    var map = this.mapSet;
+    for (var i = 0; i < map.Categories.length; i++) {
+        var cat = map.Categories[i];
+        
+        for (var j = 0; j < cat.Layers.length; j++) {
+            var lyr = cat.Layers[j];
+            if (lyr.Id == id) {
+                if (before) {
+                    cat.Layers[j] = cat.Layers[j - 1];
+                    cat.Layers[j - 1] = lyr;
+
+                    this.map.reorderLayer(this.layerDict[id], index - 1);
+                } else {
+                    cat.Layers[j] = cat.Layers[j + 1];
+                    cat.Layers[j + 1] = lyr;
+                    this.map.reorderLayer(this.layerDict[id], index + 1);
+                }
+
+                break;
+            }
+            index++;
+        }
+    }
+}
+
+MapWrapper.prototype._assignHandlerForLayerTree = function () {
+    var that = this;
+    require(["dojo/dom", "dojo/query", "dojo/dom-style",
+            ],
+        function (dom, query, domStyle) {
+            var sliders = query(".translider");
+            for (var i = 0; i < sliders.length; i++) {
+                (function(){
+                    var slider = sliders[i];
+                    $(slider).on("slidechange", function (event, ui) {
+                        var id = parseInt(slider.attributes["data-node-id"].value);
+                        var lyr = that.layerDict[id];
+                        var lyrInfo = that.layerinfoDict[id];
+                        lyrInfo.Alpha = ui.value / 100.0;
+                        lyr.setOpacity(ui.value / 100.0);
+                        
+                    })
+                })();
+                
+            }
+
+            var groupUps = query(".lyrGroupUp");
+            for (var i = 0; i < groupUps.length; i++) {
+                (function () {
+                    var groupUp = groupUps[i];
+                    $(groupUp).on("click", function () {
+                        var id = parseInt(groupUp.attributes["data-node-id"].value);
+                        var tree = $("#treetable").fancytree("getTree");
+                        var node = tree.getNodeByKey(id.toString());
+                        var prev = node.getPrevSibling();
+                        if (prev !== null) {
+                            node.moveTo(prev, "before");
+                            that._exchangeCategories(id, true);
+                        }
+                    });
+                })();
+            }
+
+            var groupDowns = query(".lyrGroupDown");
+            for (var i = 0; i < groupDowns.length; i++) {
+                (function () {
+                    var groupDown = groupDowns[i];
+                    $(groupDown).on("click", function () {
+                        var id = parseInt(groupDown.attributes["data-node-id"].value);
+                        var tree = $("#treetable").fancytree("getTree");
+                        var node = tree.getNodeByKey(id.toString());
+
+                        var next = node.getNextSibling();
+                        if (next !== null) {
+                            
+                            node.moveTo(next, "after");
+                            that._exchangeCategories(id, false);
+                        }
+                    });
+                })();
+            }
+
+            var ups = query(".lyrUp");
+            for (var i = 0; i < ups.length; i++) {
+                (function () {
+                    var up = ups[i];
+                    $(up).on("click", function () {
+                        var id = parseInt(up.attributes["data-node-id"].value);
+                        var tree = $("#treetable").fancytree("getTree");
+                        var node = tree.getNodeByKey(id.toString());
+                        var prev = node.getPrevSibling();
+                        if (prev !== null) {
+                            node.moveTo(prev, "before");
+                            that._exchangeLayers(id, true);
+                        }
+                    });
+                })();
+            }
+
+            var downs = query(".lyrDown");
+            for (var i = 0; i < downs.length; i++) {
+                (function () {
+                    var down = downs[i];
+                    $(down).on("click", function () {
+                        var id = parseInt(down.attributes["data-node-id"].value);
+                        var tree = $("#treetable").fancytree("getTree");
+                        var node = tree.getNodeByKey(id.toString());
+                        var next = node.getNextSibling();
+                        if (next !== null) {
+                            node.moveTo(next, "after");
+                            that._exchangeLayers(id, false);
+                        }
+                    });
+                })();
+            }
+
+            var lyrcheckes = query(".lyrCheck");
+            for(var i=0;i<lyrcheckes.length;i++)
+            {
+                (function () {
+                    var check = lyrcheckes[i];
+                    $(check).on("change", function () {
+                        var id = parseInt(check.attributes["data-node-id"].value);
+                        var lyr = that.layerDict[id];
+                        var lyrInfo = that.layerinfoDict[id];
+                        if ($(this).attr("checked")) {
+                            lyr.show();
+                            lyrInfo.Visible = true;
+                        } else {
+                            lyr.hide();
+                            lyrInfo.Visible = false;
+                        }
+                    });
+                })();
+            }
+
+            var lyrcheckes2 = query(".lyrGroupCheck");
+            for (var i = 0; i < lyrcheckes2.length; i++) {
+                (function () {
+                    var check = lyrcheckes2[i];
+                    $(check).on("change", function () {
+                        var id = parseInt(check.attributes["data-node-id"].value);
+                        for (var j = 0; j < that.mapSet.Categories.length; j++) {
+                            var cat = that.mapSet.Categories[j];
+                            if (cat.Id == id) {
+                                if ($(this).attr("checked")) {
+                                    cat.Visible = true;
+                                } else {
+                                    cat.Visible = false;
+                                }
+
+                                for (var k = 0; k < cat.Layers.length; k++)
+                                {
+                                    var lyrInfo = cat.Layers[k];
+                                    var lyr = that.layerDict[lyrInfo.Id];
+                                    if (cat.Visible) {
+                                        lyr.show();
+                                    } else {
+                                        lyr.hide();
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    });
+                })();
+            }
+        });
+}
+
+MapWrapper.prototype._initLayerTree = function () {
+    $("#treetable").innerHTML = "";
+    var that = this;
+    $("#treetable").fancytree({
+        extensions: ["table", "glyph"],
+        checkbox: false,
+        table: {
+            indentation: 18,      // indent 20px per node level
+            nodeColumnIdx: 0     // render the node title into the 2nd column
+
+        },
+        glyph: {
+            map: {
+                doc: "glyphicon glyphicon-file",
+                docOpen: "glyphicon glyphicon-file",
+                //checkbox: "glyphicon glyphicon-unchecked",
+                //checkboxSelected: "glyphicon glyphicon-check",
+                //checkboxUnknown: "glyphicon glyphicon-share",
+                //error: "glyphicon glyphicon-warning-sign",
+                expanderClosed: "glyphicon glyphicon-plus-sign",
+                //expanderLazy: "glyphicon glyphicon-plus-sign",
+                // expanderLazy: "glyphicon glyphicon-expand",
+                expanderOpen: "glyphicon glyphicon-minus-sign",
+                // expanderOpen: "glyphicon glyphicon-collapse-down",
+                folder: "glyphicon glyphicon-folder-close",
+                folderOpen: "glyphicon glyphicon-folder-open",
+                loading: "glyphicon glyphicon-refresh"
+                // loading: "icon-spinner icon-spin"
+            }
+        },
+        source: function () {
+            return that._transform_LayerInfos();
+        },
+
+        init: function (event, data) {
+            var tree = $("#treetable").fancytree("getTree");
+
+            tree.visit(function (node) {
+                node.setExpanded(false);
+                
+            });
+
+            $(".translider").slider({
+                animate: "fast"
+            });
+
+            
+            $(".translider").each(function () {
+                var id = parseInt($(this).attr("data-node-id"));
+                var layerInfo = that.layerinfoDict[id];
+                
+                $(this).slider("value", layerInfo.Alpha * 100);
+            });
+
+            that._assignHandlerForLayerTree();
+        },
+
+        renderColumns: function (event, data) {
+            var node = data.node;
+            $tdList = $(node.tr).find(">td");
+
+            var isParent = node.children && node.children.length > 0;
+
+            var frag = "id='lyrNode" + node.data.id + "'";
+            var frag2 = node.data.visible ? "checked='checked'" : "";
+
+            if (!isParent) {
+                $tdList.eq(1).html("<div class='translider' data-node-id='" + node.data.id + "' " + frag + "></div>");
+
+                $tdList.eq(2).html("<input type='checkbox' class='lyrCheck' data-node-id='" + node.data.id + "' " + frag2 + " id='lyrCheck" + node.data.id + "'>");
+                $tdList.eq(3).html("<a href='javascript:void(0)' class='btn btn-info btn-xs lyrUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-triangle-bottom'></span>&nbsp;</a>" +
+                                   "<a href='javascript:void(0)' class='btn btn-info btn-xs lyrDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-triangle-top'></span>&nbsp;</a>")
+            } else {
+                $tdList.eq(2).html("<input type='checkbox' class='lyrGroupCheck' data-node-id='" + node.data.id + "' " + frag2 + " id='lyrGroupCheck" + node.data.id + "'>");
+                $tdList.eq(3).html("<a href='javascript:void(0)' class='btn btn-info btn-xs lyrGroupUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-triangle-bottom'></span>&nbsp;</a>"+
+                                   "<a href='javascript:void(0)' class='btn btn-info btn-xs lyrGroupDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-triangle-top'></span>&nbsp;</a>")
+
+            }
+
+        }
+    });
+
+    $("#layerModal").modal();
+}
+
 MapWrapper.prototype.init = function () {
     var that = this;
     
@@ -33,7 +344,7 @@ MapWrapper.prototype.init = function () {
             "esri/dijit/Popup", "esri/Color",  "dojo/NodeList-dom"],
         function(dom, query, domStyle, on, Map, tiled, dynaLayer,
             SimpleFillSymbol, SimpleLineSymbol, Popup, Color) {
-            alert("ok1");
+            
             var container = dom.byId(that.initOptions.containerDiv);
 
             // create map div;
@@ -114,6 +425,11 @@ MapWrapper.prototype.init = function () {
             } else {
                 closeSpan[0].parentNode.setAttribute("style", "display:none");
             }
+
+            var layerSpan = query('.layerButton', div);
+            layerSpan.on("click", function () {
+                that._initLayerTree();
+            });
             
             var searchSpan = query(".searchButton", div);
             searchSpan.on("click", function () {
@@ -248,6 +564,8 @@ MapWrapper.prototype.init = function () {
            }
            that.map.addLayers(arr);
        });
+
+    
 };
 
 MapWrapper.prototype._addLayer = function(layerinfo, tiledLayer, featureLayer, libs)
@@ -294,7 +612,7 @@ MapWrapper.prototype._addFeatureLayer = function(layerinfo, featureLayer, libs)
     var lyr = new featureLayer(addr,
         {
         mode: featureLayer.MODE_ONDEMAND,
-        outFields: ["Text"]
+        //outFields: ["Text"]
         });
 
     if (layerinfo.Annotation === true) {
