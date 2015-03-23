@@ -12,7 +12,7 @@ namespace loowootech.AtlasWeb.Controllers
     public class FeatureController : ControllerBase
     {
         [HttpGet]
-        public ActionResult Add(double x,double y, string LayerName) 
+        public ActionResult Add(string LayerName) 
         {
             if (string.IsNullOrEmpty(LayerName))
             {
@@ -20,29 +20,31 @@ namespace loowootech.AtlasWeb.Controllers
             }
             ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
             ViewBag.LayerName = LayerName;
-            ViewBag.X = x;
-            ViewBag.Y = y;
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Add(double X,double Y) 
+        public ActionResult Add() 
         {
             var layerName = HttpContext.Request.Form["LayerName"].ToString();
             Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues(layerName);
-            if (!UploadHelper.Verficicate(HttpContext))
+            var file = UploadHelper.GetPostedFile(HttpContext);
+            var filePath = UploadHelper.Upload(file);
+            var fileID = UploadHelper.AddFileEntity(new UploadFile
             {
-                var file = UploadHelper.GetPostedFile(HttpContext);
-                var filePath = UploadHelper.Upload(file);
-                var fileID = UploadHelper.AddFileEntity(new UploadFile
-                {
-                    FileName = file.FileName,
-                    LayerName = layerName
-                });
-                Core.FeatureManager.CreateFeature(filePath, values, layerName);
-            }
-            Core.FeatureManager.CreateFeature(X,Y,values,layerName);
+                FileName = file.FileName,
+                LayerName = layerName
+            });
+            Core.FeatureManager.CreateFeature(filePath, values, layerName);
+            //if (!UploadHelper.Verficicate(HttpContext))
+            //{
+               
+            //}
+            //else { 
+            //    throw new ArgumentException("文件没有上传，请上传文件");
+            //}
+            //Core.FeatureManager.CreateFeature(,values,layerName);
             return View();
         }
 
