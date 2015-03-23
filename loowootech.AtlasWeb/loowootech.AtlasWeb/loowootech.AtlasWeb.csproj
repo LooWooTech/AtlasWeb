@@ -155,6 +155,8 @@
     <Content Include="Content\flaty.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\main.min.css" />
@@ -232,7 +234,11 @@
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery-ui.custom.js" />
     <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.fancytree.glyph.js" />
+    <Content Include="Scripts\jquery.fancytree.js" />
+    <Content Include="Scripts\jquery.fancytree.table.js" />
     <Content Include="Scripts\map.js" />
     <Content Include="Scripts\mapwrapper.js" />
     <Content Include="Scripts\Respond.min.js" />

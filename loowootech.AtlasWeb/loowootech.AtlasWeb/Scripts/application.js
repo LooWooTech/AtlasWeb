@@ -410,11 +410,13 @@ MapApplication.prototype.toggleMap = function (index) {
                             },
                             "callbackParamName": "callback"
                         });
-                    });
+                    }, function (error) { console.log("读取属性数据失败", error);});
                 })();
             }
-            deferred.then(function(response) {
-                that.layers[response.id] = response;
+            deferred.then(function (response) {
+                if (response !== undefined) {
+                    that.layers[response.id] = response;
+                }
                 if (callback !== undefined) {
                     callback();
                 }
