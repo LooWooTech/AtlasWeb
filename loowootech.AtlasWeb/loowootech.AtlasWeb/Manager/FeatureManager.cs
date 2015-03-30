@@ -1,7 +1,10 @@
-﻿using ESRI.ArcGIS.esriSystem;
+﻿using ESRI.ArcGIS.DataSourcesGDB;
+using ESRI.ArcGIS.esriSystem;
 using ESRI.ArcGIS.Geodatabase;
+using ESRI.ArcGIS.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -19,7 +22,13 @@ namespace loowootech.AtlasWeb.Manager
              
         public FeatureManager()
         {
-            var aoInit = new ESRI.ArcGIS.esriSystem.AoInitializeClass();
+            configXml = new XmlDocument();
+            configXml.Load(Assembly.GetExecutingAssembly().Location + @"\\LayerInfo.xml");
+        }
+
+        private void InitLicense()
+        {
+            aoInit = new ESRI.ArcGIS.esriSystem.AoInitializeClass();
 
             if (aoInit.IsProductCodeAvailable(esriLicenseProductCode.esriLicenseProductCodeArcEditor) ==
                             esriLicenseStatus.esriLicenseAvailable)
@@ -30,9 +39,11 @@ namespace loowootech.AtlasWeb.Manager
             {
                 aoInit.Initialize(esriLicenseProductCode.esriLicenseProductCodeEngine);
             }
+        }
 
-            configXml = new XmlDocument();
-            configXml.Load(Assembly.GetExecutingAssembly().Location + @"\\LayerInfo.xml");
+        private void ShutdownLicense()
+        {
+            aoInit.Shutdown();
         }
 
         private IFeatureWorkspace CreateWorkspace()
@@ -42,9 +53,9 @@ namespace loowootech.AtlasWeb.Manager
             var node = configXml.SelectSingleNode(@"/Layers/SDE");
 
             propSet.SetProperty("INSTANCE", node.Attributes["Instance"].Value);
-            propSet.SetProperty("USER", node.Attributes["User"].Valu);
-            propSet.SetProperty("PASSWORD", node.Attributes["Password"].Valu);
-            propSet.SetProperty("VERSION", node.Attributes["Version"].Valu);
+            propSet.SetProperty("USER", node.Attributes["User"].Value);
+            propSet.SetProperty("PASSWORD", node.Attributes["Password"].Value);
+            propSet.SetProperty("VERSION", node.Attributes["Version"].Value);
 
             var factory = new SdeWorkspaceFactoryClass();
             var ws = factory.Open(propSet, 0) as IFeatureWorkspace;
@@ -84,7 +95,81 @@ namespace loowootech.AtlasWeb.Manager
         /// <param name="layerName">图层名</param>
         public void CreateFeature(string filePath, Dictionary<string, string> values, string layerName)
         {
+            InitLicense();
+            try
+            {
+                var msg = string.Empty;
+                var geo = GenerateGeometryFromFile(filePath, ref msg);
+                if (geo == null) throw new ApplicationException("坐标文件错误：" + msg);
+                CreateFeature(geo, values, layerName);
+            }
+            catch (Exception ex)
+            {
+                ShutdownLicense();
+                throw ex;
+            }
+        }
 
+        private void CreateFeature(IGeometry geo, Dictionary<string, string> values, string layerName)
+        {
+            List<FieldInfo> list = GetAllFields(layerName);            
+            var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "'");
+            var ws = CreateWorkspace();
+            IWorkspaceEdit edit = (IWorkspaceEdit)ws;
+            edit.StartEditing(false);
+            edit.StartEditOperation();  
+            var fc = ws.OpenFeatureClass(node.Attributes["Name"].Value);
+            IFeatureClassWrite fcw = fc as IFeatureClassWrite;
+            var feature = fc.CreateFeature();  
+            
+            
+            feature.Shape = geo;
+            foreach (var item in list)
+            {
+                if (values.ContainsKey(item.Title))
+                {
+                    var index = feature.Fields.FindField(item.Name);
+                    if (index > -1)
+                    {
+                        var fld = feature.Fields.get_Field(index);
+                            
+                        switch(fld.Type)
+                        {
+                            case esriFieldType.esriFieldTypeDate:
+                                DateTime dt;
+                                if(DateTime.TryParse(values[item.Title], out dt)) feature.set_Value(index, dt);
+                                break;
+                            case esriFieldType.esriFieldTypeDouble:
+                                double db;
+                                if(double.TryParse(values[item.Title], out db)) feature.set_Value(index, db);                                    
+                                break;
+                            case esriFieldType.esriFieldTypeInteger:
+                            case esriFieldType.esriFieldTypeSmallInteger:
+                                int i;
+                                if(int.TryParse(values[item.Title], out i)) feature.set_Value(index, i);  
+                                break;
+                            case esriFieldType.esriFieldTypeSingle:
+                                float f;
+                                if(float.TryParse(values[item.Title], out f)) feature.set_Value(index, f);  
+                                break;                                
+                            case esriFieldType.esriFieldTypeString:
+                                feature.set_Value(index, values[item.Title]);
+                                break;
+                            default:
+                                throw new NotSupportedException(string.Format("不支持此类型的字段({0}):{1}", layerName, fld.Type));
+                        }
+                        values.Add(item.Title, feature.get_Value(index).ToString());
+                    }
+                }
+            }
+            fcw.WriteFeature(feature); 
+            edit.StopEditOperation();
+            edit.StopEditing(true);
+        }
+
+        private IGeometry GenerateGeometryFromFile(string filePath, ref string errorMsg)
+        {
+            return null;
         }
 
         /// <summary>
@@ -96,7 +181,18 @@ namespace loowootech.AtlasWeb.Manager
         /// <param name="layerName">图层名</param>
         public void CreateFeature(double x, double y, Dictionary<string, string> values, string layerName)
         {
-
+            InitLicense();
+            try
+            {                
+                var pt = new PointClass();
+                pt.PutCoords(x, y);
+                CreateFeature(pt, values, layerName);
+            }
+            catch(Exception ex)
+            {
+                ShutdownLicense();
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -107,20 +203,105 @@ namespace loowootech.AtlasWeb.Manager
         /// <param name="layerName">图层名</param>
         public void UpdateFeature(int id, Dictionary<string, string> values, string layerName)
         {
+            InitLicense();
+            try
+            {
+                List<FieldInfo> list = GetAllFields(layerName);
 
+                var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "'");
+
+                var ws = CreateWorkspace();
+                IWorkspaceEdit edit = (IWorkspaceEdit)ws;
+                edit.StartEditing(false);
+                edit.StartEditOperation();
+                var fc = ws.OpenFeatureClass(node.Attributes["Name"].Value);
+                var feature = fc.GetFeature(id);
+                if (feature != null)
+                {
+                    foreach (var item in list)
+                    {
+                        if (values.ContainsKey(item.Title))
+                        {
+                            var index = feature.Fields.FindField(item.Name);
+                            if (index > -1)
+                            {
+                                var fld = feature.Fields.get_Field(index);
+
+                                switch (fld.Type)
+                                {
+                                    case esriFieldType.esriFieldTypeDate:
+                                        DateTime dt;
+                                        if (DateTime.TryParse(values[item.Title], out dt)) feature.set_Value(index, dt);
+                                        break;
+                                    case esriFieldType.esriFieldTypeDouble:
+                                        double db;
+                                        if (double.TryParse(values[item.Title], out db)) feature.set_Value(index, db);
+                                        break;
+                                    case esriFieldType.esriFieldTypeInteger:
+                                    case esriFieldType.esriFieldTypeSmallInteger:
+                                        int i;
+                                        if (int.TryParse(values[item.Title], out i)) feature.set_Value(index, i);
+                                        break;
+                                    case esriFieldType.esriFieldTypeSingle:
+                                        float f;
+                                        if (float.TryParse(values[item.Title], out f)) feature.set_Value(index, f);
+                                        break;
+                                    case esriFieldType.esriFieldTypeString:
+                                        feature.set_Value(index, values[item.Title]);
+                                        break;
+                                    default:
+                                        throw new NotSupportedException(string.Format("不支持此类型的字段({0}):{1}", layerName, fld.Type));
+                                }
+                                values.Add(item.Title, feature.get_Value(index).ToString());
+                            }
+                        }
+                    }
+                    feature.Store();
+                }
+                edit.StopEditOperation();
+                edit.StopEditing(true);
+            }
+            catch (Exception ex)
+            {
+                ShutdownLicense();
+                throw ex;
+            }
         }
 
         /// <summary>
         /// 获取指定图层对应字段值
         /// </summary>
-        /// <param name="ID">图形的id</param>
+        /// <param name="id">图形的id</param>
         /// <returns></returns>
-        public Dictionary<string, string> GetFeatureValues(string layerName,int ID) 
+        public Dictionary<string, string> GetFeatureValues(string layerName, int id)
         {
-            return new Dictionary<string, string>();
+            InitLicense();
+            try
+            {
+                List<FieldInfo> list = GetAllFields(layerName);
+                var values = new Dictionary<string, string>();
+                var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "'");
+
+                var ws = CreateWorkspace();
+                var fc = ws.OpenFeatureClass(node.Attributes["Name"].Value);
+                var feature = fc.GetFeature(id);
+                if (feature != null)
+                {
+                    foreach (var item in list)
+                    {
+                        var index = feature.Fields.FindField(item.Name);
+                        if (index > -1) values.Add(item.Title, feature.get_Value(index).ToString());
+                    }
+                }
+
+                return values;
+            }
+            catch (Exception ex)
+            {
+                ShutdownLicense();
+                throw ex;
+            }
         }
-
-
 
         /// <summary>
         /// 获取字段属性值 用于获取网页提交

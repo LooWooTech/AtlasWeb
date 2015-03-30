@@ -16,3 +16,4 @@ App_Data/img/*
 *.pubxml
 loowootech.AtlasWeb/loowootech.AtlasWeb/loowootech.AtlasWeb.csproj.user
 loowootech.AtlasWeb/loowootech.AtlasWeb/loowootech.AtlasWeb.csproj.user
+*.user
