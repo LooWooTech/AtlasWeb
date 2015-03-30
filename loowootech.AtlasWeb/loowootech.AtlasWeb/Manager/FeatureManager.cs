@@ -1,19 +1,79 @@
-﻿using System;
+﻿using ESRI.ArcGIS.esriSystem;
+using ESRI.ArcGIS.Geodatabase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
+using System.Xml;
 
 namespace loowootech.AtlasWeb.Manager
 {
-    public class FeatureManager
+    public class FeatureManager:IDisposable
     {
+        private static readonly object syncRoot = new object();
+
+        private AoInitialize aoInit;
+
+        private XmlDocument configXml;
+             
+        public FeatureManager()
+        {
+            var aoInit = new ESRI.ArcGIS.esriSystem.AoInitializeClass();
+
+            if (aoInit.IsProductCodeAvailable(esriLicenseProductCode.esriLicenseProductCodeArcEditor) ==
+                            esriLicenseStatus.esriLicenseAvailable)
+            {
+                aoInit.Initialize(esriLicenseProductCode.esriLicenseProductCodeArcEditor);
+            }
+            else
+            {
+                aoInit.Initialize(esriLicenseProductCode.esriLicenseProductCodeEngine);
+            }
+
+            configXml = new XmlDocument();
+            configXml.Load(Assembly.GetExecutingAssembly().Location + @"\\LayerInfo.xml");
+        }
+
+        private IFeatureWorkspace CreateWorkspace()
+        {
+            var propSet = new PropertySetClass();
+            propSet.SetProperty("SERVER", ConfigurationManager.AppSettings["ARCGIS_SERVER_HOST"]);
+            var node = configXml.SelectSingleNode(@"/Layers/SDE");
+
+            propSet.SetProperty("INSTANCE", node.Attributes["Instance"].Value);
+            propSet.SetProperty("USER", node.Attributes["User"].Valu);
+            propSet.SetProperty("PASSWORD", node.Attributes["Password"].Valu);
+            propSet.SetProperty("VERSION", node.Attributes["Version"].Valu);
+
+            var factory = new SdeWorkspaceFactoryClass();
+            var ws = factory.Open(propSet, 0) as IFeatureWorkspace;
+            return ws;
+        }
+
+
         /// <summary>
         /// 获取指定图层的字段信息
         /// </summary>
         /// <returns></returns>
         public List<FieldInfo> GetAllFields(string layerName)
         {
-            return new List<FieldInfo>();
+            var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "'");
+            
+            var list = new List<FieldInfo>();
+            var nodes = node.SelectNodes("Field");
+            for(var i=0;i<nodes.Count;i++)
+            {
+                var n = nodes[i];
+                list.Add(new FieldInfo
+                {
+                    Name = n.Attributes["Name"].Value,
+                    Title = n.Attributes["Title"].Value,
+                    Type = n.Attributes["Type"].Value == "Date" ? FieldTypeEnum.Date : (n.Attributes["Type"].Value == "Double" ? FieldTypeEnum.Double : FieldTypeEnum.String)
+                });
+
+            }
+            return list;
         }
 
         /// <summary>
@@ -83,11 +143,16 @@ namespace loowootech.AtlasWeb.Manager
             return values;
            
         }
+
+        public void Dispose()
+        {
+            aoInit.Shutdown();
+        }
     }
 
     public enum FieldTypeEnum
     {
-        String = 0,
+        String = 0, Double = 1, Date = 2
     }
 
     public class FieldInfo {

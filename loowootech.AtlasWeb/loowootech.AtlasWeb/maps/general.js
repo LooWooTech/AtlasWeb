@@ -1,6 +1,6 @@
 ﻿var configuration = {
     host: host,
-    dynamicServiceName: "Main",
+    dynamicServiceName: "General",
     title: "高级模式",
     initialMaps: [0],
     maps:
@@ -64,7 +64,7 @@
                                         Title: "标注",
                                         IndexInService: 1,
                                         TileServiceName: "",
-                                        Editable: false,
+                                        Editable: true,
                                         ShowPicture: false,
                                         PictureEditable: false,
                                         Annotation: true,

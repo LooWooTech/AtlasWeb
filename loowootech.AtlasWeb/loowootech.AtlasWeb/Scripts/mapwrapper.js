@@ -319,6 +319,18 @@ MapWrapper.prototype._initLayerTree = function () {
     $("#layerModal").modal();
 }
 
+MapWrapper.prototype.isLayerEditable = function (id) {
+    var that = this;
+    for (var i = 0; i < that.mapSet.Categories.length; i++) {
+        var category = that.mapSet.Categories[i];
+        for (var j = 0; j < category.Layers.length; j++) {
+            var layerinfo = category.Layers[j];
+            if (layerinfo.IndexInService === id && layerinfo.Editable === true) return true;
+        }
+    }
+    return false;
+}
+
 MapWrapper.prototype.init = function () {
     var that = this;
     
@@ -450,6 +462,27 @@ MapWrapper.prototype.init = function () {
 
             var measureSpan = query(".measureButton", div);
             var identifySpan = query(".identifyButton", div);
+
+            var addSpan = query(".addButton", div);
+            addSpan.on("click", function () {
+                that.application.bindCmbLayer(that, "cmbLayer2");
+                var selectBtn = query(".btnOK", "selectModal");
+                var handler = selectBtn.on("click", function () {
+                    handler.remove();                    
+                    var cmbLayer = dom.byId("cmbLayer2");
+                    if (cmbLayer.selectedIndex < 0) {
+                        alert("请选择需要添加地块的图层");
+                        return;
+                    }
+                    $("#selectModal").modal('hide');
+                    var layerId = cmbLayer.options[cmbLayer.selectedIndex].value;
+
+                    $("#addFrame").attr("src", "/Feature/Add?LayerName=" + layerId);
+                    $('#addModal').modal();
+                })
+
+                $("#selectModal").modal();
+            })
 
             measureSpan.on("click", function () {
                 if (measureSpan[0].attributes["class"].value === "measureButton") {
@@ -644,8 +677,16 @@ MapWrapper.prototype._addFeatureLayer = function(layerinfo, featureLayer, libs)
 
 
 
-MapWrapper.prototype.getVisibleLayers = function() {
-    return this.mapSet.visibleLayers;
+MapWrapper.prototype.getVisibleLayers = function () {
+    var list = [];
+    for (var i = 0; i < this.mapSet.Categories.length; i++) {
+        var cat = this.mapSet.Categories[i];
+        for (var j = 0; j < cat.Layers.length; j++) {
+            var lyr = cat.Layers[j];
+            list.push(lyr.IndexInService);
+        }
+    }
+    return list;
 }
 
 MapWrapper.prototype.destory = function () {
@@ -692,6 +733,7 @@ MapWrapper.prototype._switch2basemap = function(map, tiled, basemapName) {
 MapWrapper.prototype.enableIdentify = function() {
     this.identifyParams.width = this.map.width;
     this.identifyParams.height = this.map.height;
+   
 
     if (this.clickHandle) {
         this.clickHandle.remove();
@@ -741,6 +783,7 @@ MapWrapper.prototype.disableMeasure = function () {
     }
 };
 
+
 MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
 
     return function(event) {
@@ -749,13 +792,15 @@ MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
                 "dojo/_base/array",
                 "dojo/query"],
             function (InfoTemplate, arrayUtils, query) {
+                that.identifyParams.layerIds = that.getVisibleLayers();
+                /*
                 if (that.mapSet.dataVisibleLayers !== undefined) {
                     that.identifyParams.layerIds = that.mapSet.dataVisibleLayers;
                 }else if (that.mapSet.visibleLayers != undefined) {
                     that.identifyParams.layerIds = that.mapSet.visibleLayers;
                 } else {
                     that.identifyParams.layerIds = that.application.getAllLayerIds();
-                }
+                }*/
                 
                 that.identifyParams.geometry = event.mapPoint;
                 that.identifyParams.mapExtent = wrapper.map.extent;
@@ -771,13 +816,15 @@ MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
 
                             feature.attributes.layerName = result.layerName;
 
-                            var content = "<table class='table table-condensed'><tbody>";
+                            var content = "<a class='btn btn-xs' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>地块图片浏览</a>";
+                            
+                                "<table class='table table-condensed'><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>";
                             for (var i = 0; i < layer.fields.length; i++) {
                                 if (layer.fields[i].name != "Shape" && layer.fields[i].name != "Shape_Area" && layer.fields[i].name != "Shape_Length" && layer.fields[i].name != "OBJECTID") {
                                     content += "<tr><td>" + layer.fields[i].alias + "</td><td>${" + layer.fields[i].alias + "}</td></tr>";
                                 }
                             }
-                            content += "</tbody></table><br/><a href='javascript:(function(){$(\".mock\").fadeIn();})()'>显示实景图片</a>";
+                            content += "</tbody></table>";
                             feature.setInfoTemplate(new InfoTemplate("图层：" + result.layerName, content));
 
                             return feature;
@@ -789,6 +836,10 @@ MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
             });
     };
 };
+
+MapWrapper.prototype.canEdit = function () {
+    
+}
 
 MapWrapper.prototype.zoom2FullExtent = function() {
     var that = this;
@@ -811,8 +862,8 @@ MapWrapper.prototype.executeSearch = function () {
         var cmbLayer = dom.byId("cmbLayer");
         if (cmbLayer.selectedIndex < 0) return;
         var layerId = cmbLayer.options[cmbLayer.selectedIndex].value;
-        
-        that.queryTask = new QueryTask(that.mapSet.mapAddress + "/" + layerId);
+        var addr = that.application.constructMapAddress(that.application.mapConfig.dynamicServiceName) + "/" + layerId;
+        that.queryTask = new QueryTask(addr);
         that.query = new Query();
         that.query.returnGeometry = true;
         that.query.outFields = ["*"];

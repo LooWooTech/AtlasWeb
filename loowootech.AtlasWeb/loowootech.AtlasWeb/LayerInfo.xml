@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Layers>
+  <SDE Instance="5151" User="sde" Password="Ztop" Version="SDE.DEFAULT" />
+
+  <Layer Title="标注" Name="POI">
+    <Field Title="内容" Name="Text" Type="String"></Field>
+  </Layer>
+
+  <Layer Title="地籍房屋层" Name="地籍房屋层">
+    <Field Title="使用者" Name="SYZ" Type="String"></Field>
+    <Field Title="身份证号码" Name="SFZHM" Type="String"></Field>
+  </Layer>
+</Layers>

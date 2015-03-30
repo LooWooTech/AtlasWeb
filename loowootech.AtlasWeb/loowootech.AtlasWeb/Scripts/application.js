@@ -60,6 +60,16 @@ MapApplication.prototype.init = function() {
         });
 };
 
+MapApplication.prototype.showPictures = function(layerName, id){
+    $("#pictureFrame").attr("src", "/Picture/Show?Layer=" + layerName + "&Id=" + id.toString());
+    $('#pictureModal').modal();
+}
+
+MapApplication.prototype.showEditModal = function (layerName, id) {
+    $("#editFrame").attr("src", "/Feature/Edit?LayerName=" + layerName + "&Id=" + id.toString());
+    $('#editModal').modal();
+}
+
 MapApplication.prototype.constructMapAddress = function (serviceName, layerId) {
     if (layerId === undefined) {
         return "http://" + this.mapConfig.host + "/ArcGIS/rest/services/" + serviceName + "/MapServer"
@@ -161,24 +171,30 @@ MapApplication.prototype.toggleMap = function (index) {
         
     };
 
-    MapApplication.prototype.bindCmbLayer = function(wrapper, dropdown) {
+    MapApplication.prototype.bindCmbLayer = function(wrapper, dropdown, editable) {
         var that = this;
         require(["dojo/dom", "dijit/form/Select", "dojo/query"],
             function(dom, Select, query) {
                 var select = dom.byId(dropdown);
                 select.options.length = 0;
-                var ids = wrapper.mapSet.dataVisibleLayers !== undefined ? wrapper.mapSet.dataVisibleLayers : wrapper.mapSet.visibleLayers;
+                var ids = wrapper.getVisibleLayers();
+                    //wrapper.mapSet.dataVisibleLayers !== undefined ? wrapper.mapSet.dataVisibleLayers : wrapper.mapSet.visibleLayers;
                 for (var i = 0; i < ids.length; i++) {
-                    var option = document.createElement("option");
-                    var lyr = that.layers[ids[i]];
-                    option.value = lyr.id;
-                    option.text = lyr.name;
-                    try {
-                        select.add(option, null);
-                    } catch(ex) {
-                        select.add(option);
-                    }
+                    
+                    if (editable === false || wrapper.isLayerEditable(ids[i]) === true) {
+                        var option = document.createElement("option");
+                        var lyr = that.layers[ids[i]];
+                        if (lyr !== undefined) {
 
+                            option.value = lyr.id;
+                            option.text = lyr.name;
+                            try {
+                                select.add(option, null);
+                            } catch (ex) {
+                                select.add(option);
+                            }
+                        }
+                    }
                 }
             });
     };
