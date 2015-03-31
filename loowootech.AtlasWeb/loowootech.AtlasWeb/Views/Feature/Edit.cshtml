@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="container">
-        <form class="form-horizontal" method="post" action="/Feature/Edit">
+        <form class="form-horizontal" method="post" action="/Feature/Edit" id="Feature-Edit">
             @foreach (var item in list) { 
                 <div class="form-group">
                     <label for="@(item.Name)" class="col-lg-2 control-label">@(item.Title)</label>
@@ -52,7 +52,7 @@
                 </div>
             }
             <input type="text" name="LayerName" value="@layerName" style="display:none" />
-            <input type="text" name="ID" value="@ViewBag.ID" style="display:none" />
+            <input type="text" name="ID" value="@ViewBag.ID" style="display:none"/>
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
                     <input type="submit" value="修改" class="btn btn-primary" />
@@ -96,6 +96,19 @@
                 $(this).val("");
             }
 
+        });
+
+
+        $("#Feature-Edit").submit(function () {
+            var data = $(this).serialize();
+            $.post("/Feature/Edit", data, function (json) {
+                var obj = JSON.parse(json);
+                if (obj.result) {
+                    alert("编辑成功");
+                } else {
+                    alert(obj.message);
+                }
+            });
         });
     })
 </script>

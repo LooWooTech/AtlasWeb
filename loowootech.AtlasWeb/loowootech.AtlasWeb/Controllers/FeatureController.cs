@@ -66,16 +66,36 @@ namespace loowootech.AtlasWeb.Controllers
 
 
         [HttpPost]
-        public ActionResult Edit(int ID)
+        public ActionResult Edit()
         {
+            string str = HttpContext.Request.Form["ID"].ToString();
+            if (string.IsNullOrEmpty(str)) {
+                return JsonFail("未获取ID值");
+            }
+            int ID;
+            if (!int.TryParse(str, out ID)) {
+                return JsonFail("无法将ID转换为整数");
+            }
+            
             string layerName = HttpContext.Request.Form["LayerName"].ToString();
             if (string.IsNullOrEmpty(layerName)) 
             {
                 throw new ArgumentException("未获取图层名称");
             }
-            Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues(layerName);
-            Core.FeatureManager.UpdateFeature(ID, values, layerName);
-            return View();
+            string Error = string.Empty;
+            try {
+                Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues(layerName);
+                Core.FeatureManager.UpdateFeature(ID, values, layerName);
+            }
+            catch (Exception ex)
+            {
+                Error = "更新数据的时候，发生错误，错误原因：" + ex.ToString();
+            }
+            if (string.IsNullOrEmpty(Error))
+            {
+                return JsonSuccess("true");
+            }
+            return JsonFail(Error);
         }
 
 

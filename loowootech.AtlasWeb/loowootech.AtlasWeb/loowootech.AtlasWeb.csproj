@@ -47,7 +47,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-
     <Reference Include="ESRI.ArcGIS.DataSourcesFile, Version=9.3.0.1770, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -73,9 +72,6 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>..\..\..\..\..\Program Files (x86)\ArcGIS\DotNet\ESRI.ArcGIS.System.dll</HintPath>
     </Reference>
-
-
-
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -166,6 +162,7 @@
     <Compile Include="Manager\ManagerCore.cs" />
     <Compile Include="Manager\MapManager.cs" />
     <Compile Include="Manager\UserManager.cs" />
+    <Compile Include="Models\Authority.cs" />
     <Compile Include="Models\DBAtlasContext.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\UploadFile.cs" />
