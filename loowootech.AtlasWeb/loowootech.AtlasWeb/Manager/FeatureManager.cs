@@ -152,7 +152,7 @@ namespace loowootech.AtlasWeb.Manager
 
     public enum FieldTypeEnum
     {
-        String = 0, Double = 1, Date = 2
+        String = 0, Double = 1, Date = 2,Int=3
     }
 
     public class FieldInfo {

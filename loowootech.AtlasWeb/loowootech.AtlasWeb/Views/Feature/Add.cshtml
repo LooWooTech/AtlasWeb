@@ -28,7 +28,6 @@
             </div>
             @foreach (var item in fieldlist)
             {
-                
                 <div class="form-group">
                     <label for="@(item.Name)" class="col-lg-2 control-label">@(item.Title)</label>
                     @switch (item.Type) {
@@ -37,15 +36,21 @@
                                 <input type="text" class="form-control" name="@(item.Name)" />
                              </div>
                             break;
+                        case FieldTypeEnum.Double:
                             <div class="col-lg-3">
-                                <input type="text" class="form-control" name="@(item.Name)" onmouseout="" onkeyup="value = value.replace(/[^\u4E00-\u9FA5]/g, '')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" />
+                                <input type="text" class="form-control" name="@(item.Name)" title="Double" placeholder="请输入双精度类型"/>
                             </div>
+                        break;
+                        case FieldTypeEnum.Int:
                             <div class="col-lg-3">
-                                <input type="text" class="form-control" name="@(item.Name)" />
+                                <input type="text" class="form-control" name="@(item.Name)" title="Int" placeholder="请输入整数"/>
                             </div>
+                        break;
+                        case FieldTypeEnum.Date:
                             <div class="col-lg-3">
                                 <input type="text" class="form-control datepicker" />
                             </div>
+                        break;
                         default: break;
                     }
 
@@ -67,8 +72,35 @@
     $(function () {
         $(".datepicker").datepicker();
 
-        function VerifDouble() {
-           
-        }
+        $("[title=Double]").blur(function () {
+            var value = $(this).val();
+            if (value == "" || value == null || value == undefined) {
+                alert("请输入值");
+            }
+            var re = new RegExp("^([+-]?)\\d*\\.\\d+$", "g");
+            if (re.exec(value) != null) {
+                return true;
+            } else {
+                alert("请输入双精度类型");
+                $(this).val("");
+            }
+        });
+
+        $("[title=Int]").blur(function () {
+            var value = $(this).val();
+            if (value == "" || value == null || value == undefined) {
+                alert("请输入值");
+            }
+
+            var re = new RegExp("^([+-]?)\\d*$", "g");
+
+            if (re.exec(value)) {
+                return true;
+            } else {
+                alert("请输入整数");
+                $(this).val("");
+            }
+
+        });
     })
 </script>

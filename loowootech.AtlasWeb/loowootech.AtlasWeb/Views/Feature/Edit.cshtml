@@ -30,15 +30,21 @@
                                     <input type="text" class="form-control"name="@(item.Name)" value="@(values.ContainsKey(item.Name)?values[item.Name]:"")" />
                                 </div>
                             break;
+                        case FieldTypeEnum.Date:
                             <div class="col-lg-3">
                                 <input type="text" class="form-control datepicker" name="@(item.Name)" value="@(values.ContainsKey(item.Name)?values[item.Name].ToString():"")" />
                             </div>
+                        break;
+                        case FieldTypeEnum.Double:
                     <div class="col-lg-3">
-                        <input type="text" class="form-control" name="@(item.Name)" />
+                        <input type="text" class="form-control" name="@(item.Name)" title="Double" />
                     </div>
+                    break;
+                    case FieldTypeEnum.Int:
                     <div class="col-lg-3">
-                        <input type="text" class="form-control" name="@(item.Name)" />
+                        <input type="text" class="form-control" name="@(item.Name)" title="Int"/>
                     </div>
+                    break;
                         default: break;
                     }
 
@@ -57,3 +63,39 @@
     </div>
 </body>
 </html>
+<script>
+    $(function () {
+        $(".datepicker").datepicker();
+
+        $("[title=Double]").blur(function () {
+            var value = $(this).val();
+            if (value == "" || value == null || value == undefined) {
+                alert("请输入值");
+            }
+            var re = new RegExp("^([+-]?)\\d*\\.\\d+$", "g");
+            if (re.exec(value) != null) {
+                return true;
+            } else {
+                alert("请输入双精度类型");
+                $(this).val("");
+            }
+        });
+
+        $("[title=Int]").blur(function () {
+            var value = $(this).val();
+            if (value == "" || value == null || value == undefined) {
+                alert("请输入值");
+            }
+
+            var re = new RegExp("^([+-]?)\\d*$", "g");
+
+            if (re.exec(value)) {
+                return true;
+            } else {
+                alert("请输入整数");
+                $(this).val("");
+            }
+
+        });
+    })
+</script>
