@@ -232,3 +232,8 @@ body {
     max-height: 590px;
     height: expression(this.height>590?"590px":this.height);
 }
+
+.info-btn{
+    color:#fff;
+    text-decoration:none;
+}

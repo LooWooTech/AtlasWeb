@@ -23,10 +23,9 @@
                 <div class="input-group">
                     <input type="file" name="file" class="form-control" style="width:200px;" />
                     <input type="text" name="ID" value="@(ViewBag.ID)" style="display:none" />
-                    <input type="text" name="Layer" value="@(ViewBag.Layer)" style="display:none" />
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-success">上传照片</button>
-                    </div>
+                    <input type="text" name="Layer" value="@(ViewBag.Layer)" style="display:none" />                    
+                    <button type="submit" class="btn btn-success">上传照片</button>
+                    
                 </div>
             </form>
             @if (pictures.Count() != 0) { 
@@ -35,7 +34,7 @@
                     <input type="text" name="src" style="display:none" id="src"/>
                     <input type="text" name="ID" value="@(ViewBag.ID)" style="display:none" />
                     <input type="text" name="Layer" value="@(ViewBag.Layer)" style="display:none" />
-                    <button type="submit" class="btn btn-danger" id="btn-delete">删除</button>
+                    <button type="submit" class="btn btn-danger" id="btn-delete">删除当前图片</button>
                 </div>
             </form>
             }

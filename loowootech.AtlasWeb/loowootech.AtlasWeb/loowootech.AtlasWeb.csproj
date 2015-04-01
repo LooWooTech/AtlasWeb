@@ -230,6 +230,9 @@
     <Content Include="Img\topics\许村镇宅基地房屋信息分布图.jpg" />
     <Content Include="Img\topics\许村镇用户管理图.jpg" />
     <Content Include="Img\topics\许村镇级别基准地价示意图.jpg" />
+    <Content Include="LayerInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="maps\GA.js" />
     <Content Include="maps\general.js" />
     <Content Include="maps\GJ.js" />

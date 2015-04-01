@@ -816,8 +816,10 @@ MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
 
                             feature.attributes.layerName = result.layerName;
 
-                            var content = "<a class='btn btn-xs' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>地块图片浏览</a>";
-                            
+                            var content = "<div class='btn-group'><a class='btn btn-info btn-sm info-btn' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>图片浏览</a>" +
+                                "<a class='btn btn-info btn-sm info-btn' href='javascript:(function(){application.showEditModal(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>属性编辑</a>" +
+                                "<a class='btn btn-danger btn-sm info-btn' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>删除地块</a></div>" +
+
                                 "<table class='table table-condensed'><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>";
                             for (var i = 0; i < layer.fields.length; i++) {
                                 if (layer.fields[i].name != "Shape" && layer.fields[i].name != "Shape_Area" && layer.fields[i].name != "Shape_Length" && layer.fields[i].name != "OBJECTID") {

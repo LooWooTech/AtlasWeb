@@ -23,7 +23,7 @@ namespace loowootech.AtlasWeb.Manager
         public FeatureManager()
         {
             configXml = new XmlDocument();
-            configXml.Load(Assembly.GetExecutingAssembly().Location + @"\\LayerInfo.xml");
+            configXml.Load(ConfigurationManager.AppSettings["LAYER_FILE_PATH"]);
         }
 
         private void InitLicense()
@@ -69,7 +69,7 @@ namespace loowootech.AtlasWeb.Manager
         /// <returns></returns>
         public List<FieldInfo> GetAllFields(string layerName)
         {
-            var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "'");
+            var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "']");
             
             var list = new List<FieldInfo>();
             var nodes = node.SelectNodes("Field");
@@ -113,7 +113,7 @@ namespace loowootech.AtlasWeb.Manager
         private void CreateFeature(IGeometry geo, Dictionary<string, string> values, string layerName)
         {
             List<FieldInfo> list = GetAllFields(layerName);            
-            var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "'");
+            var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "']");
             var ws = CreateWorkspace();
             IWorkspaceEdit edit = (IWorkspaceEdit)ws;
             edit.StartEditing(false);
@@ -162,6 +162,7 @@ namespace loowootech.AtlasWeb.Manager
                     }
                 }
             }
+            
             fcw.WriteFeature(feature); 
             edit.StopEditOperation();
             edit.StopEditing(true);
@@ -208,7 +209,7 @@ namespace loowootech.AtlasWeb.Manager
             {
                 List<FieldInfo> list = GetAllFields(layerName);
 
-                var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "'");
+                var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "']");
 
                 var ws = CreateWorkspace();
                 IWorkspaceEdit edit = (IWorkspaceEdit)ws;
@@ -216,47 +217,47 @@ namespace loowootech.AtlasWeb.Manager
                 edit.StartEditOperation();
                 var fc = ws.OpenFeatureClass(node.Attributes["Name"].Value);
                 var feature = fc.GetFeature(id);
+                IFeatureClassWrite fcw = fc as IFeatureClassWrite;
                 if (feature != null)
                 {
                     foreach (var item in list)
                     {
-                        if (values.ContainsKey(item.Title))
+                        if (values.ContainsKey(item.Name))
                         {
                             var index = feature.Fields.FindField(item.Name);
                             if (index > -1)
                             {
                                 var fld = feature.Fields.get_Field(index);
-
+                                var value = values[item.Name];
                                 switch (fld.Type)
                                 {
                                     case esriFieldType.esriFieldTypeDate:
                                         DateTime dt;
-                                        if (DateTime.TryParse(values[item.Title], out dt)) feature.set_Value(index, dt);
+                                        if (DateTime.TryParse(value, out dt)) feature.set_Value(index, dt);
                                         break;
                                     case esriFieldType.esriFieldTypeDouble:
                                         double db;
-                                        if (double.TryParse(values[item.Title], out db)) feature.set_Value(index, db);
+                                        if (double.TryParse(value, out db)) feature.set_Value(index, db);
                                         break;
                                     case esriFieldType.esriFieldTypeInteger:
                                     case esriFieldType.esriFieldTypeSmallInteger:
                                         int i;
-                                        if (int.TryParse(values[item.Title], out i)) feature.set_Value(index, i);
+                                        if (int.TryParse(value, out i)) feature.set_Value(index, i);
                                         break;
                                     case esriFieldType.esriFieldTypeSingle:
                                         float f;
-                                        if (float.TryParse(values[item.Title], out f)) feature.set_Value(index, f);
+                                        if (float.TryParse(value, out f)) feature.set_Value(index, f);
                                         break;
                                     case esriFieldType.esriFieldTypeString:
-                                        feature.set_Value(index, values[item.Title]);
+                                        feature.set_Value(index, value);
                                         break;
                                     default:
                                         throw new NotSupportedException(string.Format("不支持此类型的字段({0}):{1}", layerName, fld.Type));
-                                }
-                                values.Add(item.Title, feature.get_Value(index).ToString());
+                                }                                
                             }
                         }
                     }
-                    feature.Store();
+                    fcw.WriteFeature(feature);
                 }
                 edit.StopEditOperation();
                 edit.StopEditing(true);
@@ -280,7 +281,7 @@ namespace loowootech.AtlasWeb.Manager
             {
                 List<FieldInfo> list = GetAllFields(layerName);
                 var values = new Dictionary<string, string>();
-                var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "'");
+                var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "']");
 
                 var ws = CreateWorkspace();
                 var fc = ws.OpenFeatureClass(node.Attributes["Name"].Value);
@@ -333,7 +334,7 @@ namespace loowootech.AtlasWeb.Manager
 
     public enum FieldTypeEnum
     {
-        String = 0, Double = 1, Date = 2,Int=3
+        String = 0, Double = 1, Date = 2, Int=3
     }
 
     public class FieldInfo {
