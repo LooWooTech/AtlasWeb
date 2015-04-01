@@ -16,10 +16,8 @@ namespace loowootech.AtlasWeb.Controllers
         {
             ViewBag.ArcGISServerHost = System.Configuration.ConfigurationManager.AppSettings["ARCGIS_SERVER_HOST"] ?? Request.Url.Host;
             ViewBag.Group = Identity.Group;
-            var list = Core.MapManager.GetMapsByAuthority(HttpContext);
-            ViewBag.TopicList = Core.MapManager.GetTypeMap(list,MapType.Topic);
-            ViewBag.AdvencedList = Core.MapManager.GetTypeMap(list,MapType.Advenced);
-            ViewBag.OtherList = Core.MapManager.GetTypeMap(list,MapType.Other);
+            var list = Core.MapManager.GetMapsByAuthority(Identity.UserID);
+            ViewBag.Dictionary = Core.MapManager.GetGroupMap(list);
             return View();
         }
         public ActionResult TopicMap(int ID)

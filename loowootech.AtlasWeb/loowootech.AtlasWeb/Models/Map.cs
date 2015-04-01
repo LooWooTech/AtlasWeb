@@ -17,8 +17,9 @@ namespace loowootech.AtlasWeb.Models
         public string Name { get; set; }
         public int Count { get; set; }
         public string Image { get; set; }
-        [Column(TypeName="int")]
-        public MapType Type { get; set; }
+        public string Group { get; set; }
+        public string JavaScript { get; set; }
+       
     }
 
     public enum MapType {
