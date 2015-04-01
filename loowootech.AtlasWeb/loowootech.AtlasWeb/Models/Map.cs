@@ -15,16 +15,18 @@ namespace loowootech.AtlasWeb.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public string Name { get; set; }
+        public int Count { get; set; }
+        public string Image { get; set; }
         [Column(TypeName="int")]
         public MapType Type { get; set; }
     }
 
     public enum MapType {
-        [Description("专题图")]
+        [Description("招商专题")]
         Topic,
-        [Description("高级图")]
+        [Description("高级模式")]
         Advenced,
-        [Description("其他")]
+        [Description("其他专题")]
         Other
     }
 }

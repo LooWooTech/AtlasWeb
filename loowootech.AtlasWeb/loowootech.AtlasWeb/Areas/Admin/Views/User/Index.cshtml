@@ -10,14 +10,14 @@
 }
 
 
-<div class="container-fluid" style="text-align:left;">
+<div class="container-fluid" style="text-align:left;" >
     <div class="panel" id="main-panel">
         <div class="panel-heading">
-            <h3 class="panel-title" style="float:left;">@(ViewBag.Title)</h3>
+            <h3 class="panel-title" style="float:left;">管理</h3>
         </div>
         <div class="panel-body">
             <div class="form-group">
-                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#AddUser" style="float:left">
+                <button type="button" class="btn btn-success btn-xlarge" data-toggle="modal" data-target="#AddUser" style="float:left">
                     添加用户
                 </button>
                 <div class="modal fade " id="AddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -95,15 +95,37 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+                <button type="button" class="btn btn-primary btn-xlarge" data-toggle="modal" data-target="#mapEdit" style="float:left">
+                    专题图管理
+                </button>
+                <div class="modal fade" id="mapEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">专题图管理</h4>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <table class="table table-bordered">
                 <tr>
                     <th>序号</th>
                     <th>用户名</th>
                     <th>地图编号</th>
-                    <th>权限</th>
+                    <th style="width:200px;">权限</th>
                     <th>组</th>
-                    <th>备注</th>
+                    <th style="width:200px;">备注</th>
                 </tr>
                 @foreach (var item in list)
                 {
@@ -151,7 +173,9 @@
                                                         }
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
+
+
+                                                @*<div class="form-group">
                                                     <label for="Quick" class="col-lg-2 control-label">快捷栏：</label>
                                                     <div class="col-lg-10">
                                                         <div class="col-lg-4">
@@ -164,7 +188,9 @@
                                                             <button type="button" value="@(item.ID)" name="Inverse">反选</button>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>*@
+
+
                                                 <input type="text" value="@(item.ID)" style="display:none" name="ID" />
                                                 <div class="form-group">
                                                     <div class="col-lg-10 col-lg-offset-2">
@@ -175,6 +201,24 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#Authority@(item.ID)"><i class="glyphicon glyphicon-folder-close"></i>&nbsp;权限管理</button>
+                            <div id="Authority@(item.ID)" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="MyModallabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                                            <h4 class="modal-title">@(item.Name)-权限管理</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form name="AuthoritySubmit" method="post" action="" class="form-horizontal">
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </td>
                         <td>@(item.Group.GetDescription())</td>
@@ -253,6 +297,15 @@
 <script src="/Scripts/usermanager.js"></script>
 <script>
     $(function () {
+        $(".btn-danger").click(function () {
+            if (confirm("你确定要删除吗?")) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+
         $("[name=Password]").focus(function () {
             Clear("PW");
             $("#password_msg").html("").removeClass("text-danger");

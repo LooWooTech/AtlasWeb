@@ -1,6 +1,27 @@
-﻿<div style="float:left;color:#fefefe;margin-right:20px;">
+﻿@{
+    List<loowootech.AtlasWeb.Models.Map[]> TopicList = ViewBag.TopicList;
+    
+    List<loowootech.AtlasWeb.Models.Map[]> AdvencedList = ViewBag.AdvencedList;
+    List<loowootech.AtlasWeb.Models.Map[]> OtherList = ViewBag.OtherList;
+}
+
+<div style="float:left;color:#fefefe;margin-right:20px;">
     <h3 style="margin-bottom:20px"><span class="glyphicon glyphicon-briefcase" style="margin-right:5px"></span>招商专题</h3>
-    <div style="float:left;margin-right:5px;">
+    @foreach (var Array in TopicList) { 
+        <div style="float:left;margin-right:5px;">
+            @foreach (var item in Array) {
+                if (item != null) { 
+                    <a class="tile" href="/Map/TopicMap?ID=@(item.ID)">
+                        <span class="image" style="background-image:url(@(item.Image));"></span>
+                        <span class="title" style="">@(item.Name)<br /><span>包含@(item.Count)张地图</span></span>
+                    </a>
+                }
+                
+            }
+        </div>
+    }
+
+    @*<div style="float:left;margin-right:5px;">
         <a class="tile" href="/Map/TopicMap?ID=1">
             <span class="image" style="background-image: url('/Img/topics/沈士区块招商引资地块示意图.jpg');"></span>
             <span class="title" style="">沈士区块招商引资专题图<br /><span>包含5张地图</span></span>
@@ -27,12 +48,26 @@
             <span class="title">杨渡区块招商引资专题图<br /><span>包含5张地图</span></span>
 
         </a>
-    </div>
+    </div>*@
 
 </div>
 <div style="float:left;color:#fefefe;margin-right:20px">
     <h3 style="margin-bottom:20px"><i class="glyphicon glyphicon-plus"></i> 其它专题</h3>
-    <div style="float:left;margin-right:5px;">
+    @foreach (var Array in OtherList) { 
+        <div style="float:left;margin-right:5px;">
+            @foreach (var item in Array)
+            {
+                if (item != null) { 
+                     <a class="tile" href="/Map/TopicMap?ID=@(item.ID)">
+                        <span class="image" style="background-image:url(@(item.Image));"></span>
+                        <span class="title">@(item.Name)<br /><span>包含@(item.Count)张地图</span></span>
+                     </a>
+                }
+              
+            }
+        </div>
+    }
+    @*<div style="float:left;margin-right:5px;">
         <a class="tile" href="/Map/TopicMap?ID=4">
             <span class="image" style="background-image:url('/img/topics/许村镇宅基地房屋信息分布图.jpg')"></span>
             <span class="title">农村房屋宅基地专题图<br /><span>包含3张地图</span></span>
@@ -53,18 +88,33 @@
         </a>
 
 
-    </div>
+    </div>*@
 
 </div>
 
 <div style="float:left;color:#fefefe">
     <h3 style="margin-bottom:20px"><span class="glyphicon glyphicon-cog" style="margin-right:5px"></span>高级模式</h3>
-    <div style="float:left;margin-right:5px;">
+    @foreach (var Array in AdvencedList)
+    {
+        <div style="float:left;margin-right:5px;">
+            @foreach (var item in Array)
+            {
+                if (item != null) { 
+                    <a class="tile" href="/Map/TopicMap?ID=@(item.ID)">
+                        <span class="image" style="background-image:url(@(item.Image))"></span>
+                        <span class="title">@(item.Name)<br /><span>包含@(item.Count)张地图</span></span>
+                    </a>
+                }
+                
+            }
+        </div>
+    }
+    @*<div style="float:left;margin-right:5px;">
         <a class="tile" href="/Map/TopicMap?ID=4">
             <span class="image" style="background-image: url('/img/topics/沈士区块招商引资地块示意图.jpg');"></span>
             <span class="title" style="">高级模式<br /><span>包含所有地图，可自由切换图层</span></span>
         </a>
-    </div>
+    </div>*@
 </div>
 
 
