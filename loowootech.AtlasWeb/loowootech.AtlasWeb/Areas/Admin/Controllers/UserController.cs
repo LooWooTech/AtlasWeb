@@ -19,7 +19,22 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             ViewBag.Page = filter.Page;
             ViewBag.List = Core.UserManager.GetUsers(filter);
             ViewBag.Maps = Core.MapManager.GetMaps();
+            ViewBag.LayerList = new List<string>() { "标注","地籍宗地"};
             return View();
+        }
+        [HttpPost]
+        public ActionResult ImPower(int ID) {
+            List<string> Layers = new List<string>() { "标注","地籍宗地"};
+            List<Authority> list = Core.MapManager.ImPower(Layers);
+            try
+            {
+                Core.MapManager.UpdateAuthority(list, ID);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("更新授权表的时候发生错误："+ex.ToString());
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

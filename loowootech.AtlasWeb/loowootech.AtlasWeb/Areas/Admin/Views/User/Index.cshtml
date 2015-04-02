@@ -6,6 +6,7 @@
     int SerialNumber = 1;
     List<loowootech.AtlasWeb.Models.User> list = ViewBag.List;
     List<loowootech.AtlasWeb.Models.Map> Maps = ViewBag.Maps;
+    List<string> LayerList = ViewBag.LayerList;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -190,8 +191,28 @@
                                             <h4 class="modal-title">@(item.Name)-权限管理</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form name="AuthoritySubmit" method="post" action="" class="form-horizontal">
-                                                
+                                            <form name="AuthoritySubmit" method="post" action="/Admin/User/ImPower" class="form-horizontal">
+                                                @foreach (var Layer in LayerList)
+                                                {
+                                                    <div class="form-group">
+                                                        <label for="@Layer" class="col-lg-2 control-label">@Layer</label>
+                                                        <div class="col-lg-4">
+                                                            <select name="Jurisdiction-@Layer" class="form-control">
+                                                                @foreach (Jurisdiction jur in Enum.GetValues(typeof(Jurisdiction)))
+                                                                {
+                                                                    var value = (int)jur;
+                                                                    <option value="@value">@(jur.GetDescription())</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <input type="text" name="ID" value="@(item.ID)" style="display:none" />
+                                                <div class="form-group">
+                                                    <div class="col-lg-10 col-lg-offset-2">
+                                                        <input type="submit" value="授权" class="btn btn-success" />
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
