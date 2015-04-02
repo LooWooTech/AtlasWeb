@@ -11,9 +11,24 @@ namespace loowootech.AtlasWeb.Helper
         private static string[] Type = new string[] {".jpg",".png",".gif",".jpeg",".bmp" };
 
         private static string UploadDirectory = "img/Data/";
+        private static string TopicDirectory = "img/Topics/";
 
         public static string GetAbsoluteDirectory(string Layer, int ID) {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UploadDirectory, Layer, ID.ToString());
+        }
+
+        public static string GetAbsolutePath(string Name)
+        {
+            return Path.Combine(TopicDirectory, Name);
+        }
+
+        public static bool IsPostFile(this HttpContextBase context)
+        {
+            if (context.Request.Files.Count == 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         public static HttpPostedFileBase GetPostFile(this HttpContextBase context) {
@@ -33,13 +48,15 @@ namespace loowootech.AtlasWeb.Helper
         public static bool VerificationByExt(string File) {
             var ext = Path.GetExtension(File).ToLower();
             return Type.Contains(ext);
-            //if (!Type.Contains(ext))
-            //{
-            //    return false;
-            //}
-            //return true;
         }
 
+        /// <summary>
+        /// 用户保存图层上传图片
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="Layer"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public static string Upload(this HttpPostedFileBase file,string Layer,int ID) {
             var ext = Path.GetExtension(file.FileName);
             var fileName = file.FileName.Replace(ext, "") + "-" + DateTime.Now.Ticks.ToString() + ext;
@@ -54,6 +71,31 @@ namespace loowootech.AtlasWeb.Helper
             file.SaveAs(filePath);
             return filePath;
         }
+
+        /// <summary>
+        /// 用户上传保存专题图的图片
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static string UploadByMap(this HttpPostedFileBase file)
+        {
+            var ext = Path.GetExtension(file.FileName);
+            var fileName = file.FileName.Replace(ext, "") + "-" + DateTime.Now.Ticks.ToString() + ext;
+            if (fileName.Length > 100)
+            {
+                fileName = fileName.Substring(fileName.Length - 100);
+            }
+            string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TopicDirectory);
+            if (Directory.Exists(dir) == false)
+            {
+                Directory.CreateDirectory(dir);
+            }
+            string filePath = Path.Combine(dir,fileName);
+            file.SaveAs(filePath);
+            return GetAbsolutePath(fileName);
+        }
+
+
 
         public static List<string> GetPictures(string Layer,int ID) {
             string SourcePath = GetAbsoluteDirectory(Layer, ID);

@@ -165,5 +165,18 @@ namespace loowootech.AtlasWeb.Manager
             }
             return true;
         }
+
+        public void UpDateByMaps(int ID, string maps)
+        {
+            using (var db = GetAtlasContext())
+            {
+                var user = db.Users.Find(ID);
+                if (user != null)
+                {
+                    user.Maps = maps;
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

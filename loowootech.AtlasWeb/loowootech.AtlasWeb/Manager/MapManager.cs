@@ -43,6 +43,10 @@ namespace loowootech.AtlasWeb.Manager
         }
 
         public Dictionary<string,List<Map[]>> GetGroupMap(List<Map> maps) {
+            if (maps.Count == 0)
+            {
+                return new Dictionary<string, List<Map[]>>();
+            }
             List<string> groups = maps.GroupBy(e => e.Group).Select(g => g.Key).ToList();
             Dictionary<string, List<Map[]>> DictMap = new Dictionary<string, List<Map[]>>();
             foreach (var key in groups)
@@ -73,54 +77,110 @@ namespace loowootech.AtlasWeb.Manager
             return DictMap;
         }
 
-        //public List<Map[]> GetTypeMap(List<Map> maps, MapType Type) {
-        //    var list = maps.Where(e => e.Type == Type).ToList();
-        //    int count = list.Count;
-        //    List<Map[]> MapList = new List<Map[]>();
-        //    Map[] temp = null;
-        //    for (var i = 0; i < count; i++) {
-        //        if (i % 3 == 0) {
-        //            if (temp != null) {
-        //                MapList.Add(temp);
-        //            }
-        //            temp=new Map[3];
-        //        }
-        //        temp[i%3]=list[i];
-        //    }
-        //    if (temp != null) {
-        //        MapList.Add(temp);
-        //    }
-        //    return MapList;
-        //}
-
-
         public List<Map> GetMapsByAuthority(int UserID)
         {
-            //var current = AuthUtility.GetCurrentUser(context);
             var user = Core.UserManager.GetUser(UserID);
             if (user == null) {
                 throw new ArgumentException("未找到相关用户信息");
             }
-            string str = user.Maps;
-            if (string.IsNullOrEmpty(str)) {
-                return null;
-            }
-            string[] Arrmaps = str.Split(',');
             List<Map> list = new List<Map>();
-            int ID = 0;
-            using (var db = GetAtlasContext()) {
-                foreach (var item in Arrmaps) {
-                    if (int.TryParse(item, out ID)) {
-                        var map = db.Maps.Find(ID);
-                        if (map != null)
-                        {
-                            list.Add(map);
-                        }
-                    }
-                    
+            if (user.Group == Group.Admin)
+            {
+                using (var db = GetAtlasContext())
+                {
+                    list = db.Maps.ToList();
                 }
             }
+            else
+            {
+                string str = user.Maps;
+                if (string.IsNullOrEmpty(str))
+                {
+                    return new List<Map>();
+                }
+                string[] Arrmaps = str.Split(',');
+                str = string.Empty;
+
+                int ID = 0;
+                using (var db = GetAtlasContext())
+                {
+                    foreach (var item in Arrmaps)
+                    {
+                        if (int.TryParse(item, out ID))
+                        {
+                            var map = db.Maps.Find(ID);
+                            if (map != null)
+                            {
+                                list.Add(map);
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    str = item;
+                                }
+                                else
+                                {
+                                    str += "," + item;
+                                }
+                            }
+                        }
+
+                    }
+                }
+                Core.UserManager.UpDateByMaps(UserID,str);
+
+            }
+            
+          
             return list;
+
+        }
+
+        public bool Verification(string Name) {
+            using (var db = GetAtlasContext())
+            {
+                var map = db.Maps.FirstOrDefault(e => e.Name.ToLower() == Name.ToLower());
+                if (map != null)
+                {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        }
+
+        public void Add(Map map) {
+            using (var db = GetAtlasContext()) {
+                db.Maps.Add(map);
+                db.SaveChanges();
+            }
+        }
+
+
+        public void Delete(int ID) {
+            using (var db = GetAtlasContext())
+            {
+                var map = db.Maps.Find(ID);
+                if (map == null) {
+                    throw new ArgumentException("未找到相关专题图信息"); 
+                }
+                db.Maps.Remove(map);
+                db.SaveChanges();
+            }
+        }
+
+
+        public void ChangeImage(int ID, string Image)
+        {
+            using (var db = GetAtlasContext())
+            {
+                var map = db.Maps.Find(ID);
+                if (map == null)
+                {
+                    throw new ArgumentException("未找到相关专题图信息");
+                }
+                map.Image = Image;
+                db.SaveChanges();
+            }
 
         }
 

@@ -141,7 +141,6 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\FeatureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\PictureController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -313,7 +312,7 @@
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Views\Feature\Add.cshtml" />
     <Content Include="Views\Feature\Edit.cshtml" />
-    <Content Include="Views\Manager\Index.cshtml" />
+    <Content Include="Views\Map\Manager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

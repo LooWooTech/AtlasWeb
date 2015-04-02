@@ -28,8 +28,21 @@
    用于添加用户时，去除输入框中正确或者错误标志
    */
 function Clear(ID) {
-    $("#" + ID + "_group").removeClass("has-error").removeClass("has-success");
-    $("#" + ID + "_label").removeClass("glyphicon-remove").removeClass("glyphicon-ok");
+    if ($("#" + ID + "_group").hasClass("has-error")) {
+        $("#" + ID + "_group").removeClass("has-error");
+    }
+    if ($("#" + ID + "_group").hasClass("has-success")) {
+        $("#" + ID + "_group").removeClass("has-success");
+    }
+
+
+    if ($("#" + ID + "_label").hasClass("glyphicon-remove")) {
+        $("#" + ID + "_label").removeClass("glyphicon-remove");
+    }
+
+    if ($("#" + ID + "_label").hasClass("glyphicon-ok")) {
+        $("#" + ID + "_label").removeClass("glyphicon-ok");
+    }
 }
 /*
 用于输入正确时，显示正确标志
@@ -65,6 +78,7 @@ function VerificationByName(Name) {
     xmlhttp.open("GET", "/Admin/User/Verification?Name=" + Name, false);
     xmlhttp.send();
 }
+
 
 function VerificationByPassword(Password) {
     var xmlhttp;

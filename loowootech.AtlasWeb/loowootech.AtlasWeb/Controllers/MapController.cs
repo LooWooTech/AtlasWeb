@@ -1,4 +1,5 @@
-﻿using loowootech.AtlasWeb.Models;
+﻿using loowootech.AtlasWeb.Helper;
+using loowootech.AtlasWeb.Models;
 using loowootech.AtlasWeb.Web;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace loowootech.AtlasWeb.Controllers
             ViewBag.ArcGISServerHost = System.Configuration.ConfigurationManager.AppSettings["ARCGIS_SERVER_HOST"] ?? Request.Url.Host;
             ViewBag.Group = Identity.Group;
             var list = Core.MapManager.GetMapsByAuthority(Identity.UserID);
-            ViewBag.Dictionary = Core.MapManager.GetGroupMap(list);
+            ViewBag.Dictionary = Core.MapManager.GetGroupMap(list);            
             return View();
         }
         public ActionResult TopicMap(int ID)
@@ -45,5 +46,80 @@ namespace loowootech.AtlasWeb.Controllers
             }
         }
 
+        public ActionResult Manager() {
+            ViewBag.MapList = Core.MapManager.GetMapsByAuthority(Identity.UserID);
+            return View();
+        }
+
+
+        [HttpGet]
+        public string Verification(string Name)
+        {
+            if (!Core.MapManager.Verification(Name))
+            {
+                return "该专题图名称已经存在了";
+            }
+            return "你可以添加该专题图";
+        }
+
+
+        [HttpPost]
+        public ActionResult Add(Map map) {
+            string image = null;
+            if (Picture.IsPostFile(HttpContext)) {
+                var file = Picture.GetPostFile(HttpContext);
+                if (!Picture.VerificationByExt(file.FileName))
+                {
+                    throw new ArgumentException("目前不支持上传该格式图片");
+                }
+                image="/"+Picture.UploadByMap(file);
+            }
+
+            map.Image = image;
+            try
+            {
+                Core.MapManager.Add(map);
+            }
+            catch (Exception ex) {
+                throw new ArgumentException("添加专题图时发生错误，错误原因："+ex.ToString());
+            }
+            return RedirectToAction("Manager");
+        }
+
+
+        public ActionResult Delete(int ID) {
+            try {
+                Core.MapManager.Delete(ID);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("在删除专题图的时候 发生错误："+ex.ToString());
+            }
+            return RedirectToAction("Manager");
+        }
+
+
+        [HttpPost]
+        public ActionResult ChangePicture(int ID)
+        {
+            if (Picture.IsPostFile(HttpContext))
+            {
+                string image = string.Empty;
+                var file = Picture.GetPostFile(HttpContext);
+                if (!Picture.VerificationByExt(file.FileName))
+                {
+                    throw new ArgumentException("目前不支持上传该格式图片");
+                }
+                image = "/" + Picture.UploadByMap(file);
+                try {
+                    Core.MapManager.ChangeImage(ID,image);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("更改图片显示的时候 发生错误："+ex.ToString());
+                }
+            }
+            return RedirectToAction("Manager");
+        }
     }
 }

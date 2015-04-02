@@ -34,6 +34,7 @@ namespace loowootech.AtlasWeb.Controllers
         {
             ViewBag.Controller = RouteData.Values["controller"];
             ViewBag.Action = RouteData.Values["action"];
+            ViewBag.Group = Identity.Group;
             base.OnActionExecuting(filterContext);
         }
 

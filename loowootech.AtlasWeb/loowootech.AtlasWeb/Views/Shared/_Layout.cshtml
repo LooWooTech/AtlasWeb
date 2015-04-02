@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using loowootech.AtlasWeb.Models;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -69,8 +70,13 @@
         <div class="dropdown" style="float:left;color:#fefefe;padding-top:30px;">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top:50px;padding-top:10px;"><i class="glyphicon glyphicon-wrench"></i>设置<b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
+                @if (ViewBag.Group == Group.Admin) { 
+                    <li>
+                        <a href="/Admin/User/Index">用户管理</a>
+                    </li>
+                }
                 <li>
-                    <a href="/Manager/Index">管理</a>
+                    <a href="/Map/Manager">专题管理</a>
                 </li>
                 <li>
                     <a href="/User/ChangeCode">密码修改</a>

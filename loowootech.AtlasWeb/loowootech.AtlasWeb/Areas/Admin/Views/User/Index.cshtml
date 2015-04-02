@@ -95,15 +95,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-                <a href="/Admin/Map/Manager" class="btn btn-xlarge btn-primary" style="float:left;">
-                    专题图管理
-                </a>
-
-   
             </div>
             <table class="table table-bordered">
                 <tr>
@@ -210,7 +201,10 @@
                         </td>
                         <td>@(item.Group.GetDescription())</td>
                         <td>
-                            <a href="/Admin/User/Delete?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>&nbsp;删除</a>
+                            @if (item.Group != Group.Admin) { 
+                                <a href="/Admin/User/Delete?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>&nbsp;删除</a>
+                            }
+                            
                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#Edit@(item.ID)"><i class="glyphicon glyphicon-edit"></i>&nbsp;编辑</button>
                             <div class="modal fade" id="Edit@(item.ID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">

@@ -1,0 +1,259 @@
+﻿@using loowootech.AtlasWeb.Models;
+@using loowootech.AtlasWeb.Helper;
+@{
+    ViewBag.Title = "管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int SerialNumber1 = 1;
+    List<loowootech.AtlasWeb.Models.Map> MapList = ViewBag.MapList;
+}
+
+
+<div class="container" style="text-align:left;">
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title" style="float:left;">专题图管理</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @if (ViewBag.Group == Group.Admin)
+                {
+                     <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#AddMap" style="float:left;">
+                         添加专题图
+                    </button>
+                    <div class="modal fade" id="AddMap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">添加专题图</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="Add-Map-Form" class="form-horizontal" enctype="multipart/form-data" method="post" action="/Map/Add">
+                                    <div class="form-group has-feedback" id="name_group">
+                                        <label for="Name" class="col-lg-2 control-label">名称</label>
+                                        <div class="col-lg-6">
+                                            <input id="Name" type="text" class="form-control" name="Name" placeholder="名称" aria-describedby="inputNameStatus" />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true" id="name_label"></span>
+                                            <span id="inputNameStatus" class="sr-only"></span>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div id="name_msg"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback" id="count_group">
+                                        <label for="Count" class="col-lg-2 control-label">包含地图数</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" name="Count" placeholder="个数" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback" id="js_group">
+                                        <label for="JavaScript" class="col-lg-2 control-label">JavaScript</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" id="JS" class="form-control" name="JavaScript" placeholder="js" aria-describedby="inputJsStatus" />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true" id="js_label"></span>
+                                            <span id="inputJsStatus" class="sr-only"></span>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div id="js_msg"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback" id="group_group">
+                                        <label for="Group" class="col-lg-2 control-label">所属组</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" name="Group" placeholder="组" aria-describedby="" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Image" class="col-lg-2 control-label">图片</label>
+                                        <div class="col-lg-6">
+                                            <input type="file" class="form-control" name="file" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback" id="Code_group">
+                                        <label for="Code" class="col-lg-2 control-label">验证码</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" name="Code" class="form-control" placeholder="验证码" aria-describedby="inputCodeStatus" />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true" id="Code_label"></span>
+                                            <span id="inputCodeStatus" class="sr-only"></span>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <img id="Code" src="/Home/Code" height="28" alt="验证码" title="点击刷新验证码" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-10 col-lg-offset-2">
+                                            <input type="submit" id="btn-submit" value="添加专题图" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+               
+                
+            </div>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th width="100px;">地图包含</th>
+                    <th width="100px;">JavaScript</th>
+                    <th width="100px;">所属组</th>
+                    <th width="150px;">显示图片</th>
+                    <th>管理</th>
+                </tr>
+                @foreach (var item in MapList)
+                {
+                    <tr>
+                        <td>@(SerialNumber1++)</td>
+                        <td>@(item.Name)</td>
+                        <td>@(item.Count)</td>
+                        <td>@(item.JavaScript)</td>
+                        <td>@(item.Group)</td>
+                        <td>
+                            <img src="@(item.Image)" style="height:150px;width:150px;" />
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#Map@(item.ID)"><i class="glyphicon glyphicon-picture"></i>&nbsp;更改图片</button>
+                            <div class="modal fade" id="Map@(item.ID)" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/Map/ChangePicture">
+                                                <div class="form-group">
+                                                    <label for="Image" class="col-lg-2">图片上传</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="file" class="form-control" name="file" />
+                                                    </div>
+                                                </div>
+
+                                                <input type="text" name="ID" value="@(item.ID)" style="display:none" />
+                                                <div class="form-group">
+                                                    <div class="col-lg-10 col-lg-offset-2">
+                                                        <input type="submit"  value="更改显示图片" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @if (ViewBag.Group == Group.Admin)
+                            {
+                               <a href="/Map/Delete?ID=@(item.ID)" class="btn btn-danger btn-xs">删除地图</a> 
+                            }
+                            
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>
+<script src="/Scripts/usermanager.js"></script>
+<script>
+    $(function () {
+        $("#JS").focus(function () {
+            $("#js_msg").html("");
+            if ($("#js_msg").hasClass("text-danger")) {
+                $("#js_msg").removeClass("text-danger");
+            }
+            Clear("js");
+            $("#inputJsStatus").html("");
+        }).blur(function () {
+            var js = $(this).val();
+            if (js == "js" || js == "" || js == undefined || js == null) {
+                $("#js_msg").html("js文件不能为空").addClass("text-danger");
+                Error("js");
+                return false;
+            }
+        })
+
+
+        $("#Name").focus(function () {
+            $("#name_msg").html("");
+
+            if ($("#name_msg").hasClass("text-danger")) {
+                $("#name_msg").removeClass("text-danger");
+            }
+
+            if ($("#name_msg").hasClass("text-success")) {
+                $("#name_msg").removeClass("text-success");
+            }
+            Clear("name");
+           // Clear("Name");
+            $("#inputNameStatus").html("");
+        }).blur(function () {
+            var name = $(this).val();
+            if (name == "名称" || name == "" || name == undefined || name == null) {
+                $("#name_msg").html("专题图名称不能为空").addClass("text-danger");
+                Error("name");
+                return false;
+            }
+            VerificationMapByName(name);
+            var values = $("name_msg").text();
+            if (values.toLowerCase() == "该专题图名称已经存在了".toLowerCase()) {
+                $("#name_msg").addClass("text-danger");
+                Error("name");
+            } else {
+                $("#name_msg").addClass("text-success");
+                Success("name");
+            }
+        })
+
+        $("#Add-Map-Form").submit(function () {
+            var code = $("[name=Code]").val();
+            if ($.cookie("Code")) {
+                if (code.toLowerCase() != $.cookie("Code").toLowerCase()) {
+                    alert("输入的验证码不正确");
+                    return false;
+                }
+            } else {
+                alert("验证码失效，请刷新网页");
+                return false;
+            }
+            return true;
+
+        })
+
+        $(".btn-danger").click(function () {
+            if (confirm("你确定要删除该专题图吗？")) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+    })
+
+
+
+    function VerificationMapByName(Name) {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("name_msg").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "/Map/Verification?Name=" + Name, false);
+        xmlhttp.send();
+    }
+</script>
+
+
+
+
+
