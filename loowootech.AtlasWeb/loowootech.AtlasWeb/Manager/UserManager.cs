@@ -59,7 +59,7 @@ namespace loowootech.AtlasWeb.Manager
         {
             using (var db = GetAtlasContext())
             {
-                var query = db.Users.Where(e => e.IsDelete == false).AsQueryable();
+                var query = db.Users.Where(e => e.IsDelete == false&&e.Name.ToLower()!="admin".ToLower()).AsQueryable();
                 switch (Filter.Group)
                 {
                     case GroupFilter.Admin:

@@ -68,11 +68,15 @@ namespace loowootech.AtlasWeb.Controllers
             string image = null;
             if (Picture.IsPostFile(HttpContext)) {
                 var file = Picture.GetPostFile(HttpContext);
-                if (!Picture.VerificationByExt(file.FileName))
+                if (file.ContentLength>0)
                 {
-                    throw new ArgumentException("目前不支持上传该格式图片");
+                    if (!Picture.VerificationByExt(file.FileName))
+                    {
+                        throw new ArgumentException("目前不支持上传该格式图片");
+                    }
+                    image = "/" + Picture.UploadByMap(file);
                 }
-                image="/"+Picture.UploadByMap(file);
+              
             }
 
             map.Image = image;

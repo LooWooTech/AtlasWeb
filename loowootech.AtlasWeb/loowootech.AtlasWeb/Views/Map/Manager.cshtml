@@ -198,7 +198,7 @@
                 Error("name");
                 return false;
             }
-            VerificationMapByName(name);
+           // VerificationMapByName(name);
             var values = $("#name_msg").text();
             if (values.toLowerCase() == "该专题图名称已经存在了".toLowerCase()) {
                 $("#name_msg").addClass("text-danger");
@@ -218,6 +218,18 @@
                 }
             } else {
                 alert("验证码失效，请刷新网页");
+                return false;
+            }
+            var name = $("#Name").val();
+            if (name == "" || name == undefined || name == "名称" || name == null) {
+                $("#name_msg").html("专题图名称不能为空").addClass("text-danger");
+                Error("name");
+                return false;
+            }
+            var js = $("#JS").val();
+            if (js == "" || js == undefined || js == "js" || js == null) {
+                $("#js_msg").html("js文件不能为空").addClass("text-danger");
+                Error("js");
                 return false;
             }
             return true;
