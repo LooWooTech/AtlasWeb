@@ -189,7 +189,7 @@
                 $("#name_msg").removeClass("text-success");
             }
             Clear("name");
-           // Clear("Name");
+           
             $("#inputNameStatus").html("");
         }).blur(function () {
             var name = $(this).val();
@@ -199,7 +199,7 @@
                 return false;
             }
             VerificationMapByName(name);
-            var values = $("name_msg").text();
+            var values = $("#name_msg").text();
             if (values.toLowerCase() == "该专题图名称已经存在了".toLowerCase()) {
                 $("#name_msg").addClass("text-danger");
                 Error("name");
