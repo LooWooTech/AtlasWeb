@@ -12,7 +12,7 @@ namespace loowootech.AtlasWeb.Controllers
     public class FeatureController : ControllerBase
     {
         [HttpGet]
-        public ActionResult Add(string LayerName) 
+        public ActionResult Add(string LayerName,double X=0.0,double Y=0.0) 
         {
             if (string.IsNullOrEmpty(LayerName))
             {
@@ -20,32 +20,62 @@ namespace loowootech.AtlasWeb.Controllers
             }
             ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
             ViewBag.LayerName = LayerName;
+            ViewBag.X = X;
+            ViewBag.Y = Y;
+            if (Math.Abs(X - 0) < 0.01 && Math.Abs(Y - 0) < 0.01)
+            {
+                ViewBag.Flag = true;
+            }
+            else
+            {
+                ViewBag.Flag = false;
+            }
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Add() 
+        public ActionResult Add(double X,double Y) 
         {
+            string Error = string.Empty;
             var layerName = HttpContext.Request.Form["LayerName"].ToString();
             Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues(layerName);
-            var file = UploadHelper.GetPostedFile(HttpContext);
-            var filePath = UploadHelper.Upload(file);
-            var fileID = UploadHelper.AddFileEntity(new UploadFile
+            if (Math.Abs(X - 0) < 0.01 && Math.Abs(Y - 0) < 0.01)
             {
-                FileName = file.FileName,
-                LayerName = layerName
-            });
-            Core.FeatureManager.CreateFeature(filePath, values, layerName);
-            //if (!UploadHelper.Verficicate(HttpContext))
-            //{
-               
-            //}
-            //else { 
-            //    throw new ArgumentException("文件没有上传，请上传文件");
-            //}
-            //Core.FeatureManager.CreateFeature(,values,layerName);
-            return View();
+                var file = UploadHelper.GetPostedFile(HttpContext);
+                var filePath = UploadHelper.Upload(file);
+                var fileID = UploadHelper.AddFileEntity(new UploadFile
+                {
+                    FileName = file.FileName,
+                    LayerName = layerName
+                });
+                try
+                {
+                    Core.FeatureManager.CreateFeature(filePath, values, layerName);
+                }
+                catch (Exception ex)
+                {
+                    Error = ex.ToString();
+                }
+            }
+            else
+            {
+                try
+                {
+                    Core.FeatureManager.CreateFeature(X, Y, values, layerName);
+                }
+                catch (Exception ex)
+                {
+                    Error = ex.ToString();
+                }
+            }
+            if (string.IsNullOrEmpty(Error))
+            {
+                return JsonSuccess();
+            }
+            else {
+                return JsonFail(Error);
+            }
         }
 
 
@@ -96,6 +126,59 @@ namespace loowootech.AtlasWeb.Controllers
                 return JsonSuccess("true");
             }
             return JsonFail(Error);
+        }
+
+
+        public ActionResult Delete(string LayerName, int ID) 
+        {
+            if (string.IsNullOrEmpty(LayerName)) 
+            {
+                throw new ArgumentException("传入参数LayerName未null或空!");
+            }
+            ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
+            ViewBag.FeatureValues = Core.FeatureManager.GetFeatureValues(LayerName,ID);
+            ViewBag.LayerName = LayerName;
+            ViewBag.ID = ID;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Detete() {
+            string Error = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Request.Form["ID"]) && !string.IsNullOrEmpty(HttpContext.Request.Form["LayerName"]))
+            {
+                string LayerName = HttpContext.Request.Form["LayerName"].ToString();
+                string str = HttpContext.Request.Form["ID"].ToString();
+                int ID = 0;
+                if (int.TryParse(str, out ID))
+                {
+                    try
+                    {
+                        Core.FeatureManager.DeleteFeature(ID,LayerName);
+                    }
+                    catch (Exception ex)
+                    {
+                        Error = ex.ToString();
+                    }
+                }
+                else
+                {
+                    Error = "无法获取ID信息";
+                }
+               
+            }
+            else
+            {
+                Error = "未获取相关参数信息";
+            }
+            if (string.IsNullOrEmpty(Error))
+            {
+                return JsonSuccess();
+            }
+            else
+            {
+                return JsonFail(Error);
+            }
         }
 
 

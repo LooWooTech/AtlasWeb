@@ -73,6 +73,9 @@
       <HintPath>..\..\..\..\..\Program Files (x86)\ArcGIS\DotNet\ESRI.ArcGIS.System.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="netDxf">
+      <HintPath>..\packages\netDXF.0.9.3\lib\netDxf.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -324,6 +327,7 @@
     <Content Include="Views\Feature\Add.cshtml" />
     <Content Include="Views\Feature\Edit.cshtml" />
     <Content Include="Views\Map\Manager.cshtml" />
+    <Content Include="Views\Feature\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -336,12 +340,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\netDxf\netDxf.csproj">
-      <Project>{785380e0-ceb9-4c34-82e5-60d0e33e848e}</Project>
-      <Name>netDxf</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

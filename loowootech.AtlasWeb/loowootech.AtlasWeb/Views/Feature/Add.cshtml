@@ -19,13 +19,19 @@
 </head>
 <body>
     <div class="container">
-        <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/Feature/Add">
-            <div class="form-group">
-                <label for="File" class="col-lg-2 control-label">文件上传</label>
-                <div class="col-lg-3">
-                    <input type="file" name="file" class="form-control" />
-                </div>
-            </div>
+        <form class="form-horizontal" method="post" enctype="multipart/form-data" id="Feature-Add">
+            @if (ViewBag.Flag)
+            {
+               <div class="form-group">
+                    <label for="File" class="col-lg-2 control-label">文件上传</label>
+                    <div class="col-lg-3">
+                        <input type="file" name="file" class="form-control" />
+                    </div>
+                </div> 
+            }
+            
+            <input type="text" name="X" value="@ViewBag.X" style="display:none;" />
+            <input type="text" name="Y" value="@ViewBag.Y" style="display:none;" />
             @foreach (var item in fieldlist)
             {
                 <div class="form-group">
@@ -101,6 +107,18 @@
                 $(this).val("");
             }
 
+        });
+
+        $("#Feature-Add").submit(function () {
+            var data = $(this).serialize();
+            $.post("/Feature/Add", data, function (json) {
+                var obj = JSON.parse(json);
+                if (obj.result) {
+                    alert("添加成功");
+                } else {
+                    alert(obj.message);
+                }
+            });
         });
     })
 </script>
