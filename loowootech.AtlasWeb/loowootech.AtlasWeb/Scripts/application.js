@@ -186,7 +186,11 @@ MapApplication.prototype.toggleMap = function (index) {
                         var lyr = that.layers[ids[i]];
                         if (lyr !== undefined) {
 
-                            option.value = lyr.id;
+                            if (editable === true) {
+                                option.value = lyr.name;
+                            } else {
+                                option.value = lyr.id;
+                            }
                             option.text = lyr.name;
                             try {
                                 select.add(option, null);

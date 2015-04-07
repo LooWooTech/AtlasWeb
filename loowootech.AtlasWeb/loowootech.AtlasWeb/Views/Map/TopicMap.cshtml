@@ -83,8 +83,8 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right" style="margin-right:20px">
-                    <li class="tool-item"><a href="#"><span class="glyphicon glyphicon-send"></span>&nbsp;浏览</a></li>
-                    <li class="tool-item"><a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;点选</a></li>
+                    <li class="tool-item"><a href="#"><span class="glyphicon glyphicon-resize-horizontal"></span>&nbsp;专题切换</a></li>
+                    <!--<li class="tool-item"><a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;点选</a></li>
                     <li class="tool-item"><a href="#"><span class="glyphicon glyphicon-info-road"></span>&nbsp;全景</a></li>
 
                     <li class="tool-item"><a href="#"><span class="glyphicon glyphicon-resize-horizontal"></span>&nbsp;测量</a></li>
@@ -108,7 +108,7 @@
                             <li class="divider">-</li>
                             <li><a href="Index.aspx">专题选择页面</a></li>
                         </ul>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -141,7 +141,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">地块导入</h4>
+                        <h4 class="modal-title" id="addModalLabel">地块导入</h4>
                     </div>
                     <div class="modal-body">
                         <iframe id="addFrame" style="zoom: 0.6; width: 100%; height: 800px" src="" frameborder="0" ></iframe>
@@ -350,13 +350,17 @@
                     <span class="mapTitle"></span>
                     <div class="mapTools">
                         <ul class="nav">
-                            <li><a href="javascript:void(0)" class="globeButton"><span class="glyphicon glyphicon-globe"></span>全图</a></li>
-                            <li><a href="javascript:void(0)" class="legendButton"><span class="glyphicon glyphicon-list"></span>图例</a></li>
+                            
+                            
+                            <li><a href="javascript:void(0)" class="pointerButton"><span class="glyphicon glyphicon-send">浏览</span></a></li>
                             <li><a href="javascript:void(0)" class="identifyButton"><span class="glyphicon glyphicon-info-sign">点选</span></a></li>
+                            <li><a href="javascript:void(0)" class="globeButton"><span class="glyphicon glyphicon-globe"></span>全图</a></li>
                             <li><a href="javascript:void(0)" class="searchButton"><span class="glyphicon glyphicon-search"></span>查询</a></li>
                             <li><a href="javascript:void(0)" class="addButton"><span class="glyphicon glyphicon-plus"></span>添加</a></li>
-                            <li><a href="javascript:void(0)" class="measureButton"><span class="glyphicon glyphicon-retweet"></span>量算</a></li>
+                            <li><a href="javascript:void(0)" class="annoButton"><span class="glyphicon glyphicon-plus"></span>标注</a></li>
+                            <li><a href="javascript:void(0)" class="measureButton"><span class="glyphicon glyphicon-retweet"></span>测量</a></li>
                             <li><a href="javascript:void(0)" class="layerButton"><span class="glyphicon glyphicon-th-list"></span>图层</a></li>
+                            <li><a href="javascript:void(0)" class="legendButton"><span class="glyphicon glyphicon-list"></span>图例</a></li>
                             <li><a href="javascript:void(0)" class="closeButton"><span class="glyphicon glyphicon-remove"></span>关闭</a></li>
                         </ul>
                     </div>

@@ -304,12 +304,12 @@ MapWrapper.prototype._initLayerTree = function () {
                 $tdList.eq(1).html("<div class='translider' data-node-id='" + node.data.id + "' " + frag + "></div>");
 
                 $tdList.eq(2).html("<input type='checkbox' class='lyrCheck' data-node-id='" + node.data.id + "' " + frag2 + " id='lyrCheck" + node.data.id + "'>");
-                $tdList.eq(3).html("<a href='javascript:void(0)' class='btn btn-info btn-xs lyrUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-triangle-bottom'></span>&nbsp;</a>" +
-                                   "<a href='javascript:void(0)' class='btn btn-info btn-xs lyrDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-triangle-top'></span>&nbsp;</a>")
+                $tdList.eq(3).html("<div class='btn-group'><a href='javascript:void(0)' class='btn btn-info btn-xs lyrUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-up'></span>&nbsp;</a>" +
+                                   "<a href='javascript:void(0)' class='btn btn-info btn-xs lyrDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-down'></span>&nbsp;</a></div>")
             } else {
                 $tdList.eq(2).html("<input type='checkbox' class='lyrGroupCheck' data-node-id='" + node.data.id + "' " + frag2 + " id='lyrGroupCheck" + node.data.id + "'>");
-                $tdList.eq(3).html("<a href='javascript:void(0)' class='btn btn-info btn-xs lyrGroupUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-triangle-bottom'></span>&nbsp;</a>"+
-                                   "<a href='javascript:void(0)' class='btn btn-info btn-xs lyrGroupDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-triangle-top'></span>&nbsp;</a>")
+                $tdList.eq(3).html("<div class='btn-group'><a href='javascript:void(0)' class='btn btn-info btn-xs lyrGroupUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-up'></span>&nbsp;</a>" +
+                                   "<a href='javascript:void(0)' class='btn btn-info btn-xs lyrGroupDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-down'></span>&nbsp;</a></div>")
 
             }
 
@@ -462,10 +462,12 @@ MapWrapper.prototype.init = function () {
 
             var measureSpan = query(".measureButton", div);
             var identifySpan = query(".identifyButton", div);
-
+            var pointerSpan = query(".pointerButton", div);
+            var annoSpan = query(".annoButton", div);
             var addSpan = query(".addButton", div);
+
             addSpan.on("click", function () {
-                that.application.bindCmbLayer(that, "cmbLayer2");
+                that.application.bindCmbLayer(that, "cmbLayer2", true);
                 var selectBtn = query(".btnOK", "selectModal");
                 var handler = selectBtn.on("click", function () {
                     handler.remove();                    
@@ -476,7 +478,7 @@ MapWrapper.prototype.init = function () {
                     }
                     $("#selectModal").modal('hide');
                     var layerId = cmbLayer.options[cmbLayer.selectedIndex].value;
-
+                    $("#addModalLabel").html("地块导入：" + cmbLayer.options[cmbLayer.selectedIndex].text);
                     $("#addFrame").attr("src", "/Feature/Add?LayerName=" + layerId);
                     $('#addModal').modal();
                 })
@@ -484,15 +486,33 @@ MapWrapper.prototype.init = function () {
                 $("#selectModal").modal();
             })
 
+            pointerSpan.on("click", function () {
+                if (pointerSpan[0].attributes["class"].value === "pointerButton") {
+                    pointerSpan[0].setAttribute("class", "pointerButton checkedTool")
+                    that.disableIdentify();
+                    identifySpan[0].setAttribute("class", "identifyButton")
+                    that.disableMeasure();
+                    annoSpan[0].setAttribute("class", "annoButton")
+                    that.disableAnnotate();
+                    measureSpan[0].setAttribute("class", "measureButton");
+                } else {
+                    pointerSpan[0].setAttribute("class", "pointerButton")
+                }
+
+            });
+
             measureSpan.on("click", function () {
                 if (measureSpan[0].attributes["class"].value === "measureButton") {
                     that.enableMeasure();
-                    measureSpan[0].setAttribute("class", "measureButton checkedTool")
+                    measureSpan[0].setAttribute("class", "measureButton checkedTool");
                     that.disableIdentify();
-                    identifySpan[0].setAttribute("class", "identifyButton")
+                    identifySpan[0].setAttribute("class", "identifyButton");
+                    that.disableAnnotate();
+                    annoSpan[0].setAttribute("class", "annoButton")
+                    pointerSpan[0].setAttribute("class", "pointerButton");
                 } else {
                     that.disableMeasure();
-                    measureSpan[0].setAttribute("class", "measureButton")
+                    measureSpan[0].setAttribute("class", "measureButton");
                 }
 
             });
@@ -503,6 +523,10 @@ MapWrapper.prototype.init = function () {
                     identifySpan[0].setAttribute("class", "identifyButton checkedTool")
                     that.disableMeasure();
                     measureSpan[0].setAttribute("class", "measureButton");
+                    that.disableAnnotate();
+                    annoSpan[0].setAttribute("class", "annoButton")
+                    pointerSpan[0].setAttribute("class", "pointerButton");
+
                 } else {
                     that.disableIdentify();
                     identifySpan[0].setAttribute("class", "identifyButton")
@@ -510,6 +534,20 @@ MapWrapper.prototype.init = function () {
                 
             });
 
+            annoSpan.on("click", function () {
+                if (annoSpan[0].attributes["class"].value === "annoButton") {
+                    that.enableAnnotate();
+                    annoSpan[0].setAttribute("class", "annoButton checkedTool")
+                    that.disableIdentify();
+                    identifySpan[0].setAttribute("class", "identifyButton")
+                    that.disableMeasure();
+                    measureSpan[0].setAttribute("class", "measureButton");
+                    pointerSpan[0].setAttribute("class", "pointerButton");
+                } else {
+                    that.disableAnnotate();
+                    annoSpan[0].setAttribute("class", "annoButton")
+                }
+            });
             
 
             that.popup = new Popup({
@@ -583,8 +621,9 @@ MapWrapper.prototype.init = function () {
        "esri/renderers/SimpleRenderer",
        "esri/layers/LabelClass",
        "esri/symbols/PictureMarkerSymbol",
+       "esri/layers/LabelLayer",
        "esri/symbols/TextSymbol"],
-       function (tiledLayer, featureLayer, SimpleFillSymbol, SimpleLineSymbol, Color, SimpleRenderer, LabelClass, PictureMarkerSymbol, TextSymbol) {
+       function (tiledLayer, featureLayer, SimpleFillSymbol, SimpleLineSymbol, Color, SimpleRenderer, LabelClass, PictureMarkerSymbol, LabelLayer, TextSymbol) {
            
            var arr = [];
            for (var i = 0; i < that.mapSet.Categories.length; i++) {
@@ -592,7 +631,9 @@ MapWrapper.prototype.init = function () {
                for (var j = 0; j < category.Layers.length; j++) {
                    var layerinfo = category.Layers[j];
                    that.layerinfoDict[layerinfo.Id] = layerinfo;
-                   arr.push(that._addLayer(layerinfo, tiledLayer, featureLayer, { lineSymbol: SimpleLineSymbol, fillSymbol: SimpleFillSymbol, color: Color, renderer: SimpleRenderer, labelClass: LabelClass, pictureMarkerSymbol: PictureMarkerSymbol, textSymbol:TextSymbol }));
+                   var lyr = that._addLayer(layerinfo, tiledLayer, featureLayer, { lineSymbol: SimpleLineSymbol, fillSymbol: SimpleFillSymbol, color: Color, renderer: SimpleRenderer, labelClass: LabelClass, pictureMarkerSymbol: PictureMarkerSymbol, textSymbol: TextSymbol, labelLayer:LabelLayer });
+                   arr.push(lyr);
+                   if (lyr.labelLayer !== undefined) arr.push(lyr.labelLayer);
                }
            }
            that.map.addLayers(arr);
@@ -615,15 +656,34 @@ MapWrapper.prototype._addLayer = function(layerinfo, tiledLayer, featureLayer, l
 // 添加标注层
 MapWrapper.prototype._addAnnotationLayer = function (layerinfo, featureLayer, libs) {
     var lyr = this._addFeatureLayer(layerinfo, featureLayer, libs);
-
+    /*
     var labelClass = new libs.labelClass({
         labelExpression: '[Text]',
         labelPlacement: 'center-right',
-        symbol: new libs.textSymbol()
+        symbol: new libs.textSymbol({
+            font: new Font("12", Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLD, "Helvetica"),
+            color: new Color("#666633")
+        })
     });
 
     lyr.setLabelingInfo([labelClass]);
-    lyr.showLabels = true;
+    lyr.setShowLabels(true);
+    */
+
+   
+        // create a text symbol to define the style of labels
+        var statesColor = new libs.color("#666");
+        var statesLabel = new libs.textSymbol().setColor(statesColor);
+        statesLabel.font.setSize("14pt");
+        statesLabel.font.setFamily("arial");
+        var statesLabelRenderer = new libs.renderer(statesLabel);
+        var labels = new libs.labelLayer({ id: "labels" });
+        // tell the label layer to label the countries feature layer 
+        // using the field named "admin"
+        labels.addFeatureLayer(lyr, statesLabelRenderer, "{Text}");
+        // add the label layer to the map
+        lyr.labelLayer = lyr;
+    
     return lyr;
 }
 
@@ -642,14 +702,20 @@ MapWrapper.prototype._addTiledLayer = function(layerinfo, tiledLayer)
 MapWrapper.prototype._addFeatureLayer = function(layerinfo, featureLayer, libs)
 {
     var addr = this.application.constructMapAddress(this.application.mapConfig.dynamicServiceName, layerinfo.IndexInService)
-    var lyr = new featureLayer(addr,
+    var lyr = layerinfo.Annotation === true?
+        new featureLayer(addr,
         {
-        mode: featureLayer.MODE_ONDEMAND,
-        //outFields: ["Text"]
+            mode: featureLayer.MODE_ONDEMAND,
+            outFields: ["Text"]
+        }):
+        new featureLayer(addr,
+        {
+            mode: featureLayer.MODE_ONDEMAND,
+            
         });
 
     if (layerinfo.Annotation === true) {
-        var symbol = new libs.pictureMarkerSymbol('img/target.png', 16, 16);
+        var symbol = new libs.pictureMarkerSymbol('../Img/target.png', 16, 16);
         var renderer = new libs.renderer(symbol);
         lyr.setRenderer(renderer);
     }else if (layerinfo.Symbol !== undefined) {
@@ -730,6 +796,19 @@ MapWrapper.prototype._switch2basemap = function(map, tiled, basemapName) {
     }
 };
 
+MapWrapper.prototype.enableAnnotate = function () {
+    if (this.clickHandle2) {
+        this.clickHandle2.remove();
+    }
+    this.clickHandle2 = this.map.on("click", this.executeAnnotate(this));
+}
+
+MapWrapper.prototype.disableAnnotate = function () {
+    if (this.clickHandle2) {
+        this.clickHandle2.remove();
+    }
+}
+
 MapWrapper.prototype.enableIdentify = function() {
     this.identifyParams.width = this.map.width;
     this.identifyParams.height = this.map.height;
@@ -779,10 +858,22 @@ MapWrapper.prototype.disableMeasure = function () {
             });
 
         that.measureWidget.hide();
-        
+        that.measureWidget.clearResult();
+        that.measureWidget.setTool(that.measureWidget.getTool(), false);
     }
 };
 
+
+MapWrapper.prototype.executeAnnotate = function (wrapper) {
+    
+
+    return function (event) {
+        var that = wrapper;
+        $("#addModalLabel").html("添加标注");
+        $("#addFrame").attr("src", "/Feature/Add?LayerName=标注&X=" + event.mapPoint.x.toString() + "&Y=" + event.mapPoint.y.toString());
+        $('#addModal').modal();
+    };
+}
 
 MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
 

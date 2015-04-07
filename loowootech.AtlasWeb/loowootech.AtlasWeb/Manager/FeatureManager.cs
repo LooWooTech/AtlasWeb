@@ -2,9 +2,13 @@
 using ESRI.ArcGIS.esriSystem;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
+using netDxf;
+using netDxf.Entities;
+using netDxf.Header;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -44,6 +48,60 @@ namespace loowootech.AtlasWeb.Manager
         private void ShutdownLicense()
         {
             aoInit.Shutdown();
+        }
+
+        private IPolygon GeneratePolygon(LwPolyline line)
+        {
+            var pg = new PolygonClass();
+            var pc = (IPointCollection)pg;
+            var o = Type.Missing;
+            foreach (var vertex in line.Vertexes)
+            {
+                var pt = new PointClass();
+                pt.PutCoords(vertex.Location.X, vertex.Location.Y);
+                pc.AddPoint(pt, ref o, ref o);
+            }
+
+            var pt1 = pc.get_Point(0);
+            var pt2 = pc.get_Point(pc.PointCount - 1);
+            if (Math.Abs(pt1.X - pt2.X) > double.Epsilon || Math.Abs(pt1.Y - pt2.Y) > double.Epsilon)
+            {
+                var pt = new PointClass();
+                pt.PutCoords(pt1.X, pt1.Y);
+                pc.AddPoint(pt, ref o, ref o);
+            }
+            return pg;
+        }
+
+        private IPolygon ReadPolygonFromDXF(string path)
+        {
+            bool isBinary;
+
+            using (var stream = File.OpenRead(path))
+            {
+                var dxfVersion = DxfDocument.CheckDxfFileVersion(stream, out isBinary);
+                if (dxfVersion < DxfVersion.AutoCad12 && dxfVersion > DxfVersion.AutoCad2010)
+                {
+                    throw new ApplicationException("系统无法读取当前版本的CAD文件，请提交AutoCAD R12至AutoCAD 2010版本生成的DXF文件。");
+                }
+
+                var dxf = DxfDocument.Load(stream, dxfVersion < DxfVersion.AutoCad2000);
+                if (dxf == null)
+                {
+                    throw new ApplicationException("无法识别的dxf文件，上传的dxf文件可能已经损坏。");
+                }
+
+                if (dxf.LwPolylines.Count == 0)
+                {
+                    throw new ApplicationException("CAD文件中无法找到红线。");
+                }
+
+                if (dxf.LwPolylines.Count > 1)
+                {
+                    throw new ApplicationException("CAD文件中红线数量大于一个，请删除不必要的图形。");
+                }
+                return GeneratePolygon(dxf.LwPolylines[0]);
+            }
         }
 
         private IFeatureWorkspace CreateWorkspace()
@@ -99,8 +157,8 @@ namespace loowootech.AtlasWeb.Manager
             try
             {
                 var msg = string.Empty;
-                var geo = GenerateGeometryFromFile(filePath, ref msg);
-                if (geo == null) throw new ApplicationException("坐标文件错误：" + msg);
+                var geo = ReadPolygonFromDXF(filePath);
+                //if (geo == null) throw new ApplicationException("坐标文件错误：" + msg);
                 CreateFeature(geo, values, layerName);
             }
             catch (Exception ex)
@@ -166,11 +224,6 @@ namespace loowootech.AtlasWeb.Manager
             fcw.WriteFeature(feature); 
             edit.StopEditOperation();
             edit.StopEditing(true);
-        }
-
-        private IGeometry GenerateGeometryFromFile(string filePath, ref string errorMsg)
-        {
-            return null;
         }
 
         /// <summary>
@@ -270,6 +323,43 @@ namespace loowootech.AtlasWeb.Manager
         }
 
         /// <summary>
+        /// 删除指定图层的指定图形
+        /// </summary>
+        /// <param name="id">图形的id</param>
+        /// <param name="layerName">图层名</param>
+        public void DeleteFeature(int id, string layerName)
+        {
+            InitLicense();
+            try
+            {
+                List<FieldInfo> list = GetAllFields(layerName);
+
+                var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "']");
+
+                var ws = CreateWorkspace();
+                IWorkspaceEdit edit = (IWorkspaceEdit)ws;
+                edit.StartEditing(false);
+                edit.StartEditOperation();
+                var fc = ws.OpenFeatureClass(node.Attributes["Name"].Value);
+                var feature = fc.GetFeature(id);
+                IFeatureClassWrite fcw = fc as IFeatureClassWrite;
+                if (feature != null)
+                {
+                    
+                    fcw.RemoveFeature(feature);
+                }
+                edit.StopEditOperation();
+                edit.StopEditing(true);
+            }
+            catch (Exception ex)
+            {
+                ShutdownLicense();
+                throw ex;
+            }
+        }
+
+
+        /// <summary>
         /// 获取指定图层对应字段值
         /// </summary>
         /// <param name="id">图形的id</param>
@@ -291,7 +381,7 @@ namespace loowootech.AtlasWeb.Manager
                     foreach (var item in list)
                     {
                         var index = feature.Fields.FindField(item.Name);
-                        if (index > -1) values.Add(item.Title, feature.get_Value(index).ToString());
+                        if (index > -1) values.Add(item.Name, feature.get_Value(index).ToString());
                     }
                 }
 
@@ -323,7 +413,6 @@ namespace loowootech.AtlasWeb.Manager
                 }
             }
             return values;
-           
         }
 
         public void Dispose()
