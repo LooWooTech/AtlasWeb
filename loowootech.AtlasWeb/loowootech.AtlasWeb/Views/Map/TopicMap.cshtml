@@ -1,6 +1,8 @@
-﻿@{
+﻿@using loowootech.AtlasWeb.Models
+@{
     Layout = null;
     var arcGISServerHost = ViewBag.ArcGISServerHost;
+    Map map = ViewBag.Map;
 }
 
 <!DOCTYPE html>
@@ -9,7 +11,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>海宁许村一张图平台</title>
+    <title>@map.Name-海宁许村一张图平台</title>
     <link rel="stylesheet" href="/Content/tundra.css" />
     <link rel="stylesheet" href="/Content/esri.css" />
     <link rel="stylesheet" href="/Content/style2.css" />
@@ -46,7 +48,7 @@
         var host = '@System.Configuration.ConfigurationManager.AppSettings["ARCGIS_SERVER_HOST"]';
         var geoAddr = "http://" + host + "/ArcGISServer/rest/services/Geometry/GeometryServer";
             @{
-            Html.RenderAction("JavascriptContent","map");
+                Html.RenderAction("JavascriptContent", "map", new {name=map.JavaScript});
         }
 
             
@@ -78,7 +80,7 @@
         <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="divNavbar">
             <div class="navbar-header">
                 <a class="navbar-brand" style="font-size:24px;" href="#"><span id="topicName"></span></a>
-                <span style="font-size:16px;color:#fff;">海宁市许村镇一张图平台</span>
+                <span style="font-size:16px;color:#fff;"><a href="/Home/Index">海宁市许村镇一张图平台</a> </span>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

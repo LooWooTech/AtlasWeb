@@ -85,7 +85,7 @@ namespace loowootech.AtlasWeb.Manager
                     throw new ApplicationException("系统无法读取当前版本的CAD文件，请提交AutoCAD R12至AutoCAD 2010版本生成的DXF文件。");
                 }
 
-                var dxf = DxfDocument.Load(stream, dxfVersion < DxfVersion.AutoCad2000);
+                var dxf = DxfDocument.Load(stream);
                 if (dxf == null)
                 {
                     throw new ApplicationException("无法识别的dxf文件，上传的dxf文件可能已经损坏。");

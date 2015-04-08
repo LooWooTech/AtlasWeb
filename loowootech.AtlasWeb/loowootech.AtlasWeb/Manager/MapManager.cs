@@ -9,6 +9,13 @@ namespace loowootech.AtlasWeb.Manager
 {
     public class MapManager:ManagerBase
     {
+        public Map Get(int ID)
+        {
+            using (var db = GetAtlasContext())
+            {
+                return db.Maps.Find(ID);
+            }
+        }
         public List<Map> GetMaps()
         {
             using (var db = GetAtlasContext())

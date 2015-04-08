@@ -23,12 +23,18 @@ namespace loowootech.AtlasWeb.Controllers
         }
         public ActionResult TopicMap(int ID)
         {
+            Map map = Core.MapManager.Get(ID);
+            if (map == null)
+            {
+                map = new Map();
+            }
+            ViewBag.Map = map;
             return View();
         }
 
-        public string JavascriptContent()
+        public string JavascriptContent(string name)
         {
-            var name = Request["map"];
+           // var name = Request["map"];
             if (string.IsNullOrEmpty(name))
             {
                 name = "general";
