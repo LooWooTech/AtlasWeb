@@ -95,7 +95,6 @@
                                         Visible: true,
                                         Alpha: 1,
                                         CategoryId: 1,
-                                        MinScale: 10000
                                     },
                                     {
                                         Id: 2,
@@ -110,7 +109,6 @@
                                         Visible: true,
                                         Alpha: 1,
                                         CategoryId: 1,
-                                        MinScale: 10000
                                     },
                                     {
                                         Id: 3,

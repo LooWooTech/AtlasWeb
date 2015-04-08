@@ -95,7 +95,6 @@
                                         Visible: true,
                                         Alpha: 1,
                                         CategoryId: 1,
-                                        MinScale: 10000
                                     },
                                     {
                                         Id: 2,
@@ -110,14 +109,13 @@
                                         Visible: true,
                                         Alpha: 1,
                                         CategoryId: 1,
-                                        MinScale: 10000
                                     },
                                     {
                                         Id: 3,
                                         Name: "卫星影像",
                                         Title: "卫星影像",
                                         IndexInService: 12,
-                                        TitleServiceName: "Raster-LM",
+                                        TitleServiceName: "Raster",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
@@ -166,7 +164,7 @@
                                         Name: "控规用地",
                                         Title: "控规用地",
                                         IndexInService: 6,
-                                        TileServiceName: "KG-LM",
+                                        TileServiceName: "KG",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
@@ -205,7 +203,7 @@
                                         Name: "转而未用",
                                         Title: "转而未用",
                                         IndexInService: 8,
-                                        TileServiceName: "ZEWG",
+                                        TileServiceName: "ZEWG-LM",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,

@@ -250,7 +250,10 @@
     </Content>
     <Content Include="maps\GA.js" />
     <Content Include="maps\general.js" />
-    <Content Include="maps\GJ.js" />
+    <Content Include="maps\GJ-Map1.js" />
+    <Content Include="maps\GJ-Map2.js" />
+    <Content Include="maps\GJ-Map3.js" />
+    <Content Include="maps\GJ-Map4.js" />
     <Content Include="maps\jfczs.js" />
     <Content Include="maps\LZF.js" />
     <Content Include="maps\sszs.js" />
@@ -258,6 +261,7 @@
     <Content Include="maps\zjd.js" />
     <Content Include="maps\ZJDZT.js" />
     <Content Include="maps\ZS-BG.js" />
+    <Content Include="maps\ZS-HY.js" />
     <Content Include="maps\ZS-JFC.js" />
     <Content Include="maps\ZS-LM.js" />
     <Content Include="maps\ZS-LZF.js" />
