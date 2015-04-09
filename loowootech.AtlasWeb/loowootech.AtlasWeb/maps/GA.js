@@ -58,7 +58,7 @@
                             Editable: false,
                             ShowPicture: false,
                             PictureEditable: false,
-                            Visobale: false,
+                            Visible: false,
                             Alpha: 255
                         },
                         {
@@ -70,7 +70,7 @@
                             Editable: false,
                             ShowPicture: false,
                             PictureEditable: false,
-                            Visobale: false,
+                            Visible: false,
                             Alpha: 255
                         }
                     ],
@@ -91,7 +91,6 @@
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
-                                        Annotation: true,
                                         Visible: true,
                                         Alpha: 1,
                                         CategoryId: 1,
@@ -105,22 +104,6 @@
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
-                                        Annotation: true,
-                                        Visible: true,
-                                        Alpha: 1,
-                                        CategoryId: 1,
-                                        MinScale: 10000
-                                    },
-                                    {
-                                        Id: 3,
-                                        Name: "卫星影像",
-                                        Title: "卫星影像",
-                                        IndexInService: 6,
-                                        TitleServiceName: "Raster",
-                                        Editable: false,
-                                        ShowPicture: false,
-                                        PictureEditable: false,
-                                        Annotation: false,
                                         Visible: true,
                                         Alpha: 1,
                                         CategoryId: 1,
