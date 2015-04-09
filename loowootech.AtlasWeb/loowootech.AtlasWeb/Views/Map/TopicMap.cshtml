@@ -80,12 +80,13 @@
         <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="divNavbar">
             <div class="navbar-header">
                 <a class="navbar-brand" style="font-size:24px;" href="#"><span id="topicName"></span></a>
-                <a href="/Home/Index"><span style="font-size:16px;color:#fff;">海宁市许村镇一张图平台</span></a>
+                <span style="font-size:16px;color:#fff;">海宁市许村镇一张图平台</span>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right" style="margin-right:20px">
-                    <li class="tool-item"><a href="#"><span class="glyphicon glyphicon-resize-horizontal"></span>&nbsp;专题切换</a></li>
+                    <li class="tool-item"><a href="javascript:(function(){$('.popup-element').fadeIn();})()">地图控制</a></li>
+                    <li class="tool-item"><a href="/Home/Index"><span class="glyphicon glyphicon-resize-horizontal"></span>&nbsp;专题切换</a></li>
                     <!--<li class="tool-item"><a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;点选</a></li>
                     <li class="tool-item"><a href="#"><span class="glyphicon glyphicon-info-road"></span>&nbsp;全景</a></li>
 
@@ -99,7 +100,7 @@
                         </ul>
                     </li>
 
-                    <li class="tool-item"><a href="javascript:(function(){$('.popup-element').fadeIn();})()">地图控制</a></li>
+                    
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#ffffff">专题切换 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
