@@ -1,6 +1,6 @@
 ﻿var configuration = {
     host: host,
-    dynamicServiceName: "GJ-Main1",
+    dynamicServiceName: "GJ-Main",
     title: "高级专题-地图1",
     initialMaps: [0],
     maps:
@@ -360,42 +360,6 @@
                                         CategoryId: 7,
                                     }
                             ]
-                        },
-                        {
-                            Id: 8,
-                            Name: "城镇总体规划及控规",
-                            Visible: true,
-                            Layers:
-                                [
-                                    {
-                                        Id: 17,
-                                        Name: "控规",
-                                        Title: "控规",
-                                        IndexInService: 27,
-                                        TileServiceName: "KG",
-                                        Editable: false,
-                                        ShowPicture: false,
-                                        PictureEditable: false,
-                                        Annotation: true,
-                                        Visible: true,
-                                        Alpha: 1,
-                                        CategoryId: 8,
-                                    },
-                                     {
-                                         Id: 18,
-                                         Name: "总规",
-                                         Title: "总规",
-                                         IndexInService: 25,
-                                         TileServiceName: "KG",
-                                         Editable: false,
-                                         ShowPicture: false,
-                                         PictureEditable: false,
-                                         Annotation: true,
-                                         Visible: true,
-                                         Alpha: 1,
-                                         CategoryId: 8,
-                                     }
-                                ]
                         }
                     ]
             }
