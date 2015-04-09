@@ -123,6 +123,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">更改图片</h4>
                                         </div>
                                         <div class="modal-body">
                                             <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/Map/ChangePicture">
@@ -148,6 +149,51 @@
                             @if (ViewBag.Group == Group.Admin)
                             {
                                <a href="/Map/Delete?ID=@(item.ID)" class="btn btn-danger btn-xs">删除地图</a> 
+                                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#Edit@(item.ID)"><i class="glyphicon glyphicon-edit"></i>&nbsp;编辑</button>
+                                <div id="Edit@(item.ID)" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title">编辑</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" method="post" action="/Map/Edit">
+                                                    <div class="form-group">
+                                                        <label for="Name" class="col-lg-2 control-label">名称</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="Name" value="@(item.Name)" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="Count" class="col-lg-2 control-label">地图包含</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="Count" value="@(item.Count)" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="Group" class="col-lg-2 control-label">专题</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="Group" value="@(item.Group)" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="JavaScript" class="col-lg-2 control-label">JavaScript</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="JavaScript" value="@(item.JavaScript)" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" name="ID" value="@(item.ID)" style="display:none;" />
+                                                    <div class="form-group">
+                                                        <div class="col-lg-10 col-lg-offset-2">
+                                                            <input type="submit" class="btn btn-primary" value="编辑" />
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             }
                             
                         </td>

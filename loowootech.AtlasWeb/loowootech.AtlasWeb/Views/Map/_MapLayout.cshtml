@@ -1,26 +1,30 @@
 ﻿@{
     Dictionary<string, List<loowootech.AtlasWeb.Models.Map[]>> DictionaryMaps = ViewBag.Dictionary;
 }
-
-@foreach (var key in DictionaryMaps.Keys) { 
-    <div style="float:left;color:#fefefe;margin-right:20px;">
-        <h3 style="margin-bottom:20px;"><span class="glyphicon glyphicon-briefcase" style="margin-right:5px;"></span>@(key)</h3>
-        @foreach (var Array in DictionaryMaps[key])
-        {
-            <div style="float:left;margin-right:5px;">
-                @foreach (var item in Array)
-                {
-                    if (item != null) { 
-                        <a class="tile" href="/Map/TopicMap?ID=@(item.ID)">
-                            <span class="image" style="background-image:url(@(item.Image));"></span>
-                            <span class="title" style="">@(item.Name)<br /><span>包含@(item.Count)张地图</span></span>
-                        </a>
+<div class="row">
+    @foreach (var key in DictionaryMaps.Keys)
+    {
+        <div style="float:left;color:#fefefe;margin-right:20px;">
+            <h3 style="margin-bottom:20px;"><span class="glyphicon glyphicon-briefcase" style="margin-right:5px;"></span>@(key)</h3>
+            @foreach (var Array in DictionaryMaps[key])
+            {
+                <div style="float:left;margin-right:5px;">
+                    @foreach (var item in Array)
+                    {
+                        if (item != null)
+                        {
+                            <a class="tile" href="/Map/TopicMap?ID=@(item.ID)">
+                                <span class="image" style="background-image:url(@(item.Image));"></span>
+                                <span class="title" style="">@(item.Name)<br /><span>包含@(item.Count)张地图</span></span>
+                            </a>
+                        }
                     }
-                }
-            </div>
-        }
-    </div>
-}
+                </div>
+            }
+        </div>
+    }
+</div>
+
 
 
 @*<div style="float:left;color:#fefefe;margin-right:20px;">

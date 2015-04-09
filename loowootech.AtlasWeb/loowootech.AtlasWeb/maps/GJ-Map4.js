@@ -259,8 +259,22 @@
                             Visible: true,
                             Layers:
                                 [
+                                    {
+                                        Id: 11,
+                                        Name: "地籍房屋",
+                                        Title: "地籍房屋",
+                                        IndexInService: 16,
+                                        TileServiceName: "DJFW",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Annotation: true,
+                                        Visible: true,
+                                        Alpha: 1,
+                                        CategoryId: 5,
+                                    },
                                      {
-                                         Id: 11,
+                                         Id: 12,
                                          Name: "地籍宗地",
                                          Title: "地籍宗地",
                                          IndexInService: 17,
@@ -282,10 +296,10 @@
                             Layers:
                                 [
                                     {
-                                        Id: 12,
+                                        Id: 13,
                                         Name: "现状地物",
                                         Title: "现状地物",
-                                        IndexInService: 28,
+                                        IndexInService: 19,
                                         TileServiceName: "XZDW",
                                         Editable: false,
                                         ShowPicture: false,
@@ -296,10 +310,10 @@
                                         CategoryId: 6,
                                     },
                                     {
-                                        Id: 13,
+                                        Id: 14,
                                         Name: "地类图斑",
                                         Title: "地类图斑",
-                                        IndexInService: 29,
+                                        IndexInService: 20,
                                         TileServiceName: "DLTB",
                                         Editable: false,
                                         ShowPicture: false,
@@ -318,10 +332,10 @@
                             Layers:
                                 [
                                     {
-                                        Id: 14,
+                                        Id: 15,
                                         Name: "规划用途",
                                         Title: "规划用途",
-                                        IndexInService: 31,
+                                        IndexInService: 22,
                                         TileServiceName: "GHYT",
                                         Editable: false,
                                         ShowPicture: false,
@@ -332,10 +346,10 @@
                                         CategoryId: 7,
                                     },
                                     {
-                                        Id: 15,
+                                        Id: 16,
                                         Name: "建设用地管制区",
                                         Title: "建设用地管制区",
-                                        IndexInService: 32,
+                                        IndexInService: 23,
                                         TileServiceName: "JSYDGZQ",
                                         Editable: false,
                                         ShowPicture: false,
@@ -354,10 +368,10 @@
                             Layers:
                                 [
                                     {
-                                        Id: 16,
+                                        Id: 17,
                                         Name: "控规",
                                         Title: "控规",
-                                        IndexInService: 36,
+                                        IndexInService: 27,
                                         TileServiceName: "KG",
                                         Editable: false,
                                         ShowPicture: false,
@@ -366,7 +380,21 @@
                                         Visible: true,
                                         Alpha: 1,
                                         CategoryId: 8,
-                                    }
+                                    },
+                                     {
+                                         Id: 18,
+                                         Name: "总规",
+                                         Title: "总规",
+                                         IndexInService: 25,
+                                         TileServiceName: "KG",
+                                         Editable: false,
+                                         ShowPicture: false,
+                                         PictureEditable: false,
+                                         Annotation: true,
+                                         Visible: true,
+                                         Alpha: 1,
+                                         CategoryId: 8,
+                                     }
                                 ]
                         }
                     ]

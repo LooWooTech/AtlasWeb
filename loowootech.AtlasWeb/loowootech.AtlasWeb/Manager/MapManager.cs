@@ -232,7 +232,58 @@ namespace loowootech.AtlasWeb.Manager
                 }
             }
         }
-        
 
+        public Map Get(HttpContextBase context)
+        {
+            Map map = new Map();
+            if (!string.IsNullOrEmpty(context.Request.Form["Name"]))
+            {
+                map.Name = context.Request.Form["Name"].ToString();
+            }
+            if (!string.IsNullOrEmpty(context.Request.Form["Count"]))
+            {
+                string str = context.Request.Form["Count"].ToString();
+                int number = 0;
+                if (int.TryParse(str, out number))
+                {
+                    map.Count = number;
+                }
+            }
+            if (!string.IsNullOrEmpty(context.Request.Form["Group"]))
+            {
+                map.Group = context.Request.Form["Group"].ToString();
+            }
+            if (!string.IsNullOrEmpty(context.Request.Form["JavaScript"]))
+            {
+                map.JavaScript = context.Request.Form["JavaScript"].ToString();
+            }
+            return map;
+        }
+
+        public void Edit(int ID, Map map)
+        {
+            using (var db = GetAtlasContext())
+            {
+                var entity = db.Maps.Find(ID);
+                if (entity == null)
+                {
+                    return;
+                }
+                if (!string.IsNullOrEmpty(map.Name))
+                {
+                    entity.Name = map.Name;
+                }
+                if (!string.IsNullOrEmpty(map.Group))
+                {
+                    entity.Group = map.Group;
+                }
+                if (!string.IsNullOrEmpty(map.JavaScript))
+                {
+                    entity.JavaScript = map.JavaScript;
+                }
+                entity.Count = map.Count;
+                db.SaveChanges();
+            }
+        }
     }
 }

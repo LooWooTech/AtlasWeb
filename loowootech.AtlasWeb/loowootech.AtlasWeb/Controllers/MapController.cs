@@ -131,5 +131,21 @@ namespace loowootech.AtlasWeb.Controllers
             }
             return RedirectToAction("Manager");
         }
+
+        [HttpPost]
+        public ActionResult Edit(int ID)
+        {
+            var map = Core.MapManager.Get(HttpContext);
+            try
+            {
+                Core.MapManager.Edit(ID, map);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("编辑专题图时发生错误，错误原因："+ex.ToString());
+            }
+            
+            return RedirectToAction("Manager");
+        }
     }
 }
