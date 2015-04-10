@@ -262,6 +262,10 @@
     <Content Include="Img\temp\高级专题土地现状示意图.png" />
     <Content Include="Img\temp\高级专题土地规划示意图.png" />
     <Content Include="Img\temp\高级专题地价信息示意图.png" />
+    <Content Include="Img\temp\高级专题地图一示意图.png" />
+    <Content Include="Img\temp\高级专题地图三示意图.png" />
+    <Content Include="Img\temp\高级专题地图二示意图.png" />
+    <Content Include="Img\temp\高级专题地图四示意图.png" />
     <Content Include="Img\temp\高级专题地籍地形示意图.png" />
     <Content Include="Img\temp\高级专题控规分析示意图.png" />
     <Content Include="Img\temp\高级专题标注示意图.png" />
@@ -281,10 +285,7 @@
     </Content>
     <Content Include="maps\GA.js" />
     <Content Include="maps\general.js" />
-    <Content Include="maps\GJ-Map1.js" />
-    <Content Include="maps\GJ-Map2.js" />
-    <Content Include="maps\GJ-Map3.js" />
-    <Content Include="maps\GJ-Map4.js" />
+    <Content Include="maps\GJ-Map.js" />
     <Content Include="maps\jfczs.js" />
     <Content Include="maps\LZF.js" />
     <Content Include="maps\sszs.js" />

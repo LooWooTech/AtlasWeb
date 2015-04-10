@@ -276,7 +276,7 @@
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
-                                        Visible: true,
+                                        Visible: false,
                                         Alpha: 255,
                                         CategoryId: 2
                                     },

@@ -102,7 +102,7 @@
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
-                                        Visible: true,
+                                        Visible: false,
                                         Alpha: 1,
                                         CategoryId: 1,
                                     },

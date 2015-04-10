@@ -318,7 +318,7 @@
                                          Editable: false,
                                          ShowPicture: false,
                                          PictureEditable: false,
-                                         Visible: true,
+                                         Visible: false,
                                          Alpha: 255,
                                          CategoryId: 6,
                                      }
@@ -352,7 +352,7 @@
                                           Editable: false,
                                           ShowPicture: false,
                                           PictureEditable: false,
-                                          Visible: true,
+                                          Visible: false,
                                           Alpha: 255,
                                           CategoryId: 7,
                                       }
@@ -673,7 +673,7 @@
                                           Editable: false,
                                           ShowPicture: false,
                                           PictureEditable: false,
-                                          Visible: true,
+                                          Visible: false,
                                           Alpha: 255,
                                           CategoryId: 6,
                                       }
@@ -707,7 +707,7 @@
                                            Editable: false,
                                            ShowPicture: false,
                                            PictureEditable: false,
-                                           Visible: true,
+                                           Visible: false,
                                            Alpha: 255,
                                            CategoryId: 7,
                                        }
@@ -1028,7 +1028,7 @@
                                            Editable: false,
                                            ShowPicture: false,
                                            PictureEditable: false,
-                                           Visible: true,
+                                           Visible: false,
                                            Alpha: 255,
                                            CategoryId: 6,
                                        }
@@ -1062,7 +1062,7 @@
                                             Editable: false,
                                             ShowPicture: false,
                                             PictureEditable: false,
-                                            Visible: true,
+                                            Visible: false,
                                             Alpha: 255,
                                             CategoryId: 7,
                                         }
@@ -1383,7 +1383,7 @@
                                             Editable: false,
                                             ShowPicture: false,
                                             PictureEditable: false,
-                                            Visible: true,
+                                            Visible: false,
                                             Alpha: 255,
                                             CategoryId: 6,
                                         }
@@ -1417,7 +1417,7 @@
                                              Editable: false,
                                              ShowPicture: false,
                                              PictureEditable: false,
-                                             Visible: true,
+                                             Visible: false,
                                              Alpha: 255,
                                              CategoryId: 7,
                                          }
