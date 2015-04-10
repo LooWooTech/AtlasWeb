@@ -7,9 +7,9 @@
         [
             {
                 Title: "招商地图",
-                OverviewImage: "/img/topics/家纺城区块招商引资地块示意图.jpg",
+                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40533555, ymin: 3370866, xmax: 40534347, ymax: 3371956 },
+                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
                 Basemaps:
                     [
                         {
@@ -21,7 +21,7 @@
                             Editable: false,
                             ShowPicture: false,
                             PictureEditable: false,
-                            Visible: false,
+                            Visible: true,
                             Alpha: 255
                         },
                         {
@@ -82,7 +82,7 @@
                             Editable: false,
                             ShowPicture: false,
                             PictureEditable: false,
-                            Visible: true,
+                            Visible: false,
                             Alpha:255
                         }
                     ],
@@ -104,7 +104,7 @@
                                         ShowPicture: false,
                                         PictureEditable: false,
                                         Visible: true,
-                                        Alpha: 1,
+                                        Alpha: 255,
                                         CategoryId: 1
                                     },
                                     {
@@ -116,10 +116,23 @@
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
-                                        Visible: false,
-                                        Alpha: 1,
+                                        Visible: true,
+                                        Alpha: 255,
                                         CategoryId: 1
 
+                                    },
+                                    {
+                                        Id: 6,
+                                        Name: "征地数据",
+                                        Title: "征地数据",
+                                        IndexInService: 5,
+                                        TileServiceName: "ZD-SS",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId:1
                                     },
                                     {
                                         Id: 7,
@@ -130,7 +143,7 @@
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
-                                        Visible: false,
+                                        Visible: true,
                                         Alpha: 1,
                                         CategoryId: 1
                                     },
@@ -143,8 +156,8 @@
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
-                                        Visible: false,
-                                        Alpha: 1,
+                                        Visible: true,
+                                        Alpha: 255,
                                         CategoryId: 1
                                     },
                                     {
@@ -156,8 +169,8 @@
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
-                                        Visible: false,
-                                        Alpha: 1,
+                                        Visible: true,
+                                        Alpha: 255,
                                         CategoryId: 1
                                     }
                                 ]
@@ -166,14 +179,14 @@
                     ]
             },
             {
-                Title: "主地图",
-                OverviewImage: "/img/topics/家纺城区块招商引资地块示意图.jpg",
+                Title: "基础图件",
+                OverviewImage: "/img/temp/沈士区基础图件示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40533555, ymin: 3370866, xmax: 40534347, ymax: 3371956 },
+                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
                 Basemaps:
                     [
                         {
-                            Id: 0,
+                            Id: 6,
                             Name: "遥感影像",
                             Title: "遥感影像",
                             IndexInService: 1,
@@ -181,11 +194,11 @@
                             Editable: false,
                             ShowPicture: false,
                             PictureEditable: false,
-                            Visible: false,
+                            Visible: true,
                             Alpha: 255
                         },
                         {
-                            Id: 1,
+                            Id: 7,
                             Name: "土地利用",
                             Title: "土地利用",
                             IndexInService: 8,
@@ -198,7 +211,7 @@
 
                         },
                         {
-                            Id: 2,
+                            Id: 8,
                             Name: "土地规划",
                             Title: "土地规划",
                             IndexInService: 38,
@@ -210,7 +223,7 @@
                             Alpha: 255
                         },
                         {
-                            Id: 3,
+                            Id: 9,
                             Name: "控规",
                             Title: "控规",
                             IndexInService: 1,
@@ -222,7 +235,7 @@
                             Alpha: 255
                         },
                         {
-                            Id: 4,
+                            Id: 10,
                             Name: "总规",
                             Title: "总规",
                             IndexInService: 1,
@@ -234,7 +247,7 @@
                             Alpha: 255
                         },
                          {
-                             Id: 5,
+                             Id: 11,
                              Name: "建设用地管制区",
                              Title: "建设用地管制区",
                              IndexInService: 1,
@@ -242,7 +255,7 @@
                              Editable: false,
                              ShowPicture: false,
                              PictureEditable: false,
-                             Visible: true,
+                             Visible: false,
                              Alpha: 255
                          }
                     ],
@@ -264,7 +277,7 @@
                                         ShowPicture: false,
                                         PictureEditable: false,
                                         Visible: false,
-                                        Alpha: 1,
+                                        Alpha: 255,
                                         CategoryId: 2
                                     },
                                     {
@@ -277,7 +290,7 @@
                                         ShowPicture: false,
                                         PictureEditable: false,
                                         Visible: true,
-                                        Alpha: 1,
+                                        Alpha: 255,
                                         CategoryId: 2
                                     }
                                 ]
@@ -286,13 +299,13 @@
             },
             {
                 Title: "基准地价",
-                OverviewImage: "/img/topics/家纺城区块招商引资地块示意图.jpg",
+                OverviewImage: "/img/temp/沈士区基准地价示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40533555, ymin: 3370866, xmax: 40534347, ymax: 3371956 },
+                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
                 Basemaps:
                     [
                         {
-                            Id: 0,
+                            Id: 12,
                             Name: "遥感影像",
                             Title: "遥感影像",
                             IndexInService: 1,
@@ -300,11 +313,11 @@
                             Editable: false,
                             ShowPicture: false,
                             PictureEditable: false,
-                            Visible: false,
+                            Visible: true,
                             Alpha: 255
                         },
                         {
-                            Id: 1,
+                            Id: 13,
                             Name: "土地利用",
                             Title: "土地利用",
                             IndexInService: 8,
@@ -317,7 +330,7 @@
 
                         },
                         {
-                            Id: 2,
+                            Id: 14,
                             Name: "土地规划",
                             Title: "土地规划",
                             IndexInService: 38,
@@ -329,7 +342,7 @@
                             Alpha: 255
                         },
                         {
-                            Id: 3,
+                            Id: 15,
                             Name: "控规",
                             Title: "控规",
                             IndexInService: 1,
@@ -341,7 +354,7 @@
                             Alpha: 255
                         },
                         {
-                            Id: 4,
+                            Id: 16,
                             Name: "总规",
                             Title: "总规",
                             IndexInService: 1,
@@ -353,7 +366,7 @@
                             Alpha: 255
                         },
                          {
-                             Id: 5,
+                             Id: 17,
                              Name: "建设用地管制区",
                              Title: "建设用地管制区",
                              IndexInService: 1,
@@ -361,7 +374,7 @@
                              Editable: false,
                              ShowPicture: false,
                              PictureEditable: false,
-                             Visible: true,
+                             Visible: false,
                              Alpha: 255
                          }
                     ],
@@ -383,7 +396,7 @@
                                         ShowPicture: false,
                                         PictureEditable: false,
                                         Visible: true,
-                                        Alpha: 1,
+                                        Alpha: 255,
                                         CategoryId: 3
                                     }
                         ]
