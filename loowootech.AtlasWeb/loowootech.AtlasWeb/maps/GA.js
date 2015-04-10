@@ -35,7 +35,6 @@
                             PictureEditable: false,
                             Visible: false,
                             Alpha: 255
-
                         },
                         {
                             Id: 2,
