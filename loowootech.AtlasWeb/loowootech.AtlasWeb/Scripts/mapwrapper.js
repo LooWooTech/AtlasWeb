@@ -385,7 +385,7 @@ MapWrapper.prototype.init = function () {
             that.identifyDiv = identifyDiv;
 
             var titleDiv = query(".mapTitle", div)[0];
-            titleDiv.innerHTML = that.mapSet.title !== undefined ? that.mapSet.title : "综合地图";
+            titleDiv.innerHTML = that.mapSet.Title !== undefined ? that.mapSet.Title : "综合地图";
 
             var legendSpan = query(".legendButton", div);
 
@@ -937,8 +937,8 @@ MapWrapper.prototype.canEdit = function () {
 MapWrapper.prototype.zoom2FullExtent = function() {
     var that = this;
     require(["esri/geometry/Extent"], function(Extent) {
-        if (that.mapSet.fullExtent !== undefined) {
-            that.map.setExtent(new Extent(that.mapSet.fullExtent.xmin, that.mapSet.fullExtent.ymin, that.mapSet.fullExtent.xmax, that.mapSet.fullExtent.ymax, that.dynamicLayer.spatialReference));
+        if (that.mapSet.FullExtent !== undefined) {
+            that.map.setExtent(new Extent(that.mapSet.FullExtent.xmin, that.mapSet.FullExtent.ymin, that.mapSet.FullExtent.xmax, that.mapSet.FullExtent.ymax, that.dynamicLayer.spatialReference));
         } else {
             that.map.setExtent(that.dynamicLayer.fullExtent);
         }

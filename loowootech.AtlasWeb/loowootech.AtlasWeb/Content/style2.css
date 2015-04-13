@@ -82,6 +82,9 @@ body {
 
 .mapHeader .mapIcon {
     padding-left: 10px;
+    height:30px;
+    float:left;
+    padding-top: 12px;
     /*line-height: 30px;
     height:30px;
     overflow:hidden;*/
@@ -89,6 +92,7 @@ body {
 
 .mapHeader .mapTitle {
     padding-left: 4px;
+    float:left;
     /*
     line-height: 30px;
     height:30px;
