@@ -33,7 +33,20 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script>
-    <script src="http://js.arcgis.com/3.12/" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="http://10.22.102.19/arcgis_js_api/library/3.12/3.12/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" type="text/css" href="http://10.22.102.19/arcgis_js_api/library/3.12/3.12/esri/css/esri.css" />
+    <script src="http://10.22.102.19/arcgis_js_api/library/3.12/3.12/init.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        dojo.require("esri.map");
+        function init() {
+            var myMap = new esri.Map("mapDiv");
+            //note that if you do not have public Internet access then you will need to point this url to your own locally accessible cached service.
+            var myTiledMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/NGS_Topo_US_2D/MapServer");
+            myMap.addLayer(myTiledMapServiceLayer);
+        }
+        dojo.addOnLoad(init);
+    </script>
+    @*<script src="http://js.arcgis.com/3.12/" type="text/javascript"></script>*@
     <script src="/Scripts/mapwrapper.js" type="text/javascript"></script>
     <script src="/Scripts/application.js" type="text/javascript"></script>
     <script src="/Scripts/jquery.fancytree.js" type="text/javascript"></script>
