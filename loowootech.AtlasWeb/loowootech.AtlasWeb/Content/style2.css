@@ -219,6 +219,8 @@ body {
     display: none;
 }
 
+.esriMeasurementSeparator { display:inline;}
+
 .mapLegend {
     display: block;
     background-color: #ffffcd;
@@ -237,7 +239,7 @@ body {
     height: expression(this.height>590?"590px":this.height);
 }
 
-.info-btn{
+.info-btn a{
     color:#fff;
     text-decoration:none;
 }

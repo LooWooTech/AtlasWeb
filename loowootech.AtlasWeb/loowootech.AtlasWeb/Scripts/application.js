@@ -67,8 +67,25 @@ MapApplication.prototype.showPictures = function(layerName, id){
 }
 
 MapApplication.prototype.showEditModal = function (layerName, id) {
-    $("#editFrame").attr("src", "/Feature/Edit?LayerName=" + layerName + "&Id=" + id.toString());
+    $("#editFrame").attr("src", "/Feature/Edit?LayerName=" + layerName + "&ID=" + id.toString());
     $('#editModal').modal();
+}
+
+MapApplication.prototype.showDeleteModal = function (layerName, id) {
+    $("#deleteFrame").attr("src", "/Feature/Delete?LayerName=" + layerName + "&ID=" + id.toString());
+    $('#deleteModal').modal();
+}
+
+MapApplication.prototype.hideAddModal = function () {
+    $('#addModal').modal('hide');
+}
+
+MapApplication.prototype.hideEditModal = function () {
+    $('#editModal').modal('hide');
+}
+
+MapApplication.prototype.hideDeleteModal = function () {
+    $('#deleteModal').modal('hide');
 }
 
 MapApplication.prototype.constructMapAddress = function (serviceName, layerId) {
@@ -177,8 +194,7 @@ MapApplication.prototype.toggleMap = function (index) {
                 var ids = wrapper.getVisibleLayers();
                     //wrapper.mapSet.dataVisibleLayers !== undefined ? wrapper.mapSet.dataVisibleLayers : wrapper.mapSet.visibleLayers;
                 for (var i = 0; i < ids.length; i++) {
-                    
-                    if (editable === false || wrapper.isLayerEditable(ids[i]) === true) {
+                    if (editable !== true || wrapper.isLayerEditable(ids[i]) === true) {
                         var option = document.createElement("option");
                         var lyr = that.layers[ids[i]];
                         if (lyr !== undefined) {

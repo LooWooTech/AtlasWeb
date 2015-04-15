@@ -8,6 +8,7 @@ using netDxf.Header;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -163,8 +164,12 @@ namespace loowootech.AtlasWeb.Manager
             }
             catch (Exception ex)
             {
-                ShutdownLicense();
+                
                 throw ex;
+            }
+            finally
+            {
+                ShutdownLicense();
             }
         }
 
@@ -178,13 +183,13 @@ namespace loowootech.AtlasWeb.Manager
             edit.StartEditOperation();  
             var fc = ws.OpenFeatureClass(node.Attributes["Name"].Value);
             IFeatureClassWrite fcw = fc as IFeatureClassWrite;
-            var feature = fc.CreateFeature();  
-            
-            
+            var feature = fc.CreateFeature();
+
+            Debug.WriteLine("Point Added");
             feature.Shape = geo;
             foreach (var item in list)
             {
-                if (values.ContainsKey(item.Title))
+                if (values.ContainsKey(item.Name))
                 {
                     var index = feature.Fields.FindField(item.Name);
                     if (index > -1)
@@ -195,23 +200,23 @@ namespace loowootech.AtlasWeb.Manager
                         {
                             case esriFieldType.esriFieldTypeDate:
                                 DateTime dt;
-                                if(DateTime.TryParse(values[item.Title], out dt)) feature.set_Value(index, dt);
+                                if(DateTime.TryParse(values[item.Name], out dt)) feature.set_Value(index, dt);
                                 break;
                             case esriFieldType.esriFieldTypeDouble:
                                 double db;
-                                if(double.TryParse(values[item.Title], out db)) feature.set_Value(index, db);                                    
+                                if(double.TryParse(values[item.Name], out db)) feature.set_Value(index, db);                                    
                                 break;
                             case esriFieldType.esriFieldTypeInteger:
                             case esriFieldType.esriFieldTypeSmallInteger:
                                 int i;
-                                if(int.TryParse(values[item.Title], out i)) feature.set_Value(index, i);  
+                                if(int.TryParse(values[item.Name], out i)) feature.set_Value(index, i);  
                                 break;
                             case esriFieldType.esriFieldTypeSingle:
                                 float f;
-                                if(float.TryParse(values[item.Title], out f)) feature.set_Value(index, f);  
+                                if(float.TryParse(values[item.Name], out f)) feature.set_Value(index, f);  
                                 break;                                
                             case esriFieldType.esriFieldTypeString:
-                                feature.set_Value(index, values[item.Title]);
+                                feature.set_Value(index, values[item.Name]);
                                 break;
                             default:
                                 throw new NotSupportedException(string.Format("不支持此类型的字段({0}):{1}", layerName, fld.Type));
@@ -220,8 +225,9 @@ namespace loowootech.AtlasWeb.Manager
                     }
                 }
             }
+            feature.Store();
             
-            fcw.WriteFeature(feature); 
+            //fcw.WriteFeature(feature); 
             edit.StopEditOperation();
             edit.StopEditing(true);
         }
@@ -244,8 +250,12 @@ namespace loowootech.AtlasWeb.Manager
             }
             catch(Exception ex)
             {
-                ShutdownLicense();
+                
                 throw ex;
+            }
+            finally
+            {
+                ShutdownLicense();
             }
         }
 
@@ -317,8 +327,12 @@ namespace loowootech.AtlasWeb.Manager
             }
             catch (Exception ex)
             {
-                ShutdownLicense();
+               
                 throw ex;
+            }
+            finally
+            {
+                ShutdownLicense();
             }
         }
 

@@ -38,8 +38,8 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">是否确认删除？</label>
                 <div class="col-lg-3">    
-                    <button type="submit" class="btn btn-danger">删除</button>
-                    <a href="javascript:window.opener=null;window.open('','_self');window.close();" class="btn btn-default">取消</a>
+                    <input type="button" class="btn btn-danger" id="deleteButton" value="删除" />
+                    <a href="javascript:hideDialog();" class="btn btn-default">取消</a>
                  </div>
             </div>
         </form>
@@ -48,16 +48,21 @@
 </html>
 <script>
     $(function () {
-        $("#Feature-Delete").submit(function () {
-            var data = $(this).serialize();
+        $("#deleteButton").click(function () {
+            var data = $("#Feature-Delete").serialize();
             $.post("/Feature/Delete", data, function (json) {
                 var obj = JSON.parse(json);
                 if (obj.result) {
                     alert("删除成功");
+                    $('#deleteModal', parent.document.body).modal('hide');
                 } else {
                     alert(obj.message);
                 }
             })
         })
     })
+
+    function hideDialog() {
+        window.parent.application.hideDeleteModal()
+    }
 </script>

@@ -302,7 +302,6 @@
     <Content Include="maps\ZS-TZC.js" />
     <Content Include="maps\ZS-XG.js" />
     <Content Include="maps\ZS-YD.js" />
-    <Content Include="Scripts\advancemap.js" />
     <Content Include="Scripts\application.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -336,7 +335,6 @@
     <Content Include="Scripts\jquery.fancytree.glyph.js" />
     <Content Include="Scripts\jquery.fancytree.js" />
     <Content Include="Scripts\jquery.fancytree.table.js" />
-    <Content Include="Scripts\map.js" />
     <Content Include="Scripts\mapwrapper.js" />
     <Content Include="Scripts\Respond.min.js" />
     <Content Include="Scripts\usermanager.js" />

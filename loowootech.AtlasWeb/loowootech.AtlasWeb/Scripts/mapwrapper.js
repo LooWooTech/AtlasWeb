@@ -348,8 +348,6 @@ MapWrapper.prototype.init = function () {
             that.identifyParams.layerOption = IdentifyParameters.LAYER_OPTION_ALL;
         });
 
-    
-
     require(["dojo/dom", "dojo/query", "dojo/dom-style",
             "dojo/on", "esri/map",
             "esri/layers/ArcGISTiledMapServiceLayer",
@@ -468,6 +466,14 @@ MapWrapper.prototype.init = function () {
             var pointerSpan = query(".pointerButton", div);
             var annoSpan = query(".annoButton", div);
             var addSpan = query(".addButton", div);
+
+            if (that.canEdit() === false) {
+                addSpan[0].setAttribute("style", "display:none");
+            }
+
+            if (that.hasAnnotation() === false) {
+                annoSpan[0].setAttribute("style", "display:none");
+            }
 
             addSpan.on("click", function () {
                 that.application.bindCmbLayer(that, "cmbLayer2", true);
@@ -746,9 +752,22 @@ MapWrapper.prototype.getVisibleLayers = function () {
         var cat = this.mapSet.Categories[i];
         for (var j = 0; j < cat.Layers.length; j++) {
             var lyr = cat.Layers[j];
-            list.push(lyr.IndexInService);
+            if(lyr.Visible === true) list.push(lyr.IndexInService);
         }
     }
+
+    var baseMaps = this.mapSet.Basemaps;
+
+    for (var i = 0; i < baseMaps.length; i++) {
+        var item = baseMaps[i];
+        if (item.Name === this.lastBasemap.name) {
+            if (item.ShowAttributes === true) {
+                list.push(item.IndexInService);
+            }
+            break;
+        }
+    }
+
     return list;
 }
 
@@ -786,6 +805,7 @@ MapWrapper.prototype._switch2basemap = function(map, tiled, basemapName) {
             }
             var addr = this.application.constructMapAddress(item.TileServiceName)
             var bm = new tiled(addr);
+            bm.name = item.Name;
             map.map.addLayer(bm, 0);
             map.lastBasemap = bm;
             break;
@@ -848,22 +868,21 @@ MapWrapper.prototype.disableMeasure = function () {
     var that = this;
     if (that.measureWidget !== undefined) {
 
-        require(["dojo/dom", "dojo/dom-style"],
+        /*require(["dojo/dom", "dojo/dom-style"],
             function (dom, domStyle) {
-                
                 domStyle.set(dom.byId("measureDiv"+that.mapId), "display", "none");
-            });
+            });*/
 
-        that.measureWidget.hide();
+        
         that.measureWidget.clearResult();
-        that.measureWidget.setTool(that.measureWidget.getTool(), false);
+        var tool = that.measureWidget.getTool();
+        if(tool !== undefined) that.measureWidget.setTool(tool.toolName, false);
+        that.measureWidget.hide();
     }
 };
 
 
 MapWrapper.prototype.executeAnnotate = function (wrapper) {
-    
-
     return function (event) {
         var that = wrapper;
         $("#addModalLabel").html("添加标注");
@@ -904,11 +923,25 @@ MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
 
                             feature.attributes.layerName = result.layerName;
 
-                            var content = "<div class='btn-group'><a class='btn btn-info btn-sm info-btn' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>图片浏览</a>" +
-                                "<a class='btn btn-info btn-sm info-btn' href='javascript:(function(){application.showEditModal(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>属性编辑</a>" +
-                                "<a class='btn btn-danger btn-sm info-btn' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>删除地块</a></div>" +
+                            var content = "";
+                            if (that.showPicture(result.layerName)) {
+                                content += "<a class='btn btn-info btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>图片浏览</a>";
+                            }
 
-                                "<table class='table table-condensed'><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>";
+                            if (that.canEdit(result.layerName)) {
+                                content += "<a class='btn btn-info btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showEditModal(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>属性编辑</a>" + 
+                                     "<a class='btn btn-danger btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showDeleteModal(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>删除地块</a>";
+                            }
+
+                            if (content !== "") {
+                                content = "<div class='btn-group'>" + content + "</div>";
+                            }
+
+                            /*var content = "<div class='btn-group'><a class='btn btn-info btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>图片浏览</a>" +
+                                "<a class='btn btn-info btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showEditModal(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>属性编辑</a>" +
+                                "<a class='btn btn-danger btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showPictures(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>删除地块</a></div>" +
+                            */
+                            content += "<table class='table table-condensed'><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>";
                             for (var i = 0; i < layer.fields.length; i++) {
                                 if (layer.fields[i].name != "Shape" && layer.fields[i].name != "Shape_Area" && layer.fields[i].name != "Shape_Length" && layer.fields[i].name != "OBJECTID") {
                                     content += "<tr><td>" + layer.fields[i].alias + "</td><td>${" + layer.fields[i].alias + "}</td></tr>";
@@ -927,8 +960,51 @@ MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
     };
 };
 
-MapWrapper.prototype.canEdit = function () {
-    
+MapWrapper.prototype.showPicture = function (layerName) {
+    var map = this.mapSet;
+
+    for (var i = 0; i < map.Categories.length; i++) {
+        var cat = map.Categories[i];
+
+        for (var j = 0; j < cat.Layers.length; j++) {
+            var item = cat.Layers[j];
+            if (item.ShowPicture) return item.Editable;
+        }
+    }
+    return false;
+}
+
+MapWrapper.prototype.canEdit = function (layerName) {
+    var map = this.mapSet;
+   
+    for (var i = 0; i < map.Categories.length; i++) {
+        var cat = map.Categories[i];
+        
+        for (var j = 0; j < cat.Layers.length; j++) {
+            var item = cat.Layers[j];
+
+            if (layerName !== undefined) {
+                if(item.Name === layerName) return item.Editable;
+            } else {
+                if(item.Editable === true) return true;
+            }
+        }
+    }
+    return false;
+}
+
+MapWrapper.prototype.hasAnnotation = function () {
+    var map = this.mapSet;
+
+    for (var i = 0; i < map.Categories.length; i++) {
+        var cat = map.Categories[i];
+
+        for (var j = 0; j < cat.Layers.length; j++) {
+            var item = cat.Layers[j];
+            if (item.Annotation === true) return true;
+        }
+    }
+    return false;
 }
 
 MapWrapper.prototype.zoom2FullExtent = function() {
@@ -956,7 +1032,17 @@ MapWrapper.prototype.executeSearch = function () {
         that.queryTask = new QueryTask(addr);
         that.query = new Query();
         that.query.returnGeometry = true;
-        that.query.outFields = ["*"];
+
+        that.query.outFields = [];
+        var lyr = that.application.layers[layerId];
+        for (var i = 0; i < lyr.fields.length; i++) {
+            var fld = lyr.fields[i];
+            var name2 = fld.name.toUpperCase();
+            if (name2.indexOf("SHAPE") < 0) {
+                that.query.outFields.push(fld.name);
+            }
+        }
+        
 
         var where = that._buildWhereClause(dom, "cmbField1", "cmbOp1", "txtKeyword1");
 
@@ -967,9 +1053,15 @@ MapWrapper.prototype.executeSearch = function () {
         }
         that.query.where = where;
 
-        that.queryTask.execute(that.query).then(function(results) {
-            that.showSearchResults(results);
-        });
+        that.queryTask.execute(that.query).then(
+            function (results) {
+                that.showSearchResults(results);
+            },
+            function (event) {
+                alert('查询时发生错误' + event.details[0]);
+                $("#myModal").modal("hide");
+            }
+        );
     });
 }
 
@@ -985,7 +1077,8 @@ MapWrapper.prototype.showSearchResults = function(results) {
         var lyr = that.application.layers[layerId];
         for (var i = 0; i < lyr.fields.length; i++) {
             var fld = lyr.fields[i];
-            if (fld.name != "Shape") { 
+            var name2 = fld.name.toUpperCase();
+            if (name2.indexOf("SHAPE") < 0) {
                 content += "<th>" + fld.alias + "</th>";
             }
         }
@@ -997,7 +1090,8 @@ MapWrapper.prototype.showSearchResults = function(results) {
             content += "<tr>";
             for (var i = 0; i < lyr.fields.length; i++) {
                 var fld = lyr.fields[i];
-                if (fld.name != "Shape" && fld.name != "Shape_Area" && fld.name != "Shape_Length" && fld.name != "OBJECTID") {
+                var name2 = fld.name.toUpperCase();
+                if (name2.indexOf("SHAPE") < 0) {
                     content += "<td>" + f.attributes[fld.name] + "</td>";
                 }
             }
@@ -1061,13 +1155,14 @@ MapWrapper.prototype._buildWhereClause = function(dom, fieldControlName, opContr
     var op = cmbOp.options[cmbOp.selectedIndex].value;
     
     if (op === "like") {
-        return fld.name + " " + op + " '" + txtKeyword.value + "%'";
+        return '[' + fld.name + "] " + op + " '" + txtKeyword.value + "%'";
     } else {
         if (fld.type === "esriFieldTypeString") {
-            return fld.name + " " + op + " '" + txtKeyword.value + "'";
+            return '[' + fld.name + "] " + op + " '" + txtKeyword.value + "'";
         } else {
-            return fld.name + " " + op + " " + txtKeyword.value;
+            return '[' + fld.name + "] " + op + " " + txtKeyword.value;
         }
     }
 }
+
 

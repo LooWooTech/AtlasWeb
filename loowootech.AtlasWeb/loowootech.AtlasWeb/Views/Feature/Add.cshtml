@@ -66,8 +66,8 @@
             <input type="text" value="@layerName" name="LayerName" style="display:none" />
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
-                    <input type="submit" value="提交" class="btn btn-primary" />
-                    <a href="javascript:window.opener=null;window.open('','_self');window.close();" class="btn btn-default" style=""><i class="glyphicon glyphicon-remove"></i>&nbsp;取消</a>
+                    <input type="button" value="提交" class="btn btn-primary" id="submitButton"/>
+                    <a href="javascript:hideDialog();" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i>&nbsp;取消</a>
                 </div>
             </div>
         </form>
@@ -109,16 +109,21 @@
 
         });
 
-        $("#Feature-Add").submit(function () {
-            var data = $(this).serialize();
+        $("#submitButton").click(function () {
+            var data = $("#Feature-Add").serialize();
             $.post("/Feature/Add", data, function (json) {
                 var obj = JSON.parse(json);
                 if (obj.result) {
                     alert("添加成功");
+                    $("#addModal", parent.document.body).modal("hide");
                 } else {
                     alert(obj.message);
                 }
             });
         });
     })
+
+    function hideDialog() {
+        window.parent.application.hideAddModal()
+    }
 </script>
