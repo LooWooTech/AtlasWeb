@@ -6,91 +6,28 @@
     maps:
         [
             {
-                Title: "招商地图",
+                Title: "控制性规划",
                 OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
                 FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
                 Basemaps:
-                    [
-                        {
-                            Id: 0,
-                            Name: "遥感影像",
-                            Title: "遥感影像",
-                            IndexInService: 1,
-                            TileServiceName: "Raster",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: true,
-                            Alpha: 255
-                        },
+                    [                        
                         {
                             Id: 1,
-                            Name: "土地利用",
-                            Title: "土地利用",
-                            IndexInService: 8,
-                            TileServiceName: "DLTB",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-
-                        },
-                        {
-                            Id: 2,
-                            Name: "土地规划",
-                            Title: "土地规划",
-                            IndexInService: 38,
-                            TileServiceName: "GHYT",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-                        },
-                        {
-                            Id: 3,
                             Name: "控规",
                             Title: "控规",
                             IndexInService:1,
-                            TileServiceName:"KG",
-                            Editable:false,
-                            ShowPicture:false,
-                            PictureEditable:false,
-                            Visible:false,
+                            TileServiceName:"KG",                            
+                            Visible:true,
                             Alpha:255
-                        },
-                        {
-                            Id:4,
-                            Name:"总规",
-                            Title:"总规",
-                            IndexInService:1,
-                            TileServiceName:"ZG",
-                            Editable:false,
-                            ShowPicture:false,
-                            PictureEditable:false,
-                            Visible:false,
-                            Alpha:255
-                        },
-                        {
-                            Id: 5,
-                            Name: "建设用地管制区",
-                            Title:"建设用地管制区",
-                            IndexInService:1,
-                            TileServiceName: "JSYDGZQ",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha:255
-                        }
+                        },                        
                     ],
+                Mask: { TileServiceName: "SS-Buffer"},
                 Categories:
                     [
                         {
                             Id: 1,
-                            Name: "招商地图",
+                            Name: "地块信息",
                             Visible: true,
                             Layers:
                                 [
@@ -99,7 +36,7 @@
                                         Name: "已建高标准",
                                         Title: "已建高标准",
                                         IndexInService: 3,
-                                        TileServiceName: "GBZNT-SS",
+                                        TileServiceName: "GBZNT",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
@@ -112,21 +49,20 @@
                                         Name: "粮食功能区",
                                         Title: "粮食功能区",
                                         IndexInService: 4,
-                                        TileServiceName: "LSGNQ-SS",
+                                        TileServiceName: "LSGNQ",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
                                         CategoryId: 1
-
                                     },
                                     {
                                         Id: 6,
                                         Name: "征地数据",
                                         Title: "征地数据",
                                         IndexInService: 5,
-                                        TileServiceName: "ZD-SS",
+                                        TileServiceName: "ZD",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
@@ -139,7 +75,7 @@
                                         Name: "供地数据",
                                         Title: "供地数据",
                                         IndexInService: 6,
-                                        TileServiceName: "GD-SS",
+                                        TileServiceName: "GD",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
@@ -152,7 +88,7 @@
                                         Name: "农转用",
                                         Title: "农转用",
                                         IndexInService: 7,
-                                        TileServiceName: "NZY-SS",
+                                        TileServiceName: "NZY",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
@@ -165,7 +101,115 @@
                                         Name: "转而未供",
                                         Title: "转而未供",
                                         IndexInService: 8,
-                                        TileServiceName: "ZEWG-SS",
+                                        TileServiceName: "ZEWG",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    }
+                                ]
+                        },                    
+                    ]
+            },
+            {
+                Title: "总规",
+                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                Basemaps:
+                    [
+                        {
+                            Id: 2,
+                            Name: "总规",
+                            Title: "总规",
+                            IndexInService: 1,
+                            TileServiceName: "ZG",
+                            Visible: true,
+                            Alpha: 255
+                        },
+                    ],
+                Mask: { TileServiceName: "SS-Buffer" },
+                Categories:
+                    [
+                        {
+                            Id: 1,
+                            Name: "地块信息",
+                            Visible: true,
+                            Layers:
+                                [
+                                    {
+                                        Id: 4,
+                                        Name: "已建高标准",
+                                        Title: "已建高标准",
+                                        IndexInService: 3,
+                                        TileServiceName: "GBZNT",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 5,
+                                        Name: "粮食功能区",
+                                        Title: "粮食功能区",
+                                        IndexInService: 4,
+                                        TileServiceName: "LSGNQ",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 6,
+                                        Name: "征地数据",
+                                        Title: "征地数据",
+                                        IndexInService: 5,
+                                        TileServiceName: "ZD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 7,
+                                        Name: "供地数据",
+                                        Title: "供地数据",
+                                        IndexInService: 6,
+                                        TileServiceName: "GD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 1,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 8,
+                                        Name: "农转用",
+                                        Title: "农转用",
+                                        IndexInService: 7,
+                                        TileServiceName: "NZY",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 9,
+                                        Name: "转而未供",
+                                        Title: "转而未供",
+                                        IndexInService: 8,
+                                        TileServiceName: "ZEWG",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
@@ -175,232 +219,438 @@
                                     }
                                 ]
                         },
-                    
                     ]
             },
             {
-                Title: "基础图件",
-                OverviewImage: "/img/temp/沈士区基础图件示意图.png",
+                Title: "土地利用现状",
+                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
                 FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
                 Basemaps:
                     [
                         {
-                            Id: 6,
-                            Name: "遥感影像",
-                            Title: "遥感影像",
+                            Id: 1,
+                            Name: "土地利用现状",
+                            Title: "土地利用现状",
                             IndexInService: 1,
-                            TileServiceName: "Raster",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: true,
-                            Alpha: 255
-                        },
-                        {
-                            Id: 7,
-                            Name: "土地利用",
-                            Title: "土地利用",
-                            IndexInService: 8,
                             TileServiceName: "DLTB",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-
-                        },
-                        {
-                            Id: 8,
-                            Name: "土地规划",
-                            Title: "土地规划",
-                            IndexInService: 38,
-                            TileServiceName: "GHYT",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
                             Visible: true,
                             Alpha: 255
                         },
-                        {
-                            Id: 9,
-                            Name: "控规",
-                            Title: "控规",
-                            IndexInService: 1,
-                            TileServiceName: "KG",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-                        },
-                        {
-                            Id: 10,
-                            Name: "总规",
-                            Title: "总规",
-                            IndexInService: 1,
-                            TileServiceName: "ZG",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-                        },
-                         {
-                             Id: 11,
-                             Name: "建设用地管制区",
-                             Title: "建设用地管制区",
-                             IndexInService: 1,
-                             TileServiceName: "JSYDGZQ",
-                             Editable: false,
-                             ShowPicture: false,
-                             PictureEditable: false,
-                             Visible: false,
-                             Alpha: 255
-                         }
                     ],
+                Mask: { TileServiceName: "SS-Buffer" },
                 Categories:
                     [
                         {
-                            Id: 2,
-                            Name: "基础图件",
+                            Id: 1,
+                            Name: "地块信息",
                             Visible: true,
                             Layers:
                                 [
                                     {
-                                        Id: 1,
-                                        Name: "土地现状",
-                                        Title: "土地现状",
-                                        IndexInService: 11,
-                                        TileServiceName: "DLTB",
-                                        Editable: false,
-                                        ShowPicture: false,
-                                        PictureEditable: false,
-                                        Visible: false,
-                                        Alpha: 255,
-                                        CategoryId: 2
-                                    },
-                                    {
-                                        Id: 2,
-                                        Name: "土地规划",
-                                        Title: "土地规划",
-                                        IndexInService: 10,
-                                        TitleServiceName: "GHYT",
-                                        Editable: false,
-                                        ShowPicture: false,
-                                        PictureEditable: false,
-                                        Visible:false,
-                                        Alpha: 255,
-                                        CategoryId: 2
-                                    }
-                                ]
-                        }
-                    ]
-            },
-            {
-                Title: "基准地价",
-                OverviewImage: "/img/temp/沈士区基准地价示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
-                Basemaps:
-                    [
-                        {
-                            Id: 12,
-                            Name: "遥感影像",
-                            Title: "遥感影像",
-                            IndexInService: 1,
-                            TileServiceName: "Raster",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: true,
-                            Alpha: 255
-                        },
-                        {
-                            Id: 13,
-                            Name: "土地利用",
-                            Title: "土地利用",
-                            IndexInService: 8,
-                            TileServiceName: "DLTB",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-
-                        },
-                        {
-                            Id: 14,
-                            Name: "土地规划",
-                            Title: "土地规划",
-                            IndexInService: 38,
-                            TileServiceName: "GHYT",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-                        },
-                        {
-                            Id: 15,
-                            Name: "控规",
-                            Title: "控规",
-                            IndexInService: 1,
-                            TileServiceName: "KG",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-                        },
-                        {
-                            Id: 16,
-                            Name: "总规",
-                            Title: "总规",
-                            IndexInService: 1,
-                            TileServiceName: "ZG",
-                            Editable: false,
-                            ShowPicture: false,
-                            PictureEditable: false,
-                            Visible: false,
-                            Alpha: 255
-                        },
-                         {
-                             Id: 17,
-                             Name: "建设用地管制区",
-                             Title: "建设用地管制区",
-                             IndexInService: 1,
-                             TileServiceName: "JSYDGZQ",
-                             Editable: false,
-                             ShowPicture: false,
-                             PictureEditable: false,
-                             Visible: false,
-                             Alpha: 255
-                         }
-                    ],
-                Categories:
-                    [
-                        
-                    {
-                        Id: 3,
-                        Name: "基准地价",
-                        Visible: true,
-                        Layers: [
-                                    {
-                                        Id: 10,
-                                        Name: "级别基准地价",
-                                        Title: "级别基准地价",
-                                        IndexInService: 1,
-                                        TileServiceName: "JBJ-SS",
+                                        Id: 4,
+                                        Name: "已建高标准",
+                                        Title: "已建高标准",
+                                        IndexInService: 3,
+                                        TileServiceName: "GBZNT",
                                         Editable: false,
                                         ShowPicture: false,
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 3
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 5,
+                                        Name: "粮食功能区",
+                                        Title: "粮食功能区",
+                                        IndexInService: 4,
+                                        TileServiceName: "LSGNQ",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 6,
+                                        Name: "征地数据",
+                                        Title: "征地数据",
+                                        IndexInService: 5,
+                                        TileServiceName: "ZD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 7,
+                                        Name: "供地数据",
+                                        Title: "供地数据",
+                                        IndexInService: 6,
+                                        TileServiceName: "GD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 1,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 8,
+                                        Name: "农转用",
+                                        Title: "农转用",
+                                        IndexInService: 7,
+                                        TileServiceName: "NZY",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 9,
+                                        Name: "转而未供",
+                                        Title: "转而未供",
+                                        IndexInService: 8,
+                                        TileServiceName: "ZEWG",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
                                     }
-                        ]
-                    }
+                                ]
+                        },
+                    ]
+            },
+            {
+                Title: "土地利用规划",
+                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                Basemaps:
+                    [
+                        {
+                            Id: 1,
+                            Name: "土地利用规划",
+                            Title: "土地利用规划",
+                            IndexInService: 1,
+                            TileServiceName: "KG",
+                            Visible: true,
+                            Alpha: 255
+                        },
+                    ],
+                Mask: { TileServiceName: "SS-Buffer" },
+                Categories:
+                    [
+                        {
+                            Id: 1,
+                            Name: "地块信息",
+                            Visible: true,
+                            Layers:
+                                [
+                                    {
+                                        Id: 4,
+                                        Name: "已建高标准",
+                                        Title: "已建高标准",
+                                        IndexInService: 3,
+                                        TileServiceName: "GBZNT",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 5,
+                                        Name: "粮食功能区",
+                                        Title: "粮食功能区",
+                                        IndexInService: 4,
+                                        TileServiceName: "LSGNQ",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 6,
+                                        Name: "征地数据",
+                                        Title: "征地数据",
+                                        IndexInService: 5,
+                                        TileServiceName: "ZD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 7,
+                                        Name: "供地数据",
+                                        Title: "供地数据",
+                                        IndexInService: 6,
+                                        TileServiceName: "GD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 1,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 8,
+                                        Name: "农转用",
+                                        Title: "农转用",
+                                        IndexInService: 7,
+                                        TileServiceName: "NZY",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 9,
+                                        Name: "转而未供",
+                                        Title: "转而未供",
+                                        IndexInService: 8,
+                                        TileServiceName: "ZEWG",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    }
+                                ]
+                        },
+                    ]
+            },
+            {
+                Title: "卫星影像",
+                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                Basemaps:
+                    [
+                        {
+                            Id: 1,
+                            Name: "卫星影像",
+                            Title: "卫星影像",
+                            IndexInService: 1,
+                            TileServiceName: "Raster",
+                            Visible: true,
+                            Alpha: 255
+                        },
+                    ],
+                Mask: { TileServiceName: "SS-Buffer" },
+                Categories:
+                    [
+                        {
+                            Id: 1,
+                            Name: "地块信息",
+                            Visible: true,
+                            Layers:
+                                [
+                                    {
+                                        Id: 4,
+                                        Name: "已建高标准",
+                                        Title: "已建高标准",
+                                        IndexInService: 3,
+                                        TileServiceName: "GBZNT",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 5,
+                                        Name: "粮食功能区",
+                                        Title: "粮食功能区",
+                                        IndexInService: 4,
+                                        TileServiceName: "LSGNQ",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 6,
+                                        Name: "征地数据",
+                                        Title: "征地数据",
+                                        IndexInService: 5,
+                                        TileServiceName: "ZD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 7,
+                                        Name: "供地数据",
+                                        Title: "供地数据",
+                                        IndexInService: 6,
+                                        TileServiceName: "GD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 1,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 8,
+                                        Name: "农转用",
+                                        Title: "农转用",
+                                        IndexInService: 7,
+                                        TileServiceName: "NZY",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 9,
+                                        Name: "转而未供",
+                                        Title: "转而未供",
+                                        IndexInService: 8,
+                                        TileServiceName: "ZEWG",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    }
+                                ]
+                        },
+                    ]
+            },
+            {
+                Title: "基准地价",
+                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                Basemaps:
+                    [
+                        {
+                            Id: 1,
+                            Name: "级别基准地价",
+                            Title: "级别基准地价",
+                            IndexInService: 1,
+                            TileServiceName: "JBJ",
+                            Visible: true,
+                            Alpha: 255
+                        },
+                    ],
+                Mask: { TileServiceName: "SS-Buffer" },
+                Categories:
+                    [
+                        {
+                            Id: 1,
+                            Name: "地块信息",
+                            Visible: true,
+                            Layers:
+                                [
+                                    {
+                                        Id: 4,
+                                        Name: "已建高标准",
+                                        Title: "已建高标准",
+                                        IndexInService: 3,
+                                        TileServiceName: "GBZNT",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 5,
+                                        Name: "粮食功能区",
+                                        Title: "粮食功能区",
+                                        IndexInService: 4,
+                                        TileServiceName: "LSGNQ",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 6,
+                                        Name: "征地数据",
+                                        Title: "征地数据",
+                                        IndexInService: 5,
+                                        TileServiceName: "ZD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 7,
+                                        Name: "供地数据",
+                                        Title: "供地数据",
+                                        IndexInService: 6,
+                                        TileServiceName: "GD",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 1,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 8,
+                                        Name: "农转用",
+                                        Title: "农转用",
+                                        IndexInService: 7,
+                                        TileServiceName: "NZY",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    },
+                                    {
+                                        Id: 9,
+                                        Name: "转而未供",
+                                        Title: "转而未供",
+                                        IndexInService: 8,
+                                        TileServiceName: "ZEWG",
+                                        Editable: false,
+                                        ShowPicture: false,
+                                        PictureEditable: false,
+                                        Visible: true,
+                                        Alpha: 255,
+                                        CategoryId: 1
+                                    }
+                                ]
+                        },
                     ]
             }
 

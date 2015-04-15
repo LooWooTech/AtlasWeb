@@ -23,7 +23,7 @@ MapWrapper.prototype._transform_LayerInfos = function()
             items.push({ "title": item.Title, key:item.Id.toString(), id: item.Id, expanded: true, lazy: false, folder: false, children: [], visible: item.Visible });
         }
 
-        data.push({ "title": item.Name, key:(cat.Id + 1000).toString(), id: 1000+cat.Id, expanded: true, lazy: false, folder: true, children: items, visible: cat.Visible });
+        data.push({ "title": cat.Name, key:(cat.Id + 1000).toString(), id: 1000+cat.Id, expanded: true, lazy: false, folder: true, children: items, visible: cat.Visible });
     }
     return data;
 }
@@ -185,11 +185,11 @@ MapWrapper.prototype._assignHandlerForLayerTree = function () {
             {
                 (function () {
                     var check = lyrcheckes[i];
-                    $(check).on("change", function () {
+                    $(check).on("click", function () {
                         var id = parseInt(check.attributes["data-node-id"].value);
                         var lyr = that.layerDict[id];
                         var lyrInfo = that.layerinfoDict[id];
-                        if ($(this).attr("checked")) {
+                        if (this.checked) {
                             lyr.show();
                             lyrInfo.Visible = true;
                         } else {
@@ -204,12 +204,12 @@ MapWrapper.prototype._assignHandlerForLayerTree = function () {
             for (var i = 0; i < lyrcheckes2.length; i++) {
                 (function () {
                     var check = lyrcheckes2[i];
-                    $(check).on("change", function () {
+                    $(check).on("click", function () {
                         var id = parseInt(check.attributes["data-node-id"].value);
                         for (var j = 0; j < that.mapSet.Categories.length; j++) {
                             var cat = that.mapSet.Categories[j];
                             if (cat.Id == id) {
-                                if ($(this).attr("checked")) {
+                                if (this.checked) {
                                     cat.Visible = true;
                                 } else {
                                     cat.Visible = false;
@@ -235,9 +235,9 @@ MapWrapper.prototype._assignHandlerForLayerTree = function () {
 }
 
 MapWrapper.prototype._initLayerTree = function () {
-    $("#treetable").innerHTML = "";
+    
     var that = this;
-    $("#treetable").fancytree({
+    var options = {
         extensions: ["table", "glyph"],
         checkbox: false,
         table: {
@@ -248,44 +248,35 @@ MapWrapper.prototype._initLayerTree = function () {
         glyph: {
             map: {
                 doc: "glyphicon glyphicon-file",
-                docOpen: "glyphicon glyphicon-file",
-                //checkbox: "glyphicon glyphicon-unchecked",
-                //checkboxSelected: "glyphicon glyphicon-check",
-                //checkboxUnknown: "glyphicon glyphicon-share",
-                //error: "glyphicon glyphicon-warning-sign",
+                docOpen: "glyphicon glyphicon-file",                
                 expanderClosed: "glyphicon glyphicon-plus-sign",
-                //expanderLazy: "glyphicon glyphicon-plus-sign",
-                // expanderLazy: "glyphicon glyphicon-expand",
                 expanderOpen: "glyphicon glyphicon-minus-sign",
-                // expanderOpen: "glyphicon glyphicon-collapse-down",
                 folder: "glyphicon glyphicon-folder-close",
                 folderOpen: "glyphicon glyphicon-folder-open",
                 loading: "glyphicon glyphicon-refresh"
-                // loading: "icon-spinner icon-spin"
             }
         },
-        source: function () {
-            return that._transform_LayerInfos();
-        },
+        source: that._transform_LayerInfos(),
 
         init: function (event, data) {
             var tree = $("#treetable").fancytree("getTree");
 
             tree.visit(function (node) {
-                node.setExpanded(false);
-                
+                node.setExpanded(true);
+
             });
 
             $(".translider").slider({
                 animate: "fast"
             });
 
-            
+
             $(".translider").each(function () {
                 var id = parseInt($(this).attr("data-node-id"));
                 var layerInfo = that.layerinfoDict[id];
-                
-                $(this).slider("value", layerInfo.Alpha * 100);
+                if (layerInfo !== undefined) {
+                    $(this).slider("value", layerInfo.Alpha * 100);
+                }
             });
 
             that._assignHandlerForLayerTree();
@@ -314,8 +305,20 @@ MapWrapper.prototype._initLayerTree = function () {
             }
 
         }
-    });
+    };
+        
+    var option2 = {
+        source: that._transform_LayerInfos()
+    }
+    if (that.application.layerTreeInitialized === true){
+        var tree = $('#treetable').fancytree('getTree');
+        tree.reload(that._transform_LayerInfos());
 
+    } else {
+        that.application.layerTreeInitialized = true;
+        $("#treetable").fancytree(options);
+    }
+        
     $("#layerModal").modal();
 }
 
@@ -565,6 +568,11 @@ MapWrapper.prototype.init = function () {
                 if (sliderDivs.length > 0) {
                     domStyle.set(sliderDivs[0], "top", "40px");
                 }
+
+                if (that.application.maps.length == 1) {
+                    setTimeout(function () { that.zoom2FullExtent(); }, 500);
+                    
+                }
             });
 
             if (that.initOptions.extentHandler) {
@@ -586,31 +594,15 @@ MapWrapper.prototype.init = function () {
                         bmButtonDiv.appendChild(btn);
 
                         on(btn, "click", function() {
-
                             that._switch2basemap(that, tiled, item.Name);
                         });
                     })();
                 }
                 that._switch2basemap(that, tiled, baseMaps[0].Name);
-            } else {
+            }
+            if (baseMaps === undefined || baseMaps.length < 2){
                 basemapDiv.setAttribute("style", "display:none");
             }
-
-            
-            /*
-            var lyr = new dynaLayer(that.mapSet.mapAddress);
-            if (that.mapSet.tileAddress !== undefined) {
-                var lyr2 = new tiled(that.mapSet.tileAddress);
-                map.addLayer(lyr2);
-                that.tiledLayer = lyr2;
-            } else {
-                map.addLayer(lyr);
-            }
-            
-            that.dynamicLayer = lyr;
-            /*if(that.mapSet.visibleLayers){
-                lyr.setVisibleLayers(that.mapSet.visibleLayers);
-            }*/
         });
 
     require(["esri/layers/ArcGISTiledMapServiceLayer",
@@ -635,6 +627,11 @@ MapWrapper.prototype.init = function () {
                    arr.push(lyr);
                    if (lyr.labelLayer !== undefined) arr.push(lyr.labelLayer);
                }
+           }
+           
+           if (that.mapSet.Mask !== undefined) {
+               var lyr = new tiledLayer(this.application.constructMapAddress(that.mapSet.Mask.TileServiceName));
+               arr.push(lyr);
            }
            that.map.addLayers(arr);
        });

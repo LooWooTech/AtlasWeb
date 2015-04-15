@@ -55,6 +55,7 @@ MapApplication.prototype.init = function() {
                     for (var i = 0; i < that.mapConfig.initialMaps.length; i++) {
                         that.toggleMap(that.mapConfig.initialMaps[i]);
                     }
+                    
                 });
             });
         });
@@ -108,8 +109,6 @@ MapApplication.prototype.initOverview = function() {
                         that.toggleMap(index);
                     });
                 })();
-
-
             }
         });
 }
@@ -150,7 +149,6 @@ MapApplication.prototype.toggleMap = function (index) {
                 templateDiv: that.templateDivName,
                 id: index,
                 closeHandler: function (mapId) {
-
                     (function() {
                         that.maps.splice(that.getMapIndex(mapId), 1);
                         that.resizeAllMaps();
@@ -168,7 +166,6 @@ MapApplication.prototype.toggleMap = function (index) {
         } else {
             that.syncExtent(map.mapId);
         }
-        
     };
 
     MapApplication.prototype.bindCmbLayer = function(wrapper, dropdown, editable) {
@@ -358,8 +355,6 @@ MapApplication.prototype.toggleMap = function (index) {
                         that.maps[i].map.reposition();
                     }
                     that.attachExtentChangedHandler();
-
-                   
                 }
             });
     };
