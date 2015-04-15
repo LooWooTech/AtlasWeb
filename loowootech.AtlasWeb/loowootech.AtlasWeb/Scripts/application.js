@@ -229,7 +229,8 @@ MapApplication.prototype.toggleMap = function (index) {
                 if (lyr !== undefined) {
                     for (var i = 0; i < lyr.fields.length; i++) {
                         var fld = lyr.fields[i];
-                        if (fld.name != "OBJECTID" && fld.name != "Shape" && fld.name != "Shape_Area" && fld.name != "Shape_Length") {
+                        var name2 = fld.name.toUpperCase();
+                        if (name2 != "OBJECTID" && name2.indexOf("SHAPE") < 0) {
                             var option = document.createElement("option");
 
                             option.value = fld.name;

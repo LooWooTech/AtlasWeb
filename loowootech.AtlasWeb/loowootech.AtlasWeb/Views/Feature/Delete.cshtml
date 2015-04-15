@@ -54,7 +54,7 @@
                 var obj = JSON.parse(json);
                 if (obj.result) {
                     alert("删除成功");
-                    $('#deleteModal', parent.document.body).modal('hide');
+                    hideDialog();
                 } else {
                     alert(obj.message);
                 }

@@ -105,7 +105,7 @@
                 var obj = JSON.parse(json);
                 if (obj.result) {
                     alert("编辑成功");
-                    $("#editModal", parent.document.body).modal("hide");
+                    hideDialog();
                 } else {
                     alert(obj.message);
                 }

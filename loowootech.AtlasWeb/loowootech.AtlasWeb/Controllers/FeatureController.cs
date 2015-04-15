@@ -3,6 +3,7 @@ using loowootech.AtlasWeb.Manager;
 using loowootech.AtlasWeb.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,6 +38,7 @@ namespace loowootech.AtlasWeb.Controllers
         [HttpPost]
         public ActionResult Add(double X,double Y) 
         {
+            
             string Error = string.Empty;
             var layerName = HttpContext.Request.Form["LayerName"].ToString();
             Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues(layerName);
