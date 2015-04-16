@@ -130,7 +130,7 @@ namespace loowootech.AtlasWeb.Controllers
             return JsonFail(Error);
         }
 
-
+        [HttpGet]
         public ActionResult Delete(string LayerName, int ID) 
         {
             if (string.IsNullOrEmpty(LayerName)) 
@@ -145,33 +145,15 @@ namespace loowootech.AtlasWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult Detete() {
+        public ActionResult Detete(string Flag,int ID,string LayerName) {
             string Error = string.Empty;
-            if (!string.IsNullOrEmpty(HttpContext.Request.Form["ID"]) && !string.IsNullOrEmpty(HttpContext.Request.Form["LayerName"]))
+            try
             {
-                string LayerName = HttpContext.Request.Form["LayerName"].ToString();
-                string str = HttpContext.Request.Form["ID"].ToString();
-                int ID = 0;
-                if (int.TryParse(str, out ID))
-                {
-                    try
-                    {
-                        Core.FeatureManager.DeleteFeature(ID,LayerName);
-                    }
-                    catch (Exception ex)
-                    {
-                        Error = ex.ToString();
-                    }
-                }
-                else
-                {
-                    Error = "无法获取ID信息";
-                }
-               
+                Core.FeatureManager.DeleteFeature(ID, LayerName);
             }
-            else
+            catch (Exception ex)
             {
-                Error = "未获取相关参数信息";
+                Error = ex.ToString();
             }
             if (string.IsNullOrEmpty(Error))
             {

@@ -9,7 +9,7 @@
                 Title: "控制性规划",
                 OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
                     [                        
                         {
@@ -117,7 +117,7 @@
                 Title: "总规",
                 OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
                     [
                         {
@@ -134,7 +134,7 @@
                 Categories:
                     [
                         {
-                            Id: 1,
+                            Id: 2,
                             Name: "地块信息",
                             Visible: true,
                             Layers:
@@ -150,7 +150,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 2
                                     },
                                     {
                                         Id: 5,
@@ -163,7 +163,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 2
                                     },
                                     {
                                         Id: 6,
@@ -176,7 +176,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 2
                                     },
                                     {
                                         Id: 7,
@@ -189,7 +189,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 1,
-                                        CategoryId: 1
+                                        CategoryId: 2
                                     },
                                     {
                                         Id: 8,
@@ -202,7 +202,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 2
                                     },
                                     {
                                         Id: 9,
@@ -215,7 +215,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 2
                                     }
                                 ]
                         },
@@ -225,15 +225,16 @@
                 Title: "土地利用现状",
                 OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
                     [
                         {
                             Id: 1,
                             Name: "土地利用现状",
                             Title: "土地利用现状",
-                            IndexInService: 1,
+                            IndexInService: 11,
                             TileServiceName: "DLTB",
+                            ShowAttributes:true,
                             Visible: true,
                             Alpha: 255
                         },
@@ -242,7 +243,7 @@
                 Categories:
                     [
                         {
-                            Id: 1,
+                            Id: 3,
                             Name: "地块信息",
                             Visible: true,
                             Layers:
@@ -258,7 +259,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 3
                                     },
                                     {
                                         Id: 5,
@@ -271,7 +272,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 3
                                     },
                                     {
                                         Id: 6,
@@ -284,7 +285,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 3
                                     },
                                     {
                                         Id: 7,
@@ -297,7 +298,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 1,
-                                        CategoryId: 1
+                                        CategoryId: 3
                                     },
                                     {
                                         Id: 8,
@@ -310,7 +311,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 3
                                     },
                                     {
                                         Id: 9,
@@ -323,7 +324,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 3
                                     }
                                 ]
                         },
@@ -333,15 +334,16 @@
                 Title: "土地利用规划",
                 OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
                     [
                         {
                             Id: 1,
                             Name: "土地利用规划",
                             Title: "土地利用规划",
-                            IndexInService: 1,
-                            TileServiceName: "KG",
+                            IndexInService: 10,
+                            TileServiceName: "GHYT",
+                            ShowAttributes:true,
                             Visible: true,
                             Alpha: 255
                         },
@@ -350,7 +352,7 @@
                 Categories:
                     [
                         {
-                            Id: 1,
+                            Id: 4,
                             Name: "地块信息",
                             Visible: true,
                             Layers:
@@ -366,7 +368,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 4
                                     },
                                     {
                                         Id: 5,
@@ -379,7 +381,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 4
                                     },
                                     {
                                         Id: 6,
@@ -392,7 +394,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 4
                                     },
                                     {
                                         Id: 7,
@@ -405,7 +407,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 1,
-                                        CategoryId: 1
+                                        CategoryId: 4
                                     },
                                     {
                                         Id: 8,
@@ -418,7 +420,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 4
                                     },
                                     {
                                         Id: 9,
@@ -431,7 +433,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 4
                                     }
                                 ]
                         },
@@ -441,7 +443,7 @@
                 Title: "卫星影像",
                 OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
                     [
                         {
@@ -458,7 +460,7 @@
                 Categories:
                     [
                         {
-                            Id: 1,
+                            Id: 5,
                             Name: "地块信息",
                             Visible: true,
                             Layers:
@@ -474,7 +476,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 5
                                     },
                                     {
                                         Id: 5,
@@ -487,7 +489,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 5
                                     },
                                     {
                                         Id: 6,
@@ -500,7 +502,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 5
                                     },
                                     {
                                         Id: 7,
@@ -513,7 +515,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 1,
-                                        CategoryId: 1
+                                        CategoryId: 5
                                     },
                                     {
                                         Id: 8,
@@ -526,7 +528,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 5
                                     },
                                     {
                                         Id: 9,
@@ -539,7 +541,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 5
                                     }
                                 ]
                         },
@@ -549,7 +551,7 @@
                 Title: "基准地价",
                 OverviewImage: "/img/temp/沈士区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536328, ymin: 3369066, xmax: 40539285, ymax: 3372505 },
+                FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
                     [
                         {
@@ -566,7 +568,7 @@
                 Categories:
                     [
                         {
-                            Id: 1,
+                            Id: 6,
                             Name: "地块信息",
                             Visible: true,
                             Layers:
@@ -582,7 +584,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 6
                                     },
                                     {
                                         Id: 5,
@@ -595,7 +597,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 6
                                     },
                                     {
                                         Id: 6,
@@ -608,7 +610,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 6
                                     },
                                     {
                                         Id: 7,
@@ -621,7 +623,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 1,
-                                        CategoryId: 1
+                                        CategoryId: 6
                                     },
                                     {
                                         Id: 8,
@@ -634,7 +636,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 6
                                     },
                                     {
                                         Id: 9,
@@ -647,7 +649,7 @@
                                         PictureEditable: false,
                                         Visible: true,
                                         Alpha: 255,
-                                        CategoryId: 1
+                                        CategoryId: 6
                                     }
                                 ]
                         },

@@ -300,7 +300,7 @@
     <Content Include="maps\ZS-NF.js" />
     <Content Include="maps\ZS-SS.js" />
     <Content Include="maps\ZS-TZC.js" />
-    <Content Include="maps\ZS-XG.js" />
+    <Content Include="maps\ZS-XX.js" />
     <Content Include="maps\ZS-YD.js" />
     <Content Include="Scripts\application.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />

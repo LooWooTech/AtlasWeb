@@ -576,7 +576,7 @@ MapWrapper.prototype.init = function () {
                 }
 
                 if (that.application.maps.length == 1) {
-                    setTimeout(function () { that.zoom2FullExtent(); }, 500);
+                    setTimeout(function () { that.zoom2FullExtent(); }, 2000);
                     
                 }
             });

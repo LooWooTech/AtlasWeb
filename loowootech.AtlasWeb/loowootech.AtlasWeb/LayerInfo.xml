@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Layers>
-  <SDE Instance="5151" User="sde" Password="Ztop" Version="SDE.DEFAULT" />
+  <SDE Instance="5151" User="sde" Password="Ztop123456" Version="SDE.DEFAULT" />
 
   <Layer Title="标注" Name="POI">
     <Field Title="内容" Name="Text" Type="String"></Field>
