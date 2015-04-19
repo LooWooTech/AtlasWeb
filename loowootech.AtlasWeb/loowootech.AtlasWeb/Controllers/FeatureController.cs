@@ -66,7 +66,6 @@ namespace loowootech.AtlasWeb.Controllers
                 {
                     return JsonFail("请上传文件");
                 }
-                //var file = UploadHelper.GetPostedFile(HttpContext);
                 var filePath = UploadHelper.Upload(file);
                 var fileID = UploadHelper.AddFileEntity(new UploadFile
                 {
