@@ -33,20 +33,10 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script>
-    @*<script src="http://js.arcgis.com/3.12/" type="text/javascript"></script>*@
-    <link rel="stylesheet" type="text/css" href="http://10.22.102.19/arcgis_js_api/library/3.12/3.12/dijit/themes/tundra/tundra.css" />
-    <link rel="stylesheet" type="text/css" href="http://10.22.102.19/arcgis_js_api/library/3.12/3.12/esri/css/esri.css" />
-    <script src="http://10.22.102.19/arcgis_js_api/library/3.12/3.12/init.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        dojo.require("esri.map");
-        function init() {
-            var myMap = new esri.Map("mapDiv");
-            //note that if you do not have public Internet access then you will need to point this url to your own locally accessible cached service.
-            var myTiledMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/NGS_Topo_US_2D/MapServer");
-            myMap.addLayer(myTiledMapServiceLayer);
-        }
-        dojo.addOnLoad(init);
-    </script>
+    <script src="http://js.arcgis.com/3.12/" type="text/javascript"></script>
+    
+    <!--<script src="http://@System.Configuration.ConfigurationManager.AppSettings["ARCGIS_SERVER_HOST"]/arcgis_js_api/library/3.12/3.12/init.js" type="text/javascript"></script>-->
+    
     <script src="/Scripts/mapwrapper.js" type="text/javascript"></script>
     <script src="/Scripts/application.js" type="text/javascript"></script>
     <script src="/Scripts/jquery.fancytree.js" type="text/javascript"></script>
@@ -56,6 +46,51 @@
 </head>
 <body class="tundra">
     <form id="form1">
+        <script language="javascript" type="text/javascript">
+            function dyniframesize(down) {
+                var pTar = null;
+                if (document.getElementById) {
+                    pTar = document.getElementById(down);
+                }
+                else {
+                    eval('pTar = ' + down + ';');
+                }
+                if (pTar && !window.opera) {
+                    //begin resizing iframe
+                    pTar.style.display = "block"
+                    if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight) {
+                        //ns6 syntax
+                        pTar.height = pTar.contentDocument.body.offsetHeight + 20;
+                        pTar.width = pTar.contentDocument.body.scrollWidth + 20;
+                    }
+                    else if (pTar.Document && pTar.Document.body.scrollHeight) {
+                        //ie5+ syntax
+                        pTar.height = pTar.Document.body.scrollHeight;
+                        pTar.width = pTar.Document.body.scrollWidth;
+                    }
+                }
+            }
+
+            function dyniframesize2(down)
+            {
+                var iframe = document.getElementById(down);   
+  
+                try{   
+  
+                    var bHeight = iframe.contentWindow.document.body.scrollHeight;   
+  
+                    var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;   
+  
+                    var height = Math.max(bHeight, dHeight);   
+  
+                    iframe.height =  height;   
+  
+                }catch (ex){}   
+  
+            }
+            
+        </script> 
+
         <script type="text/javascript">
             
         var host = '@System.Configuration.ConfigurationManager.AppSettings["ARCGIS_SERVER_HOST"]';
@@ -133,7 +168,7 @@
             <div class="dijitDialogPaneContentArea">
                 <div style="margin:24px">
 
-                    <img src="img/block-loading.gif" width="32px" height="32px" /><span style="font-size:16px;padding-left:24px">
+                    <img src="/Img/block-loading.gif" width="32px" height="32px" /><span style="font-size:16px;padding-left:24px">
                         正在载入数据，请稍候...
                     </span>
                 </div>
@@ -171,7 +206,7 @@
                         <h4 class="modal-title" id="addModalLabel">地块导入</h4>
                     </div>
                     <div class="modal-body">
-                        <iframe id="addFrame" style="zoom: 0.6; width: 100%; height: 800px" src="" frameborder="0" ></iframe>
+                        <iframe id="addFrame" style="zoom: 0.6; width: 100%;" src="" frameborder="0" onload="javascript:dyniframesize2('addFrame')" ></iframe>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -185,7 +220,7 @@
                         <h4 class="modal-title" id="myModalLabel">属性编辑</h4>
                     </div>
                     <div class="modal-body">
-                        <iframe id="editFrame" style="zoom: 0.6; width: 100%; height: 800px" src="" frameborder="0" ></iframe>
+                        <iframe id="editFrame" style="zoom: 0.6; width: 100%;" src="" onload="javascript:dyniframesize2('editFrame')" frameborder="0"></iframe>
 
                     </div>
 
@@ -201,7 +236,7 @@
                         <h4 class="modal-title" id="deleteModalLabel">删除确认</h4>
                     </div>
                     <div class="modal-body">
-                        <iframe id="deleteFrame" style="zoom: 0.6; width: 100%; height: 800px" src="" frameborder="0"></iframe>
+                        <iframe id="deleteFrame" style="zoom: 0.6; width: 100%;" src="" frameborder="0" onload="javascript:dyniframesize2('deleteFrame')"></iframe>
 
                     </div>
 

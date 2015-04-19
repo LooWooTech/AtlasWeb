@@ -101,7 +101,7 @@
 
 
         $("#EditButton").click(function () {
-            var data = $(this).serialize();
+            var data = $("#Feature-Edit").serialize();
             $.post("/Feature/Edit", data, function (json) {
                 var obj = JSON.parse(json);
                 if (obj.result) {
