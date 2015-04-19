@@ -170,11 +170,6 @@
             </div>
         </div>
 
-        <div class="mock" style="display:none;z-index:9999;position:absolute;left:0;top:0;width:100%;height:100%;text-align: center;">
-            <div style="margin:auto;margin-top:20%;">
-                <img src="/img/10536001_639497.jpg" onclick="(function(){$('.mock').fadeOut();})()" />
-            </div>
-        </div>
         <!-- Modal -->
 
         <div class="modal fade" id="pictureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -397,7 +392,7 @@
         <div style="position:absolute;bottom:6px;right:6px;z-index:1000;left:6px" class="dijitDialog hide" id="divSearchResult">
             <div class="dijitDialogTitleBar">
                 <span class="dijitDialogTitle">查询结果</span>
-                <a class="dijitDialogCloseIcon dijitDialogCloseIconHover" href="javascript:$('#divSearchResult').hide();">
+                <a class="dijitDialogCloseIcon dijitDialogCloseIconHover" id="btnSearchResult" >
                     <i class="glyphicon glyphicon-remove-circle"></i>
                 </a>
             </div>

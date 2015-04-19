@@ -30,6 +30,11 @@ namespace loowootech.AtlasWeb.Controllers
             return Content(new { result = true, data = data }.ToJson());
         }
 
+        protected ActionResult JavascriptResult(string js)
+        {
+            return Content("<script language='javascript' type='text/javascript'>" + js + "</script>");
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             ViewBag.Controller = RouteData.Values["controller"];

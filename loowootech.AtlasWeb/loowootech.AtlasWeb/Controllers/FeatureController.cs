@@ -95,15 +95,12 @@ namespace loowootech.AtlasWeb.Controllers
             }
             if (string.IsNullOrEmpty(Error))
             {
-                return JsonSuccess();
+                return JavascriptResult("alert('添加成功');window.parent.application.hideAddModal();");
             }
             else {
-                return JsonFail(Error);
+                return JavascriptResult("alert('操作失败:" + Error + "');window.parent.application.hideAddModal();");
             }
         }
-
-
-
 
         public ActionResult Edit(string LayerName,int ID,string SYZ=null,string SFZHM=null) 
         {

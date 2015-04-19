@@ -1109,6 +1109,10 @@ MapWrapper.prototype.showSearchResults = function(results) {
 
         content += "</tbody></table>";
         dom.byId("divSearchResultContent").innerHTML = content;
+        $("#btnSearchResult").on("click", function () {
+            that.map.graphics.clear();
+            dom.byId("divSearchResult").setAttribute("class", "dijitDialog hide");
+        });
 
     });
 }
