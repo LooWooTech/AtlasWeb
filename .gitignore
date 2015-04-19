@@ -5,8 +5,8 @@
 bin
 obj
 *.jpg
-*.jpeg
 *.png
+*.jpeg
 *.bmp
 *.gif
 *.dxf
