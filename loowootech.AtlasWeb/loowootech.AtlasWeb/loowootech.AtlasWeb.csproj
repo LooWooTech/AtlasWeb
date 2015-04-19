@@ -326,6 +326,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Areas\Admin\Views\Map\Manager.cshtml" />
+    <Content Include="HouseHoldInfo.xml" />
     <None Include="Properties\PublishProfiles\Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -360,10 +361,12 @@
     <Content Include="Views\Picture\Get.cshtml" />
     <Content Include="Views\Picture\Show.cshtml" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
-    <Content Include="Views\Feature\Add.cshtml" />
-    <Content Include="Views\Feature\Edit.cshtml" />
     <Content Include="Views\Map\Manager.cshtml" />
+    <Content Include="Views\Feature\_LayoutOfFeature.cshtml" />
+    <Content Include="Views\Feature\Edit.cshtml" />
     <Content Include="Views\Feature\Delete.cshtml" />
+    <Content Include="Views\Feature\Add.cshtml" />
+    <Content Include="Views\Feature\SearchOfResident.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

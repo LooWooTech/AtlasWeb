@@ -13,12 +13,22 @@ namespace loowootech.AtlasWeb.Controllers
     public class FeatureController : ControllerBase
     {
         [HttpGet]
-        public ActionResult Add(string LayerName,double X=0.0,double Y=0.0) 
+        public ActionResult Add(string LayerName,double X=0.0,double Y=0.0,string SYZ=null,string SFZHM=null) 
         {
             if (string.IsNullOrEmpty(LayerName))
             {
                 throw new ArgumentException("传入参数LayerName为NUll或空！");
             }
+            Dictionary<string, string> Dict = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(SYZ))
+            {
+                Dict.Add("SYZ", SYZ);
+            }
+            if (!string.IsNullOrEmpty(SFZHM))
+            {
+                Dict.Add("SFZHM", SFZHM);
+            }
+            ViewBag.Dict = Dict;
             ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
             ViewBag.LayerName = LayerName;
             ViewBag.X = X;
@@ -83,12 +93,22 @@ namespace loowootech.AtlasWeb.Controllers
 
 
 
-        public ActionResult Edit(string LayerName,int ID) 
+        public ActionResult Edit(string LayerName,int ID,string SYZ=null,string SFZHM=null) 
         {
             if (string.IsNullOrEmpty(LayerName))
             {
                 throw new ArgumentException("传入参数LayerName为NULL或空！");
             }
+            Dictionary<string, string> Dict = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(SYZ))
+            {
+                Dict.Add("SYZ", SYZ);
+            }
+            if (!string.IsNullOrEmpty(SFZHM)) 
+            {
+                Dict.Add("SFZHM", SFZHM);
+            }
+            ViewBag.Dict = Dict;
             ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
             ViewBag.FeatureValues = Core.FeatureManager.GetFeatureValues(LayerName,ID);
             ViewBag.LayerName = LayerName;
@@ -100,6 +120,10 @@ namespace loowootech.AtlasWeb.Controllers
         [HttpPost]
         public ActionResult Edit()
         {
+            if (string.IsNullOrEmpty(HttpContext.Request.Form["ID"]))
+            {
+                return JsonFail("未获取ID值");
+            }
             string str = HttpContext.Request.Form["ID"].ToString();
             if (string.IsNullOrEmpty(str)) {
                 return JsonFail("未获取ID值");
@@ -129,10 +153,29 @@ namespace loowootech.AtlasWeb.Controllers
             }
             return JsonFail(Error);
         }
-
-        [HttpGet]
-        public ActionResult Delete(string LayerName, int ID) 
+      //  [HttpGet]
+        public ActionResult Delete(string LayerName, int ID,bool Flag=false) 
         {
+            if (Flag)
+            {
+                string Error = string.Empty;
+                try
+                {
+                    Core.FeatureManager.DeleteFeature(ID, LayerName);
+                }
+                catch (Exception ex)
+                {
+                    Error = ex.ToString();
+                }
+                if (string.IsNullOrEmpty(Error))
+                {
+                    return JsonSuccess();
+                }
+                else
+                {
+                    return JsonFail(Error);
+                }
+            }
             if (string.IsNullOrEmpty(LayerName)) 
             {
                 throw new ArgumentException("传入参数LayerName未null或空!");
@@ -144,8 +187,11 @@ namespace loowootech.AtlasWeb.Controllers
             return View();
         }
 
+        /*删除，post失败*/
         [HttpPost]
-        public ActionResult Detete(string Flag,int ID,string LayerName) {
+        public ActionResult DeteteOfConfirm() {
+            int ID = 0;
+            string LayerName = "";
             string Error = string.Empty;
             try
             {
@@ -163,6 +209,23 @@ namespace loowootech.AtlasWeb.Controllers
             {
                 return JsonFail(Error);
             }
+        }
+
+
+        public ActionResult SearchOfResident(string LayerName,bool Flag,int ID=0,string Key=null)
+        {
+            List<FieldInfo> Results=new List<FieldInfo>();
+            if (!string.IsNullOrEmpty(Key))
+            {
+                List<FieldInfo> list=Core.FeatureManager.GetHouseHoldResident();
+                Results = list.Where(e => e.Name.Contains(Key)||e.Title.Contains(Key)).ToList();
+            }
+            ViewBag.Key = Key;
+            ViewBag.Results = Results;
+            ViewBag.Flag = Flag;
+            ViewBag.LayerName = LayerName;
+            ViewBag.ID = ID;
+            return View();
         }
 
 

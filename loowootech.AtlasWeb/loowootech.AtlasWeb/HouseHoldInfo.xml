@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Residents>
+  <Resident Title="住户" Name="xc">
+    <Field Title="身份证" Name="330481201504191030" ></Field>
+  </Resident>
+  <Resident Title="住户" Name="wjl">
+    <Field Title="身份证" Name="330481199109041030" ></Field>
+  </Resident>
+  <Resident Title="住户" Name="zt">
+    <Field Title="身份证" Name="330481197911012045" ></Field>
+  </Resident>
+</Residents>

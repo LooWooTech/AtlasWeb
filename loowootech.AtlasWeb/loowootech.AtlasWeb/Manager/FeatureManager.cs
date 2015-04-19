@@ -24,11 +24,15 @@ namespace loowootech.AtlasWeb.Manager
         private AoInitialize aoInit;
 
         private XmlDocument configXml;
+        private XmlDocument residentXml;
              
         public FeatureManager()
         {
             configXml = new XmlDocument();
             configXml.Load(ConfigurationManager.AppSettings["LAYER_FILE_PATH"]);
+
+            residentXml = new XmlDocument();
+            residentXml.Load(ConfigurationManager.AppSettings["RESIDENT_FILE_PATH"]);
         }
 
         private void InitLicense()
@@ -143,6 +147,35 @@ namespace loowootech.AtlasWeb.Manager
                 });
 
             }
+            return list;
+        }
+
+
+        /// <summary>
+        /// 获取户籍信息
+        /// </summary>
+        /// <returns></returns>
+        public List<FieldInfo> GetHouseHoldResident()
+        {
+            var node = residentXml.SelectNodes("/Residents/Resident[@Title='住户']");
+            var list = new List<FieldInfo>();
+            for (var j = 0; j < node.Count; j++) 
+            {
+                var nodes = node[j].SelectNodes("Field");
+                var Name = node[j].Attributes["Name"].Value;
+                for (var i = 0; i < nodes.Count; i++)
+                {
+                    var n = nodes[i];
+                    list.Add(new FieldInfo
+                    {
+                        Name = Name,
+                        Title = n.Attributes["Name"].Value,
+                        Type = FieldTypeEnum.String
+                    });
+                }
+            }
+            //var nodes = node.SelectNodes("Field");
+            
             return list;
         }
 
