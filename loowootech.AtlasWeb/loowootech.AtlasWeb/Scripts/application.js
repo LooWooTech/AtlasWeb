@@ -46,6 +46,10 @@ MapApplication.prototype.init = function() {
                 that.bindCmbField("cmbLayer", "cmbField2");
             });
 
+            on(dom.byId("cmbRel"), "change", function () {
+                that.updateSearchForm("cmbRel");
+            });
+
             var mapServiceAddress = that.constructMapAddress(that.mapConfig.dynamicServiceName);
             var lyr = new dynaLayer(mapServiceAddress);
             that.dynamicLayer = lyr;
@@ -184,6 +188,15 @@ MapApplication.prototype.toggleMap = function (index) {
             that.syncExtent(map.mapId);
         }
     };
+    
+    MapApplication.prototype.updateSearchForm = function (dropdown) {
+        require(["dojo/dom"], function (dom) {
+            var disabled = dom.byId("cmbRel").selectedIndex < 1;
+            dom.byId("cmbField2").disabled = disabled;
+            dom.byId("txtKeyword2").disabled = disabled;
+            dom.byId("cmbOp2").disabled = disabled;
+        });
+    }
 
     MapApplication.prototype.bindCmbLayer = function(wrapper, dropdown, editable) {
         var that = this;
@@ -213,8 +226,25 @@ MapApplication.prototype.toggleMap = function (index) {
                         }
                     }
                 }
+                if (editable === undefined) {
+                    that.clearSearchForm();
+                    that.updateSearchForm("cmbRel");
+                }
             });
     };
+
+    MapApplication.prototype.clearSearchForm = function () {
+        var that = this;
+        require(["dojo/dom"], function (dom) {
+            that.bindCmbField("cmbLayer", "cmbField1");
+            that.bindCmbField("cmbLayer", "cmbField2");
+            dom.byId("txtKeyword1").value = "";
+            dom.byId("txtKeyword2").value = "";
+            dom.byId("cmbOp1").selectedIndex = 0;
+            dom.byId("cmbOp2").selectedIndex = 0;
+            dom.byId("cmbRel").selectedIndex = 0;
+        });
+    }
 
     MapApplication.prototype.bindCmbField = function (cmbLayerName, cmbFieldName) {
         var that = this;

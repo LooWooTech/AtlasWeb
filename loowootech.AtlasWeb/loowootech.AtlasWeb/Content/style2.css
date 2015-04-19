@@ -123,11 +123,11 @@ body {
     right: 20px;
     position: absolute;
     z-index: 40;
-    background-color: #ffffcd;
+    background-color: #eee;
 }
 
     .bm-panel .btn {
-        border-color: #000000;
+        border-color: #666;
     }
 
 .mapTools .nav > li > a > span {

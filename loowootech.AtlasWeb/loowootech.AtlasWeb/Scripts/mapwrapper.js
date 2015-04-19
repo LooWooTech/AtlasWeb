@@ -295,12 +295,12 @@ MapWrapper.prototype._initLayerTree = function () {
                 $tdList.eq(1).html("<div class='translider' data-node-id='" + node.data.id + "' " + frag + "></div>");
 
                 $tdList.eq(2).html("<input type='checkbox' class='lyrCheck' data-node-id='" + node.data.id + "' " + frag2 + " id='lyrCheck" + node.data.id + "'>");
-                $tdList.eq(3).html("<div class='btn-group'><a href='javascript:void(0)' class='btn btn-info btn-xs lyrUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-up'></span>&nbsp;</a>" +
-                                   "<a href='javascript:void(0)' class='btn btn-info btn-xs lyrDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-down'></span>&nbsp;</a></div>")
+                $tdList.eq(3).html("<div class='btn-group'><a href='javascript:void(0)' class='btn btn-default btn-xs lyrUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-up'></span>&nbsp;</a>" +
+                                   "<a href='javascript:void(0)' class='btn btn-default btn-xs lyrDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-down'></span>&nbsp;</a></div>")
             } else {
                 $tdList.eq(2).html("<input type='checkbox' class='lyrGroupCheck' data-node-id='" + node.data.id + "' " + frag2 + " id='lyrGroupCheck" + node.data.id + "'>");
-                $tdList.eq(3).html("<div class='btn-group'><a href='javascript:void(0)' class='btn btn-info btn-xs lyrGroupUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-up'></span>&nbsp;</a>" +
-                                   "<a href='javascript:void(0)' class='btn btn-info btn-xs lyrGroupDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-down'></span>&nbsp;</a></div>")
+                $tdList.eq(3).html("<div class='btn-group'><a href='javascript:void(0)' class='btn btn-default btn-xs lyrGroupUp' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-up'></span>&nbsp;</a>" +
+                                   "<a href='javascript:void(0)' class='btn btn-default btn-xs lyrGroupDown' data-node-id='" + node.data.id + "'><span class='glyphicon glyphicon-circle-arrow-down'></span>&nbsp;</a></div>")
 
             }
 
@@ -568,7 +568,7 @@ MapWrapper.prototype.init = function () {
             map.on("load", function() {
                 var sliderDivs = query(".esriSimpleSlider", div);
                 if (sliderDivs.length > 0) {
-                    domStyle.set(sliderDivs[0], "top", "40px");
+                    domStyle.set(sliderDivs[0], "top", "50px");
                 }
 
                 if (that.application.maps.length == 1) {
@@ -938,7 +938,7 @@ MapWrapper.prototype.executeIdentifyTask = function(wrapper) {
                             }
 
                             if (that.canEdit(result.layerName)) {
-                                content += "<a class='btn btn-info btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showEditModal(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>属性编辑</a>" + 
+                                content += "<a class='btn btn-info btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showEditModal(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>属性编辑</a>" +
                                      "<a class='btn btn-danger btn-sm' style='color:#fff;text-decoration:none' href='javascript:(function(){application.showDeleteModal(\"" + result.layerName + "\"," + feature.attributes.OBJECTID + ");})()'>删除地块</a>";
                             }
 
