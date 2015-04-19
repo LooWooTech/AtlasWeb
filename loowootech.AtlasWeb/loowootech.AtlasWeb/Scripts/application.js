@@ -19,7 +19,7 @@ MapApplication.prototype.init = function() {
             "esri/graphic", "esri/Color", "dojo/dom"],
         function(dynaLayer, on, SimpleMarkerSymbol, SimpleLineSymbol,
             SimpleFillSymbol, CartographicLineSymbol, GeometryService, esriConfig, Graphic, Color, dom) {
-
+            dialogLoading.show();
             dom.byId("topicName").innerHTML = that.mapConfig.title;
             var geometryServiceAddress = that._constructGeoServiceAddress();
             esriConfig.defaults.geometryService = new GeometryService(geometryServiceAddress);

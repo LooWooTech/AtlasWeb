@@ -76,15 +76,10 @@
                 var iframe = document.getElementById(down);   
   
                 try{   
-  
                     var bHeight = iframe.contentWindow.document.body.scrollHeight;   
-  
                     var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;   
-  
                     var height = Math.max(bHeight, dHeight);   
-  
                     iframe.height =  height;   
-  
                 }catch (ex){}   
   
             }
@@ -168,7 +163,7 @@
             <div class="dijitDialogPaneContentArea">
                 <div style="margin:24px">
 
-                    <img src="/Img/block-loading.gif" width="32px" height="32px" /><span style="font-size:16px;padding-left:24px">
+                    <img src="/Img/block-loading.gif" style="width:32px;height:32px;" /><span style="font-size:16px;padding-left:24px">
                         正在载入数据，请稍候...
                     </span>
                 </div>
@@ -206,7 +201,7 @@
                         <h4 class="modal-title" id="addModalLabel">地块导入</h4>
                     </div>
                     <div class="modal-body">
-                        <iframe id="addFrame" style="zoom: 0.6; width: 100%;" src="" frameborder="0" onload="javascript:dyniframesize2('addFrame')" ></iframe>
+                        <iframe id="addFrame" style="width: 100%;" src="" frameborder="0" onload="javascript:dyniframesize2('addFrame')" ></iframe>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -220,7 +215,7 @@
                         <h4 class="modal-title" id="myModalLabel">属性编辑</h4>
                     </div>
                     <div class="modal-body">
-                        <iframe id="editFrame" style="zoom: 0.6; width: 100%;" src="" onload="javascript:dyniframesize2('editFrame')" frameborder="0"></iframe>
+                        <iframe id="editFrame" style="width: 100%;" src="" onload="javascript:dyniframesize2('editFrame')" frameborder="0"></iframe>
 
                     </div>
 
@@ -236,7 +231,7 @@
                         <h4 class="modal-title" id="deleteModalLabel">删除确认</h4>
                     </div>
                     <div class="modal-body">
-                        <iframe id="deleteFrame" style="zoom: 0.6; width: 100%;" src="" frameborder="0" onload="javascript:dyniframesize2('deleteFrame')"></iframe>
+                        <iframe id="deleteFrame" style="width: 100%;" src="" frameborder="0" onload="javascript:dyniframesize2('deleteFrame')"></iframe>
 
                     </div>
 

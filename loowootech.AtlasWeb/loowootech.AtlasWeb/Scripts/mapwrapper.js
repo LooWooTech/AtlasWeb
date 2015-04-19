@@ -334,6 +334,7 @@ MapWrapper.prototype.isLayerEditable = function (id) {
     return false;
 }
 
+
 MapWrapper.prototype.init = function () {
     var that = this;
     
@@ -571,8 +572,13 @@ MapWrapper.prototype.init = function () {
                 }
 
                 if (that.application.maps.length == 1) {
-                    setTimeout(function () { that.zoom2FullExtent(); }, 2000);
-                    dialogLoading.hide();
+                    that.application.zoomIntervalHandler = setInterval(function () {
+                        if (that.lastBasemap !== undefined) {
+                            that.zoom2FullExtent();
+                            dialogLoading.hide();
+                            clearInterval(that.application.zoomIntervalHandler);
+                        }
+                    }, 1000)
                 }
             });
 
@@ -599,7 +605,10 @@ MapWrapper.prototype.init = function () {
                         });
                     })();
                 }
-                that._switch2basemap(that, tiled, baseMaps[0].Name);
+                that._switch2basemap(that, tiled, baseMaps[0].Name, function () {
+                    //setTimeout(function () { that.zoom2FullExtent(); dialogLoading.hide(); }, 2000);
+                    
+                });
             }
             if (baseMaps === undefined || baseMaps.length < 2){
                 basemapDiv.setAttribute("style", "display:none");
@@ -789,7 +798,7 @@ MapWrapper.prototype.destory = function () {
 };
 
 
-MapWrapper.prototype._switch2basemap = function(map, tiled, basemapName) {
+MapWrapper.prototype._switch2basemap = function(map, tiled, basemapName, callback) {
     var baseMaps = map.mapSet.Basemaps;
 
     for (var i = 0; i < baseMaps.length; i++) {
@@ -797,12 +806,17 @@ MapWrapper.prototype._switch2basemap = function(map, tiled, basemapName) {
         if (item.Name === basemapName) {
             if (map.lastBasemap != undefined) {
                 map.map.removeLayer(map.lastBasemap);
-            }
+            } 
             var addr = this.application.constructMapAddress(item.TileServiceName)
             var bm = new tiled(addr);
+            if (map.lastBasemap === undefined && callback !== undefined) {
+                bm.on("load", function () { callback(); });
+            }
+        
             bm.name = item.Name;
             map.map.addLayer(bm, 0);
             map.lastBasemap = bm;
+
             break;
         }
     }
