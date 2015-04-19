@@ -340,7 +340,7 @@ MapWrapper.prototype.init = function () {
     require(["esri/tasks/IdentifyTask",
             "esri/tasks/IdentifyParameters"],
         function (IdentifyTask, IdentifyParameters) {
-            alert("ok0");
+            
             that.identifyTask = new IdentifyTask(that.application.constructMapAddress(that.application.mapConfig.dynamicServiceName));
             that.identifyParams = new IdentifyParameters();
             that.identifyParams.tolerance = 3;
@@ -505,9 +505,8 @@ MapWrapper.prototype.init = function () {
                     that.disableAnnotate();
                     measureSpan[0].setAttribute("class", "measureButton");
                 } else {
-                    pointerSpan[0].setAttribute("class", "pointerButton")
+                    pointerSpan[0].setAttribute("class", "pointerButton");
                 }
-
             });
 
             measureSpan.on("click", function () {
@@ -523,42 +522,38 @@ MapWrapper.prototype.init = function () {
                     that.disableMeasure();
                     measureSpan[0].setAttribute("class", "measureButton");
                 }
-
             });
 
             identifySpan.on("click", function () {
                 if (identifySpan[0].attributes["class"].value === "identifyButton") {
                     that.enableIdentify();
-                    identifySpan[0].setAttribute("class", "identifyButton checkedTool")
+                    identifySpan[0].setAttribute("class", "identifyButton checkedTool");
                     that.disableMeasure();
                     measureSpan[0].setAttribute("class", "measureButton");
                     that.disableAnnotate();
-                    annoSpan[0].setAttribute("class", "annoButton")
+                    annoSpan[0].setAttribute("class", "annoButton");
                     pointerSpan[0].setAttribute("class", "pointerButton");
-
                 } else {
                     that.disableIdentify();
-                    identifySpan[0].setAttribute("class", "identifyButton")
+                    identifySpan[0].setAttribute("class", "identifyButton");
                 }
-                
             });
 
             annoSpan.on("click", function () {
                 if (annoSpan[0].attributes["class"].value === "annoButton") {
                     that.enableAnnotate();
-                    annoSpan[0].setAttribute("class", "annoButton checkedTool")
+                    annoSpan[0].setAttribute("class", "annoButton checkedTool");
                     that.disableIdentify();
-                    identifySpan[0].setAttribute("class", "identifyButton")
+                    identifySpan[0].setAttribute("class", "identifyButton");
                     that.disableMeasure();
                     measureSpan[0].setAttribute("class", "measureButton");
                     pointerSpan[0].setAttribute("class", "pointerButton");
                 } else {
                     that.disableAnnotate();
-                    annoSpan[0].setAttribute("class", "annoButton")
+                    annoSpan[0].setAttribute("class", "annoButton");
                 }
             });
             
-
             that.popup = new Popup({
                 fillSymbol: new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                     new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
@@ -577,7 +572,7 @@ MapWrapper.prototype.init = function () {
 
                 if (that.application.maps.length == 1) {
                     setTimeout(function () { that.zoom2FullExtent(); }, 2000);
-                    
+                    dialogLoading.hide();
                 }
             });
 
