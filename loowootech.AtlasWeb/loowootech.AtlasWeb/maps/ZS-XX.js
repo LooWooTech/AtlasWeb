@@ -1,15 +1,15 @@
 ﻿var configuration = {
     host: host,
-    dynamicServiceName: "ZS-LM",
-    title: "联盟区-招商专题",
+    dynamicServiceName: "ZS-XX",
+    title: "许巷区-招商专题",
     initialMaps: [0],
     maps:
         [
             {
                 Title: "控制性规划",
-                OverviewImage: "/img/temp/联盟区招商地图示意图.png",
+                OverviewImage: "/img/temp/许巷区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
+                FullExtent: { xmin: 40534360, ymin: 3365109, xmax: 40534945, ymax: 3365772 },
                 Basemaps:
                     [
                         {
@@ -22,7 +22,7 @@
                             Alpha: 255
                         },
                     ],
-                Mask: { TileServiceName: "LM-Buffer" },
+                Mask: { TileServiceName: "XX-Buffer" },
                 Categories:
                     [
                         {
@@ -115,9 +115,9 @@
             },
             {
                 Title: "总规",
-                OverviewImage: "/img/temp/联盟区招商地图示意图.png",
+                OverviewImage: "/img/temp/许巷区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
+                FullExtent: { xmin: 40534360, ymin: 3365109, xmax: 40534945, ymax: 3365772 },
                 Basemaps:
                     [
                         {
@@ -130,7 +130,7 @@
                             Alpha: 255
                         },
                     ],
-                Mask: { TileServiceName: "LM-Buffer" },
+                Mask: { TileServiceName: "XX-Buffer" },
                 Categories:
                     [
                         {
@@ -188,7 +188,7 @@
                                         ShowPicture: false,
                                         PictureEditable: false,
                                         Visible: true,
-                                        Alpha: 255,
+                                        Alpha: 1,
                                         CategoryId: 2
                                     },
                                     {
@@ -223,9 +223,9 @@
             },
             {
                 Title: "土地利用现状",
-                OverviewImage: "/img/temp/联盟区招商地图示意图.png",
+                OverviewImage: "/img/temp/许巷区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
+                FullExtent: { xmin: 40534360, ymin: 3365109, xmax: 40534945, ymax: 3365772 },
                 Basemaps:
                     [
                         {
@@ -239,7 +239,7 @@
                             Alpha: 255
                         },
                     ],
-                Mask: { TileServiceName: "LM-Buffer" },
+                Mask: { TileServiceName: "XX-Buffer" },
                 Categories:
                     [
                         {
@@ -332,9 +332,9 @@
             },
             {
                 Title: "土地利用规划",
-                OverviewImage: "/img/temp/联盟区招商地图示意图.png",
+                OverviewImage: "/img/temp/许巷区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
+                FullExtent: { xmin: 40534360, ymin: 3365109, xmax: 40534945, ymax: 3365772 },
                 Basemaps:
                     [
                         {
@@ -348,7 +348,7 @@
                             Alpha: 255
                         },
                     ],
-                Mask: { TileServiceName: "LM-Buffer" },
+                Mask: { TileServiceName: "XX-Buffer" },
                 Categories:
                     [
                         {
@@ -441,9 +441,9 @@
             },
             {
                 Title: "卫星影像",
-                OverviewImage: "/img/temp/联盟区招商地图示意图.png",
+                OverviewImage: "/img/temp/许巷区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
+                FullExtent: { xmin: 40534360, ymin: 3365109, xmax: 40534945, ymax: 3365772 },
                 Basemaps:
                     [
                         {
@@ -456,7 +456,7 @@
                             Alpha: 255
                         },
                     ],
-                Mask: { TileServiceName: "LM-Buffer" },
+                Mask: { TileServiceName: "XX-Buffer" },
                 Categories:
                     [
                         {
@@ -549,9 +549,9 @@
             },
             {
                 Title: "基准地价",
-                OverviewImage: "/img/temp/联盟区招商地图示意图.png",
+                OverviewImage: "/img/temp/许巷区招商地图示意图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
-                FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
+                FullExtent: { xmin: 40534360, ymin: 3365109, xmax: 40534945, ymax: 3365772 },
                 Basemaps:
                     [
                         {
@@ -564,7 +564,7 @@
                             Alpha: 255
                         },
                     ],
-                Mask: { TileServiceName: "LM-Buffer" },
+                Mask: { TileServiceName: "XX-Buffer" },
                 Categories:
                     [
                         {
