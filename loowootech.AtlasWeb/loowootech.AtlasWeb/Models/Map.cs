@@ -22,12 +22,4 @@ namespace loowootech.AtlasWeb.Models
        
     }
 
-    public enum MapType {
-        [Description("招商专题")]
-        Topic,
-        [Description("高级模式")]
-        Advenced,
-        [Description("其他专题")]
-        Other
-    }
 }
