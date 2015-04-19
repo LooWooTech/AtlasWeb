@@ -8,7 +8,7 @@
             {
                 Title: "基础图件",
                 OverviewImage: "/img/temp/公安专题基础图件示意图.png",
-                LegendImage: "/img/temp/基础图件.jpg",
+                LegendImage: "/img/temp/基础图件.png",
                 FullExtent: { xmin: 40528859, ymin: 3361187, xmax: 40540347, ymax: 3375107 },
                 Basemaps:
                     [
@@ -238,7 +238,7 @@
                 {
                     Title: "宅基地",
                     OverviewImage: "/img/temp/公安专题宅基地示意图.png",
-                    LegendImage: "/img/legends/01-核心专题图件.jpg",
+                    LegendImage: "/img/temp/公安.png",
                     FullExtent: { xmin: 40528859, ymin: 3361187, xmax: 40540347, ymax: 3375107 },
                     Basemaps:
                         [

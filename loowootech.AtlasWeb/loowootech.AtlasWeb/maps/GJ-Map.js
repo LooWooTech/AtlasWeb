@@ -8,7 +8,7 @@
             {
                 Title: "地图1",
                 OverviewImage: "/img/temp/高级专题地图一示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/GJ.png",
                 FullExtent: { xmin: 40528859, ymin: 3361187, xmax: 40540347, ymax: 3375107 },
                 Basemaps:
                     [
@@ -366,7 +366,7 @@
              {
                  Title: "地图2",
                  OverviewImage: "/img/temp/高级专题地图二示意图.png",
-                 LegendImage: "/img/legends/01-核心专题图件.jpg",
+                 LegendImage: "/img/temp/GJ.png",
                  FullExtent: { xmin: 40528859, ymin: 3361187, xmax: 40540347, ymax: 3375107 },
                  Basemaps:
                      [
@@ -724,7 +724,7 @@
               {
                   Title: "地图3",
                   OverviewImage: "/img/temp/高级专题地图三示意图.png",
-                  LegendImage: "/img/legends/01-核心专题图件.jpg",
+                  LegendImage: "/img/temp/GJ.png",
                   FullExtent: { xmin: 40528859, ymin: 3361187, xmax: 40540347, ymax: 3375107 },
                   Basemaps:
                       [
@@ -1082,7 +1082,7 @@
                {
                    Title: "地图4",
                    OverviewImage: "/img/temp/高级专题地图四示意图.png",
-                   LegendImage: "/img/legends/01-核心专题图件.jpg",
+                   LegendImage: "/img/temp/GJ.png",
                    FullExtent: { xmin: 40528859, ymin: 3361187, xmax: 40540347, ymax: 3375107 },
                    Basemaps:
                        [

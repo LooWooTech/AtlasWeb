@@ -8,7 +8,7 @@
             {
                 Title: "控制性规划",
                 OverviewImage: "/img/temp/花园区招商地图示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/KG.png",
                 FullExtent: { xmin: 40533223, ymin: 3363762, xmax: 40535540, ymax: 3365154 },
                 Basemaps:
                     [
@@ -116,7 +116,7 @@
             {
                 Title: "总规",
                 OverviewImage: "/img/temp/花园区招商地图示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/ZG.png",
                 FullExtent: { xmin: 40533223, ymin: 3363762, xmax: 40535540, ymax: 3365154 },
                 Basemaps:
                     [
@@ -224,7 +224,7 @@
             {
                 Title: "土地利用现状",
                 OverviewImage: "/img/temp/花园区招商地图示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/DLTB.png",
                 FullExtent: { xmin: 40533223, ymin: 3363762, xmax: 40535540, ymax: 3365154 },
                 Basemaps:
                     [
@@ -333,7 +333,7 @@
             {
                 Title: "土地利用规划",
                 OverviewImage: "/img/temp/花园区招商地图示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/GHYT.png",
                 FullExtent: { xmin: 40533223, ymin: 3363762, xmax: 40535540, ymax: 3365154 },
                 Basemaps:
                     [

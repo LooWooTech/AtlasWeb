@@ -8,7 +8,7 @@
             {
                 Title: "控制性规划",
                 OverviewImage: "/img/temp/联盟区招商地图示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/KG.png",
                 FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
                 Basemaps:
                     [
@@ -116,7 +116,7 @@
             {
                 Title: "总规",
                 OverviewImage: "/img/temp/联盟区招商地图示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/ZG.png",
                 FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
                 Basemaps:
                     [
@@ -224,7 +224,7 @@
             {
                 Title: "土地利用现状",
                 OverviewImage: "/img/temp/联盟区招商地图示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/DLTB.png",
                 FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
                 Basemaps:
                     [
@@ -333,7 +333,7 @@
             {
                 Title: "土地利用规划",
                 OverviewImage: "/img/temp/联盟区招商地图示意图.png",
-                LegendImage: "/img/legends/01-核心专题图件.jpg",
+                LegendImage: "/img/temp/GHYT.png",
                 FullExtent: { xmin: 40536573, ymin: 3372907, xmax: 40538211, ymax: 3373964 },
                 Basemaps:
                     [

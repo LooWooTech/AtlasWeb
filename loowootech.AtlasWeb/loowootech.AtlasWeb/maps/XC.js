@@ -8,7 +8,7 @@
             {
                 Title: "基础图件",
                 OverviewImage: "/img/temp/巡查专题基础图件示意图.png",
-                LegendImage: "/img/temp/基础图件.jpg",
+                LegendImage: "/img/temp/基础图件.png",
                 FullExtent: { xmin: 40528859, ymin: 3361187, xmax: 40540347, ymax: 3375107 },
                 Basemaps:
                     [
@@ -239,7 +239,7 @@
                 {
                     Title: "巡查地图",
                     OverviewImage: "/img/temp/巡查专题巡查图斑示意图.png",
-                    LegendImage: "/img/legends/01-核心专题图件.jpg",
+                    LegendImage: "/img/temp/巡查.png",
                     FullExtent: { xmin: 40528859, ymin: 3361187, xmax: 40540347, ymax: 3375107 },
                     Basemaps:
                         [
