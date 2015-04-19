@@ -54,7 +54,7 @@ namespace loowootech.AtlasWeb.Helper
                 throw new ArgumentException("你上传的文件格式不低，目前只支持上传txt和dxf格式的文件");
             }
             var fileName = file.FileName.Replace(ext, "") + "-" + DateTime.Now.Ticks.ToString() + ext;
-            if (fileName.Length > 0)
+            if (fileName.Length > 100)
             {
                 fileName = fileName.Substring(fileName.Length - 100);
             }
@@ -73,6 +73,11 @@ namespace loowootech.AtlasWeb.Helper
                 db.SaveChanges();
                 return entity.ID;
             }
+        }
+
+        public static bool HasFile(this HttpPostedFileBase file) 
+        {
+            return (file != null && file.ContentLength > 0) ? true : false;
         }
     }
 }

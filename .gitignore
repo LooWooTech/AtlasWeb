@@ -9,6 +9,7 @@ obj
 *.png
 *.bmp
 *.gif
+*.dxf
 Img/Data/*
 App_Data/img/*
 /loowootech.AtlasWeb/packages

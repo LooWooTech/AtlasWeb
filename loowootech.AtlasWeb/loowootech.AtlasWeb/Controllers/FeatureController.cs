@@ -48,22 +48,35 @@ namespace loowootech.AtlasWeb.Controllers
         [HttpPost]
         public ActionResult Add(double X,double Y) 
         {
-            
             string Error = string.Empty;
             var layerName = HttpContext.Request.Form["LayerName"].ToString();
             Dictionary<string, string> values = Core.FeatureManager.GetFeatureValues(layerName);
             if (Math.Abs(X - 0) < 0.01 && Math.Abs(Y - 0) < 0.01)
             {
-                var file = UploadHelper.GetPostedFile(HttpContext);
+                HttpPostedFileBase file=null;
+                foreach (string upload in Request.Files)
+                {
+                    if (Request.Files[upload].HasFile())
+                    {
+                        file = Request.Files[upload];
+                        break;
+                    }
+                }
+                if (file == null)
+                {
+                    return JsonFail("请上传文件");
+                }
+                //var file = UploadHelper.GetPostedFile(HttpContext);
                 var filePath = UploadHelper.Upload(file);
                 var fileID = UploadHelper.AddFileEntity(new UploadFile
                 {
                     FileName = file.FileName,
                     LayerName = layerName
                 });
+                var tempFile = UploadHelper.GetAbsolutePath(filePath);
                 try
                 {
-                    Core.FeatureManager.CreateFeature(filePath, values, layerName);
+                    Core.FeatureManager.CreateFeature(tempFile, values, layerName);
                 }
                 catch (Exception ex)
                 {

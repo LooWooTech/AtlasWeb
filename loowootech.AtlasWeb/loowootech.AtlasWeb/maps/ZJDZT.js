@@ -86,7 +86,7 @@
                             ShowPicture: false,
                             PictureEditable: false,
                             Visible: false,
-                            Alpha:255
+                            Alpha: 255
                         }
                     ],
                 Categories:
