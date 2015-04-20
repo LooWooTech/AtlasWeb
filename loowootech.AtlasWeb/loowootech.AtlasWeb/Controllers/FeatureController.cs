@@ -69,7 +69,7 @@ namespace loowootech.AtlasWeb.Controllers
                 var filePath = UploadHelper.Upload(file);
                 var fileID = UploadHelper.AddFileEntity(new UploadFile
                 {
-                    FileName = file.FileName,
+                    FileName = filePath,
                     LayerName = layerName
                 });
                 var tempFile = UploadHelper.GetAbsolutePath(filePath);
