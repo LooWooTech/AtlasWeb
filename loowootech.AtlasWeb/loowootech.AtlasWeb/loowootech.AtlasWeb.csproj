@@ -241,7 +241,6 @@
     <Content Include="Img\temp\公安专题基准地价示意图.png" />
     <Content Include="Img\temp\公安专题基础图件示意图.png" />
     <Content Include="Img\temp\公安专题宅基地示意图.png" />
-    <Content Include="Img\temp\基础图件.jpg" />
     <Content Include="Img\temp\基础图件.png" />
     <Content Include="Img\temp\宅基地.png" />
     <Content Include="Img\temp\宅基地基准地价示意图.png" />
@@ -335,6 +334,7 @@
     <Content Include="Areas\Admin\Views\Map\Manager.cshtml" />
     <Content Include="HouseHoldInfo.xml" />
     <None Include="Properties\PublishProfiles\Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\file.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
