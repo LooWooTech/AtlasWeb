@@ -7,7 +7,7 @@
         [
             {
                 Title: "控制性规划",
-                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                OverviewImage: "/img/temp/控制性规划图.png",
                 LegendImage: "/img/temp/KG.png",
                 FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
@@ -115,7 +115,7 @@
             },
             {
                 Title: "总规",
-                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                OverviewImage: "/img/temp/总规图.png",
                 LegendImage: "/img/temp/ZG.png",
                 FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
@@ -223,7 +223,7 @@
             },
             {
                 Title: "土地利用现状",
-                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                OverviewImage: "/img/temp/土地利用现状图.png",
                 LegendImage: "/img/temp/DLTB.png",
                 FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
@@ -332,7 +332,7 @@
             },
             {
                 Title: "土地利用规划",
-                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                OverviewImage: "/img/temp/土地规划图.png",
                 LegendImage: "/img/temp/GHYT.png",
                 FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
@@ -441,7 +441,7 @@
             },
             {
                 Title: "卫星影像",
-                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                OverviewImage: "/img/temp/卫星影像图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
                 FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:
@@ -549,7 +549,7 @@
             },
             {
                 Title: "基准地价",
-                OverviewImage: "/img/temp/沈士区招商地图示意图.png",
+                OverviewImage: "/img/temp/基准地价图.png",
                 LegendImage: "/img/legends/01-核心专题图件.jpg",
                 FullExtent: { xmin: 40536332, ymin: 3369070, xmax: 40539334, ymax: 3372425 },
                 Basemaps:

@@ -74,6 +74,10 @@
       <HintPath>..\..\..\..\..\Program Files (x86)\ArcGIS\DotNet\ESRI.ArcGIS.System.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="netDxf, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\netDXF.0.9.3\lib\netDxf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -241,6 +245,10 @@
     <Content Include="Img\temp\公安专题基准地价示意图.png" />
     <Content Include="Img\temp\公安专题基础图件示意图.png" />
     <Content Include="Img\temp\公安专题宅基地示意图.png" />
+    <Content Include="Img\temp\卫星影像图.png" />
+    <Content Include="Img\temp\土地利用现状图.png" />
+    <Content Include="Img\temp\土地规划图.png" />
+    <Content Include="Img\temp\基准地价图.png" />
     <Content Include="Img\temp\基础图件.jpg" />
     <Content Include="Img\temp\基础图件.png" />
     <Content Include="Img\temp\宅基地.png" />
@@ -251,6 +259,8 @@
     <Content Include="Img\temp\巡查专题基准地价示意图.png" />
     <Content Include="Img\temp\巡查专题基础图件示意图.png" />
     <Content Include="Img\temp\巡查专题巡查图斑示意图.png" />
+    <Content Include="Img\temp\总规图.png" />
+    <Content Include="Img\temp\控制性规划图.png" />
     <Content Include="Img\temp\杨渡区基准地价示意图.png" />
     <Content Include="Img\temp\杨渡区基础图件示意图.png" />
     <Content Include="Img\temp\杨渡区招商地图示意图.png" />
@@ -386,12 +396,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\netDxf\netDxf.csproj">
-      <Project>{785380e0-ceb9-4c34-82e5-60d0e33e848e}</Project>
-      <Name>netDxf</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

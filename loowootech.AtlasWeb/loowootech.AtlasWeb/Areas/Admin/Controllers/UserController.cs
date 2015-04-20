@@ -19,12 +19,12 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             ViewBag.Page = filter.Page;
             ViewBag.List = Core.UserManager.GetUsers(filter);
             ViewBag.Maps = Core.MapManager.GetMaps();
-            ViewBag.LayerList = new List<string>() { "标注","地籍宗地"};
+            ViewBag.LayerList = new List<string>() { "标注","地籍房屋层"};
             return View();
         }
         [HttpPost]
         public ActionResult ImPower(int ID) {
-            List<string> Layers = new List<string>() { "标注","地籍宗地"};
+            List<string> Layers = new List<string>() { "标注","地籍房屋层"};
             List<Authority> list = Core.MapManager.ImPower(Layers);
             try
             {
