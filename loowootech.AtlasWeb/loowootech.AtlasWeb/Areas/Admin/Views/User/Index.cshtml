@@ -6,12 +6,13 @@
     int SerialNumber = 1;
     List<loowootech.AtlasWeb.Models.User> list = ViewBag.List;
     List<loowootech.AtlasWeb.Models.Map> Maps = ViewBag.Maps;
-    List<string> LayerList = ViewBag.LayerList;
+    Dictionary<int, List<loowootech.AtlasWeb.Models.Authority>> Dict = ViewBag.AuthoritysDict;
+    
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<div class="container-fluid" style="text-align:left;" >
+<div class="container-fluid" style="text-align:left;">
     <div class="panel" id="main-panel">
         <div class="panel-heading">
             <h3 class="panel-title" style="float:left;">管理</h3>
@@ -155,19 +156,19 @@
 
 
                                                 @*<div class="form-group">
-                                                    <label for="Quick" class="col-lg-2 control-label">快捷栏：</label>
-                                                    <div class="col-lg-10">
-                                                        <div class="col-lg-4">
-                                                            <button type="button" value="@(item.ID)" name="All">全选</button>
+                                                        <label for="Quick" class="col-lg-2 control-label">快捷栏：</label>
+                                                        <div class="col-lg-10">
+                                                            <div class="col-lg-4">
+                                                                <button type="button" value="@(item.ID)" name="All">全选</button>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <button type="button" value="@(item.ID)" name="None">全不选</button>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <button type="button" value="@(item.ID)" name="Inverse">反选</button>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-4">
-                                                            <button type="button" value="@(item.ID)" name="None">全不选</button>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <button type="button" value="@(item.ID)" name="Inverse">反选</button>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
+                                                    </div>*@
 
 
                                                 <input type="text" value="@(item.ID)" style="display:none" name="ID" />
@@ -192,24 +193,50 @@
                                         </div>
                                         <div class="modal-body">
                                             <form name="AuthoritySubmit" method="post" action="/Admin/User/ImPower" class="form-horizontal">
-                                                @foreach (var Layer in LayerList)
+                                                @{
+                    List<Authority> authority;
+                    if (Dict.ContainsKey(item.ID))
+                    {
+                        authority = Dict[item.ID];
+                    }
+                    else
+                    {
+                        authority = new List<Authority>();
+                    }
+                                                }
+                                                @foreach (var entity in authority)
                                                 {
                                                     <div class="form-group">
-                                                        <label for="@Layer" class="col-lg-2 control-label">@Layer</label>
-                                                        <div class="col-lg-4">
-                                                            <select name="Jurisdiction-@Layer" class="form-control">
+                                                        <label for="@(entity.LayerName)" class="col-lg-3 control-label">@(entity.LayerName)</label>
+                                                        <div class="col-lg-6">
+                                                            <select name="Jurisdiction-@(entity.LayerName)" class="form-control">
                                                                 @foreach (Jurisdiction jur in Enum.GetValues(typeof(Jurisdiction)))
                                                                 {
                                                                     var value = (int)jur;
-                                                                    <option value="@value">@(jur.GetDescription())</option>
+                                                                    <option value="@value" @(jur==entity.Jurisdiction?"selected=selected":"")>@(jur.GetDescription())</option>
                                                                 }
                                                             </select>
                                                         </div>
                                                     </div>
                                                 }
+                                                @*@foreach (var Layer in LayerList)
+                                                    {
+                                                        <div class="form-group">
+                                                            <label for="@Layer" class="col-lg-2 control-label">@Layer</label>
+                                                            <div class="col-lg-4">
+                                                                <select name="Jurisdiction-@Layer" class="form-control">
+                                                                    @foreach (Jurisdiction jur in Enum.GetValues(typeof(Jurisdiction)))
+                                                                    {
+                                                                        var value = (int)jur;
+                                                                        <option value="@value">@(jur.GetDescription())</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    }*@
                                                 <input type="text" name="ID" value="@(item.ID)" style="display:none" />
                                                 <div class="form-group">
-                                                    <div class="col-lg-10 col-lg-offset-2">
+                                                    <div class="col-lg-9 col-lg-offset-3">
                                                         <input type="submit" value="授权" class="btn btn-success" />
                                                     </div>
                                                 </div>
@@ -222,10 +249,10 @@
                         </td>
                         <td>@(item.Group.GetDescription())</td>
                         <td>
-                            @if (item.Group != Group.Admin) { 
+                            @if (item.Group != Group.Admin) {
                                 <a href="/Admin/User/Delete?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>&nbsp;删除</a>
                             }
-                            
+
                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#Edit@(item.ID)"><i class="glyphicon glyphicon-edit"></i>&nbsp;编辑</button>
                             <div class="modal fade" id="Edit@(item.ID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">

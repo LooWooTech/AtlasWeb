@@ -18,19 +18,21 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
                 Page = new Page(page)
             };
             ViewBag.Page = filter.Page;
-            ViewBag.List = Core.UserManager.GetUsers(filter);
+            List<User> users=Core.UserManager.GetUsers(filter);
+            ViewBag.List = users;
             ViewBag.Maps = Core.MapManager.GetMaps();
             List<string> Layers = Core.FeatureManager.GetAlllayers();
-            ViewBag.LayerList = new List<string>() { "标注","地籍房屋层"};
+            ViewBag.AuthoritysDict = Core.AuthorityManager.GetAllAuthority(Layers,users);
+            //ViewBag.LayerList = new List<string>() { "标注","地籍房屋层"};
             return View();
         }
         [HttpPost]
         public ActionResult ImPower(int ID) {
-            List<string> Layers = new List<string>() { "标注","地籍房屋层"};
-            List<Authority> list = Core.MapManager.ImPower(Layers);
+            List<string> Layers = Core.FeatureManager.GetAlllayers();
+            List<Authority> list = Core.AuthorityManager.ImPower(Layers);
             try
             {
-                Core.MapManager.UpdateAuthority(list, ID);
+                Core.AuthorityManager.UpdateAuthority(list, ID);
             }
             catch (Exception ex)
             {
@@ -48,6 +50,7 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             if (!Core.UserManager.Add(user)) {
                 throw new ArgumentException("添加用户失败！");
             }
+            Core.AuthorityManager.Add(user);
             return RedirectToAction("Index");
         }
 

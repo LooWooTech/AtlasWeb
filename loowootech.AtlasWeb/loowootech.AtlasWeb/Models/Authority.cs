@@ -15,10 +15,9 @@ namespace loowootech.AtlasWeb.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Column(TypeName="int")]
-        public Jurisdiction Jurisdiction { get; set; }
-        public string LayerName { get; set; }
-        public string Title { get; set; }
-        public int UserID { get; set; }
+        public Jurisdiction Jurisdiction { get; set; }//权限
+        public string LayerName { get; set; }//图层名
+        public int UserID { get; set; }//用户ID
         
     }
 

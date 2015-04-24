@@ -15,6 +15,10 @@ namespace loowootech.AtlasWeb.Controllers
         [HttpGet]
         public ActionResult Add(string LayerName,double X=0.0,double Y=0.0,string SYZ=null,string SFZHM=null) 
         {
+            if (!Core.AuthorityManager.HasAccess(Identity.UserID, LayerName))
+            {
+                throw new ArgumentException("您当前没有权限对"+LayerName+"添加");
+            }
             if (string.IsNullOrEmpty(LayerName))
             {
                 throw new ArgumentException("传入参数LayerName为NUll或空！");
@@ -104,6 +108,10 @@ namespace loowootech.AtlasWeb.Controllers
 
         public ActionResult Edit(string LayerName,int ID,string SYZ=null,string SFZHM=null) 
         {
+            if (!Core.AuthorityManager.HasAccess(Identity.UserID, LayerName))
+            {
+                throw new ArgumentException("您当前没有权限对"+LayerName+"编辑");
+            }
             if (string.IsNullOrEmpty(LayerName))
             {
                 throw new ArgumentException("传入参数LayerName为NULL或空！");
@@ -188,6 +196,10 @@ namespace loowootech.AtlasWeb.Controllers
             if (string.IsNullOrEmpty(LayerName)) 
             {
                 throw new ArgumentException("传入参数LayerName未null或空!");
+            }
+            if (!Core.AuthorityManager.HasAccess(Identity.UserID, LayerName))
+            {
+                throw new ArgumentException("您当前没有权限对"+LayerName+"删除");
             }
             ViewBag.list = Core.FeatureManager.GetAllFields(LayerName);
             ViewBag.FeatureValues = Core.FeatureManager.GetFeatureValues(LayerName,ID);

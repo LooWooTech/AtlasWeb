@@ -326,7 +326,6 @@
     <Content Include="Areas\Common\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
@@ -338,6 +337,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Areas\Admin\Views\Map\Manager.cshtml" />
     <Content Include="HouseHoldInfo.xml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\file.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />

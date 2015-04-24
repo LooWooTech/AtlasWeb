@@ -191,47 +191,7 @@ namespace loowootech.AtlasWeb.Manager
 
         }
 
-        public List<Authority> ImPower(List<string> Layers)
-        {
-            string name = string.Empty;
-            string value = string.Empty;
-            List<Authority> list = new List<Authority>();
-            foreach (var item in Layers)
-            {
-                name = "Jurisdiction-" + item;
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form[name])) {
-                    value = HttpContext.Current.Request.Form[name].ToString();
-                    Jurisdiction jurisdiction;
-                    if (Enum.TryParse(value, out jurisdiction))
-                    {
-                        list.Add(new Authority() { Jurisdiction = jurisdiction, LayerName = item });
-                    }
-                }
-            }
-
-            return list;
-
-        }
-
-        public void UpdateAuthority(List<Authority> Authoritys,int ID)
-        {
-            using (var db = GetAtlasContext())
-            {
-                foreach (var item in Authoritys)
-                {
-                    var auth = db.Authoritys.FirstOrDefault(e => e.UserID == ID && e.LayerName.ToLower() == item.LayerName.ToLower());
-                    if (auth != null)
-                    {
-                        auth.Jurisdiction = item.Jurisdiction;
-                    }
-                    else {
-                        item.UserID = ID;
-                        db.Authoritys.Add(item);
-                    }
-                    db.SaveChanges();
-                }
-            }
-        }
+     
 
         public Map Get(HttpContextBase context)
         {

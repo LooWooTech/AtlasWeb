@@ -157,7 +157,7 @@ namespace loowootech.AtlasWeb.Manager
         public List<string> GetAlllayers()
         {
             var list = new List<string>();
-            var nodes = configXml.SelectNodes("Layer");
+            var nodes = configXml.SelectNodes("/Layers/Layer");
             for (var i = 0; i < nodes.Count; i++)
             {
                 var n = nodes[i];
