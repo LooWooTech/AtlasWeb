@@ -150,6 +150,22 @@ namespace loowootech.AtlasWeb.Manager
             return list;
         }
 
+        /// <summary>
+        /// 获取可编辑编辑图层——用于授权图层权限
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAlllayers()
+        {
+            var list = new List<string>();
+            var nodes = configXml.SelectNodes("Layer");
+            for (var i = 0; i < nodes.Count; i++)
+            {
+                var n = nodes[i];
+                list.Add(n.Attributes["Title"].Value);
+            }
+            return list;
+        }
+
 
         /// <summary>
         /// 获取户籍信息

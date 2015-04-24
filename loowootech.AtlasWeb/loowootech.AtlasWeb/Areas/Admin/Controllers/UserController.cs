@@ -1,4 +1,5 @@
 ﻿using loowootech.AtlasWeb.Helper;
+using loowootech.AtlasWeb.Manager;
 using loowootech.AtlasWeb.Models;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace loowootech.AtlasWeb.Areas.Admin.Controllers
             ViewBag.Page = filter.Page;
             ViewBag.List = Core.UserManager.GetUsers(filter);
             ViewBag.Maps = Core.MapManager.GetMaps();
+            List<string> Layers = Core.FeatureManager.GetAlllayers();
             ViewBag.LayerList = new List<string>() { "标注","地籍房屋层"};
             return View();
         }

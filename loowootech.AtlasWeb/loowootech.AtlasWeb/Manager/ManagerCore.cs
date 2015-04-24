@@ -30,5 +30,12 @@ namespace loowootech.AtlasWeb.Manager
         {
             get { return _featureManager == null ? _featureManager = new FeatureManager() : _featureManager; }
         }
+
+        private AuthorityManager _authorityManager;
+
+        public AuthorityManager AuthorityManager
+        {
+            get { return _authorityManager == null ? _authorityManager = new AuthorityManager() : _authorityManager; }
+        }
     }
 }

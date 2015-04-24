@@ -74,9 +74,9 @@
       <HintPath>..\..\..\..\..\Program Files (x86)\ArcGIS\DotNet\ESRI.ArcGIS.System.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="netDxf, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\netDXF.0.9.3\lib\netDxf.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="netDxf, Version=0.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\netDxf\bin\Debug\netDxf.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -161,6 +161,7 @@
     <Compile Include="Helper\Picture.cs" />
     <Compile Include="Helper\UploadHelper.cs" />
     <Compile Include="Helper\UserFileter.cs" />
+    <Compile Include="Manager\AuthorityManager.cs" />
     <Compile Include="Manager\FeatureManager.cs" />
     <Compile Include="Manager\ManagerBase.cs" />
     <Compile Include="Manager\ManagerCore.cs" />

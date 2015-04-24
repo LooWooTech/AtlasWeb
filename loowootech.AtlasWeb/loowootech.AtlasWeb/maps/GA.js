@@ -334,11 +334,12 @@
                                             IndexInService: 1,
                                             TileServiceName: "",
                                             Editable: true,
-                                            ShowPicture: false,
-                                            PictureEditable: false,
+                                            ShowPicture: true,
+                                            PictureEditable: true,
                                             Visible: true,
                                             Alpha: 1,
-                                            CategoryId: 3
+                                            CategoryId: 3,
+                                            MinScale: 2500
                                         },
                                         {
                                             Id: 6,
