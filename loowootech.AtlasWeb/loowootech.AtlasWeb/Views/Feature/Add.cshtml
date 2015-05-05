@@ -57,7 +57,7 @@
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
                 <input type="submit" value="提交" class="btn btn-primary" id="submitButton" />
-                @if (Dict.Count != 0)
+                @if (layerName.ToLower() == "地籍房屋层".ToLower())
                 {
                     <a href="/Feature/SearchOfResident?LayerName=@layerName&&Flag=false" class="btn btn-success">从户籍系统导入</a>
                 }

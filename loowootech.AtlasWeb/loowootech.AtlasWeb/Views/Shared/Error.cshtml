@@ -1,7 +1,5 @@
 ﻿@{
     Layout = null;
-}
-@{
     Exception ex = ViewBag.Exception;
     var isAjax = Request.Headers.AllKeys.Contains("_ajax_");
     if (isAjax)
@@ -15,16 +13,100 @@
     {
         ViewBag.Title = "程序异常";
     }
-    <div>
-        @(ex.Message)
-    </div>
-    <div style="display:none">
-        @(ex.StackTrace)
-    </div>
-    <script>
-        $(function () {
-            $("#main-panel").removeClass("panel-default").addClass("panel-danger");
-        })
-    </script>
-
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>海宁许村一张图平台</title>
+    <style>
+        body {
+            background-image: url("/Img/blue-abstract-background.jpg");
+            background-size: cover;
+        }
+
+            body a, body a:hover, body a:link, body a:visited {
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+        .tile {
+            width: 240px;
+            height: 172px;
+            padding: 3px;
+            margin-bottom: 3px;
+            display: block;
+        }
+
+        body a:hover .title {
+            background-color: #000000;
+        }
+
+        .tile .image {
+            display: block;
+            clear: both;
+            width: 240px;
+            height: 120px;
+        }
+
+        .tile .title {
+            display: block;
+            width: 240px;
+            height: 50px;
+            font-size: 16px;
+            padding-top: 4px;
+            padding-left: 6px;
+            word-wrap: break-word;
+            color: #dddddd;
+            opacity: 0.7;
+            background-color: #034888;
+        }
+
+            .tile .title span {
+                font-size: 12px;
+            }
+
+        h3 {
+            padding-left: 5px;
+        }
+        #Title{
+            background-color:#c71c22;
+            border-color:#dddddd;
+        }
+    </style>
+    <link rel=" stylesheet" href="/Content/bootstrap.css" />
+    <link rel=" stylesheet" href="~/Content/main.min.css" />
+
+</head>
+<body>
+    <div class="container">
+        <br />
+        <br />
+        <br />
+        <div class="panel panel-danger" id="main-panel">
+            <div class="panel-heading" id="Title">
+                <h3 class="panel-title" style="color:#fff;">@(ViewBag.Title) -<a href="/Home/Index" title="点击返回平台首页">海宁许村一张图平台</a> <a href="javascript:history.back(-1)" style="float:right">返回上一页</a></h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    @(ex.Message)
+                </div>
+                <div style="display:none">
+                    @(ex.StackTrace)
+                </div>
+            </div>
+        </div>
+        <footer style="clear: both; overflow: hidden;">
+            <div class="row">
+                <div class="col-lg-12">
+                    © 2014 许村镇政府版权所有； 杭州智拓土地规划咨询有限公司技术支持；
+                </div>
+            </div>
+        </footer>
+    </div>
+   
+</body>
+</html>
+
+
+

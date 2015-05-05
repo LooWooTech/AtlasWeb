@@ -133,7 +133,10 @@ namespace loowootech.AtlasWeb.Manager
         public List<FieldInfo> GetAllFields(string layerName)
         {
             var node = configXml.SelectSingleNode("/Layers/Layer[@Title='" + layerName + "']");
-            
+            if (node == null)
+            {
+                throw new ArgumentException("未获取"+layerName+"相关信息");
+            }
             var list = new List<FieldInfo>();
             var nodes = node.SelectNodes("Field");
             for(var i=0;i<nodes.Count;i++)

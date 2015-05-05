@@ -86,7 +86,7 @@
                             ShowPicture: false,
                             PictureEditable: false,
                             Visible: false,
-                            Alpha:255
+                            Alpha: 255
                         }
                     ],
                 Categories:
@@ -114,8 +114,8 @@
                                             OutlineColor: { R: 0, G: 255, B: 197, A: 1 }
                                         },
                                         CategoryId: 1,
-                                        MinScale:10000
-                                    }                                  
+                                        MinScale: 10000
+                                    }
                                 ]
                         },
                         {
@@ -272,7 +272,7 @@
                                          IndexInService: 16,
                                          TileServiceName: "",
                                          Editable: true,
-                                         ShowPicture: false,
+                                         ShowPicture: true,
                                          PictureEditable: false,
                                          Visible: true,
                                          Alpha: 255,
@@ -284,7 +284,7 @@
                                           Title: "地籍宗地层",
                                           IndexInService: 17,
                                           TileServiceName: "DJZD",
-                                          Editable: true,
+                                          Editable: false,
                                           ShowPicture: false,
                                           PictureEditable: false,
                                           Visible: true,
