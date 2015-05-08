@@ -1,22 +1,16 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 *.suo
 bin
 obj
-*.jpg
-*.png
-*.jpeg
 *.bmp
-*.gif
 *.dxf
 Img/Data/*
 App_Data/img/*
 /loowootech.AtlasWeb/packages
+/loowootech.AtlasWeb/Deploy
 *.user
 *.pubxml
-loowootech.AtlasWeb/loowootech.AtlasWeb/loowootech.AtlasWeb.csproj.user
-loowootech.AtlasWeb/loowootech.AtlasWeb/loowootech.AtlasWeb.csproj.user
-*.user
 loowootech.AtlasWeb/loowootech.AtlasWeb/Web.config
-loowootech.AtlasWeb/loowootech.AtlasWeb/Web.config
+
