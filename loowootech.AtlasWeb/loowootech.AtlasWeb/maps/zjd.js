@@ -81,8 +81,8 @@
                                         IndexInService: 23,
                                         TileServiceName: "",
                                         Editable: true,
-                                        ShowPicture: false,
-                                        PictureEditable: false,
+                                        ShowPicture: true,
+                                        PictureEditable: true,
                                         Visible: true,
                                         Alpha: 1,
                                         Symbol: {
