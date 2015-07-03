@@ -6,6 +6,8 @@ bin
 obj
 *.bmp
 *.dxf
+*.jpg
+*.png
 Img/Data/*
 App_Data/img/*
 /loowootech.AtlasWeb/packages
