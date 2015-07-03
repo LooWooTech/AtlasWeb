@@ -183,7 +183,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootswatch.min.css" />
     <Content Include="Content\esri.css" />
     <Content Include="Content\flaty.css" />
     <Content Include="Content\font-awesome.css" />
@@ -247,6 +246,7 @@
     <Content Include="Img\temp\公安专题基准地价示意图.png" />
     <Content Include="Img\temp\公安专题基础图件示意图.png" />
     <Content Include="Img\temp\公安专题宅基地示意图.png" />
+    <Content Include="Img\temp\地形图.png" />
     <Content Include="Img\temp\基础图件.png" />
     <Content Include="Img\temp\宅基地.png" />
     <Content Include="Img\temp\宅基地基准地价示意图.png" />

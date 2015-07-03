@@ -87,6 +87,18 @@
                             PictureEditable: false,
                             Visible: false,
                             Alpha: 255
+                        },
+                        {
+                            Id: 6,
+                            Name: "地形",
+                            Title: "地形",
+                            IndexInService: 23,
+                            TileServiceName: "DX",
+                            Editable: false,
+                            ShowPicture: false,
+                            PictureEditable: false,
+                            Visible: true,
+                            Alpha: 255
                         }
                     ],
                 Categories:
@@ -209,6 +221,18 @@
                              PictureEditable: false,
                              Visible: false,
                              Alpha: 255
+                         },
+                         {
+                             Id: 6,
+                             Name: "地形",
+                             Title: "地形",
+                             IndexInService: 23,
+                             TileServiceName: "DX",
+                             Editable: false,
+                             ShowPicture: false,
+                             PictureEditable: false,
+                             Visible: true,
+                             Alpha: 255
                          }
                      ],
                  Categories:
@@ -317,6 +341,18 @@
                               ShowPicture: false,
                               PictureEditable: false,
                               Visible: false,
+                              Alpha: 255
+                          },
+                          {
+                              Id: 6,
+                              Name: "地形",
+                              Title: "地形",
+                              IndexInService: 23,
+                              TileServiceName: "DX",
+                              Editable: false,
+                              ShowPicture: false,
+                              PictureEditable: false,
+                              Visible: true,
                               Alpha: 255
                           }
                       ],
