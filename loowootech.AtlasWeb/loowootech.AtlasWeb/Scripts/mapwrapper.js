@@ -451,7 +451,8 @@ MapWrapper.prototype.init = function () {
                 var searchBtn = query(".btnOK", "myModal");
                 var handler = searchBtn.on("click", function () {
                     that.executeSearch();
-                    handler.remove();
+                    //handler.remove();
+
                 });
 
                 $("#myModal").modal();
@@ -641,6 +642,7 @@ MapWrapper.prototype.init = function () {
            
            if (that.mapSet.Mask !== undefined) {
                var lyr = new tiledLayer(this.application.constructMapAddress(that.mapSet.Mask.TileServiceName));
+               
                arr.push(lyr);
            }
            that.map.addLayers(arr);
@@ -1060,7 +1062,9 @@ MapWrapper.prototype.executeSearch = function () {
             var rel = cmbRel.options[cmbRel.selectedIndex].value;
             where += rel + " " + that._buildWhereClause(dom, "cmbField2", "cmbOp2", "txtKeyword2");
         }
-        that.query.where = where;
+
+        var random = (new Date()).getTime();
+        that.query.where = where + " AND " + random + "=" + random;
 
         that.queryTask.execute(that.query).then(
             function (results) {

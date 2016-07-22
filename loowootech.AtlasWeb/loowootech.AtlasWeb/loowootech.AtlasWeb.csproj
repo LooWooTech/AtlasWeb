@@ -300,6 +300,7 @@
     <Content Include="maps\GJ-Map.js" />
     <Content Include="maps\jfczs.js" />
     <Content Include="maps\LZF.js" />
+    <Content Include="maps\NH-map.js" />
     <Content Include="maps\sszs.js" />
     <Content Include="maps\XC.js" />
     <Content Include="maps\zjd.js" />

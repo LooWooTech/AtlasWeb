@@ -38,16 +38,24 @@ namespace loowootech.AtlasWeb.Manager
         private void InitLicense()
         {
             aoInit = new ESRI.ArcGIS.esriSystem.AoInitializeClass();
-
-            if (aoInit.IsProductCodeAvailable(esriLicenseProductCode.esriLicenseProductCodeArcEditor) ==
-                            esriLicenseStatus.esriLicenseAvailable)
+            if (aoInit.IsProductCodeAvailable(esriLicenseProductCode.esriLicenseProductCodeAdvanced) == esriLicenseStatus.esriLicenseAvailable)
             {
-                aoInit.Initialize(esriLicenseProductCode.esriLicenseProductCodeArcEditor);
+                aoInit.Initialize(esriLicenseProductCode.esriLicenseProductCodeAdvanced);
             }
             else
             {
                 aoInit.Initialize(esriLicenseProductCode.esriLicenseProductCodeEngine);
             }
+
+            //if (aoInit.IsProductCodeAvailable(esriLicenseProductCode.esriLicenseProductCodeArcEditor) ==
+            //                esriLicenseStatus.esriLicenseAvailable)
+            //{
+            //    aoInit.Initialize(esriLicenseProductCode.esriLicenseProductCodeArcEditor);
+            //}
+            //else
+            //{
+            //    aoInit.Initialize(esriLicenseProductCode.esriLicenseProductCodeEngine);
+            //}
         }
 
         private void ShutdownLicense()

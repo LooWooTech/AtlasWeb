@@ -101,7 +101,7 @@ MapApplication.prototype.constructMapAddress = function (serviceName, layerId) {
 }
 
 MapApplication.prototype._constructGeoServiceAddress = function () {
-    return "http://" + this.mapConfig.host + "/ArcGIS/rest/services/Geometry/GeometryServer";
+    return "http://" + this.mapConfig.host + "/ArcGIS/rest/services/Utilities/Geometry/GeometryServer";
 }
 
 MapApplication.prototype.initOverview = function() {
